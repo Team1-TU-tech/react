@@ -1,0 +1,18 @@
+#header{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+}
+
+.headerComponents{
+
+}
+
+#headerTop{
+    display: grid;
+    grid-template-columns: 10fr 1fr 1fr;
+}
+
+#headerBot{
+    display: grid;
+    grid-template-columns: 1.5fr 1.5fr 1.5fr 7.5fr;
+}
