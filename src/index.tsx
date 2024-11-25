@@ -9,6 +9,7 @@ import reportWebVitals from './scripts/reportWebVitals';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Join from "./components/Join";
+import SearchRst from "./components/SearchRst";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -25,6 +26,7 @@ root.render(
             <Routes>
                 <Route path="/" element={<App/>}/>
                 <Route path="/join" element={<Join/>}/>
+                <Route path="/search/:queryText?/:page?" element={<SearchRst />}/>
             </Routes>
             <Footer/>
         </BrowserRouter>

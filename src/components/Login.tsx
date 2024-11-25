@@ -1,23 +1,36 @@
 import React from "react";
 import {useNavigate} from "react-router-dom"
 
-import "../css/App.css";
+import "../css/login.css";
 import kakaoLogin from "../img/kakao_login_medium_narrow.png"
-import {useInput} from "../scripts/common";
+import {useInput, encSHA256} from "../scripts/common";
 
 function Login() {
+
+    const navigate = useNavigate()
 
     const id=useInput("")
     const pw=useInput("")
 
-    const navigate = useNavigate()
 
-    const login=()=>{
-        const form:HTMLFormElement|null = document.getElementsByTagName("form")[0];
-        form.method="post"
-        form.action="http://127.0.0.1:8000/login"
-        form.data={pw}
+    const loginLogic=()=>{
+
+        fetch("http://localhost:8000/login", {
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body: JSON.stringify({id:id.value, pw:encSHA256(pw.value)})
+        })
+            .then(response=> console.log(response))
+            .catch(err=>console.error(err))
     }
+
+
+    // const onSubmit=(e:SubmitEvent)=>{
+    //     e.preventDefault()
+    //     alert(id.value+pw.value)
+    // }
 
     const kakao=()=>{
         alert("kakao")
@@ -32,7 +45,7 @@ function Login() {
 
     return (
         <>
-            <div data-bs-toggle="modal" data-bs-target="#loginModal">
+            <div data-bs-toggle="modal" data-bs-target="#loginModal" className={"headerTopBtn"}>
                 로그인
             </div>
 
@@ -45,7 +58,7 @@ function Login() {
                                     aria-label="Close" id={"btn-close"}></button>
                         </div>
                         <form>
-                            <div className="modal-body">
+                            <div className="modal-body" id={"loginForm"}>
                                 <div className="form-floating mb-3">
                                     <input type="text" className="form-control" id="floatingInput"
                                            {...id} placeholder="ID" required minLength={4} maxLength={15} />
@@ -57,10 +70,10 @@ function Login() {
                                     <label htmlFor="floatingPassword">비밀번호</label>
                                 </div>
                             </div>
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" className="btn btn-primary" onClick={login}>로그인</button>
-                                <img src={kakaoLogin} alt={"kakao login btn"} onClick={kakao}/>
+                            <div className="modal-footer" id={"login-footer"}>
+                                {/*<button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>*/}
+                                <button type="submit" className="btn btn-primary" onClick={loginLogic} >로그인</button>
+                                <img src={kakaoLogin} alt={"kakaoLoginBtn"} id={"kakaoLoginBtn"} onClick={kakao}/>
                                 <button type="button" className="btn btn-primary" onClick={join}>회원가입</button>
                             </div>
                         </form>

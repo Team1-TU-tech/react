@@ -1,6 +1,7 @@
 import React from "react";
 import logo from "../img/logo.svg";
 import "../css/App.css";
+import SearchBar from "./SearchBar";
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
           Learn React
         </a>
         <button className={"btn btn-success"}>btn</button>
+
+        <SearchBar />
       </header>
     </div>
   );

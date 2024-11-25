@@ -1,0 +1,10 @@
+.agree-modal{
+    text-decoration: underline;
+    cursor: pointer;
+    position: absolute;
+    right: 10%;
+}
+
+form {
+    padding-left: 10px;
+}

@@ -3,3 +3,7 @@
     grid-template-columns: 1fr 1fr 1fr;
     background-color: #61dafb;
 }
+
+#footerLogo{
+    height: 50px;
+}

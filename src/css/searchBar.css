@@ -1,0 +1,17 @@
+#searchContainer{
+    display: grid;
+    grid-template-columns:0.75fr 0.75fr 0.75fr 1.25fr;
+}
+
+#queryText{
+    width: calc( 100% - 72px );
+}
+
+#arrowImg{
+    width: 20px;
+    height: 20px;
+}
+
+#searchLoca{
+    align-items: center;
+}

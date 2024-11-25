@@ -1,28 +1,22 @@
-import React, {useState} from "react";
+import React from "react";
 import "../css/header.css";
-import Login from "./Login";
+import SearchRstTop from "./SearchRstTop";
+import SearchRstMain from "./SearchRstMain";
+import {useParams} from "react-router-dom";
+import Pagination from "./Pagination";
 
 function SearchRst() {
 
-    const [name, setName] = useState("");
+    const params = useParams();
 
+    const totalPage=Math.ceil(507 / 50)
 
     return (
-        <div id={"header"}>
-        <div className={"headerComponents"} id={"headerTop"}>
-        <div> </div>
-        <div>회원가입</div>
-        <Login/>
-        </div>
-        <div className={"headerComponents"} id={"headerBot"}>
-        <div>콘서트</div>
-        <div>뮤지컬/연극</div>
-        <div>전시/행사</div>
-        <div> </div>
-        </div>
-
-
-        </div>
+        <>
+            <SearchRstTop query={params.queryText} />
+            <SearchRstMain />
+            {totalPage>1?<Pagination totalPage={totalPage} currentPage={params.page} />:<></>}
+        </>
 );
 }
 

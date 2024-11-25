@@ -1,0 +1,13 @@
+#rstRoot{
+    display: grid;
+    grid-template-columns:1fr 1fr 1fr 1fr 1fr;
+}
+
+.rstSimpleContainer{
+    width: 70%;
+    border: none
+}
+
+.posterImg, .showTitle{
+    cursor: pointer;
+}
