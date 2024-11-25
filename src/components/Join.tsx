@@ -99,30 +99,41 @@ function Join() {
             }
         }
 
-        if (verify("id", id.value)){
-            if (verify("pw", pw.value)){
-                if (pw.value===pwChk.value){
-                    if (agreeAge.valueOf() &&  agreeTerms.valueOf() && agreePersonal.valueOf()){
-                        submit()
+        if(toggle){
+            if (verify("id", id.value)){
+                if (verify("pw", pw.value)){
+                    if (pw.value===pwChk.value){
+                        if (agreeAge.valueOf() &&  agreeTerms.valueOf() && agreePersonal.valueOf()){
+                            submit()
+                        } else {
+                            alert("서비스 이용에 동의해주세요")
+                        }
                     } else {
-                        alert("서비스 이용에 동의해주세요")
+                        const inputPwChk:HTMLElement|null = document.getElementById("inputPassword2")
+                        if(inputPwChk){
+                            alert("비밀번호와 비밀번호 확인을 일치하지 않습니다.")
+                            setTimeout(()=>{
+                                inputPwChk.focus();
+                            }, 100);
+                            return;
+                        }
                     }
                 } else {
-                    const inputPwChk:HTMLElement|null = document.getElementById("inputPassword2")
-                    if(inputPwChk){
-                        alert("비밀번호와 비밀번호 확인을 일치하지 않습니다.")
+                    const inputPw:HTMLElement|null = document.getElementById("inputPassword1")
+                    if(inputPw){
+                        alert("비밀번호는 영문, 숫자, 특수문자를 조합하여 8~20자리로 입력해야 합니다.")
                         setTimeout(()=>{
-                            inputPwChk.focus();
+                            inputPw.focus();
                         }, 100);
                         return;
                     }
                 }
             } else {
-                const inputPw:HTMLElement|null = document.getElementById("inputPassword1")
-                if(inputPw){
-                    alert("비밀번호는 영문, 숫자, 특수문자를 조합하여 8~20자리로 입력해야 합니다.")
-                    setTimeout(()=>{
-                        inputPw.focus();
+                const inputId:HTMLElement|null = document.getElementById("inputId")
+                if(inputId){
+                    alert("아이디는 영문, 숫자를 조합하여 4~15자리로 입력해야 합니다.")
+                    setTimeout(()=>{  /* https://aljjabaegi.tistory.com/575 */
+                        inputId.focus();
                     }, 100);
                     return;
                 }
@@ -130,8 +141,8 @@ function Join() {
         } else {
             const inputId:HTMLElement|null = document.getElementById("inputId")
             if(inputId){
-                alert("아이디는 영문, 숫자를 조합하여 4~15자리로 입력해야 합니다.")
-                setTimeout(()=>{  /* https://aljjabaegi.tistory.com/575 */
+                alert("입력하신 아이디가 이미 존재합니다.")
+                setTimeout(()=>{
                     inputId.focus();
                 }, 100);
                 return;

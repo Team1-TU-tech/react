@@ -4,7 +4,6 @@ import {useNavigate} from "react-router-dom";
 import "../css/header.css";
 import Login from "./Login";
 import logo from "../img/TicketMoa-logo.png"
-import {useInput} from "../scripts/common";
 
 function Header() {
 
