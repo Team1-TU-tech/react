@@ -28,6 +28,7 @@ function Header() {
     
     const topMenu=(cat:string)=>{
         navigate("/search/"+encodeURIComponent(cat))
+        window.location.reload()
     }
 
     return (

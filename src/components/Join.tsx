@@ -40,7 +40,7 @@ function Join() {
     }
 
     const pwCompare=(e:React.KeyboardEvent<HTMLInputElement>)=>{
-        pw.value==pwChk.value?setHelpMsgPW("설정한 비밀번호가 일치합니다."):setHelpMsgPW("설정한 비밀번호가 일치하지 않습니다.")
+        pw.value===pwChk.value?setHelpMsgPW("설정한 비밀번호가 일치합니다."):setHelpMsgPW("설정한 비밀번호가 일치하지 않습니다.")
     }
 
     const toggle_agree_all=()=>{

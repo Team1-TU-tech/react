@@ -12,6 +12,7 @@ function SearchBar(props: { [key: string]: string|undefined }) {
 
     const queryText = useInput(params.queryText!==undefined?params.queryText:"");
 
+
     const search=()=>{
         navigate("/search/"+encodeURIComponent(queryText.value))
     }
@@ -44,7 +45,7 @@ function SearchBar(props: { [key: string]: string|undefined }) {
                 <input type={"date"}/>
                 <div className={"input-group"}>
                     <input id={"queryText"} type={"text"} {...queryText} />
-                    <button className={"btn btn-primary"} onClick={search} >Search</button>
+                    <button className={"btn btn-primary"} onClick={search} id={"searchBtn"} >Search</button>
                 </div>
             </div>
         </>
