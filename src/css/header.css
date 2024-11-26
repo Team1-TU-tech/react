@@ -1,6 +1,8 @@
 #header{
     display: grid;
     grid-template-rows: 1.5fr 1fr;
+    border-bottom: 1px solid #cccccc;
+    margin-bottom: 10px;
 }
 
 .headerComponents{
@@ -42,6 +44,7 @@
     font-size: 25px;
     color: #2f2f2f;
     cursor: pointer;
+    text-align: center;
 }
 .headerBotBtn:hover{
     color: #0d6efd;

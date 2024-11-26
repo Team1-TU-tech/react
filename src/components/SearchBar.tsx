@@ -1,20 +1,24 @@
 import React from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import {useSearchParams} from "react-router-dom";  //https://velog.io/@leah1225/React-%EC%BF%BC%EB%A6%AC-%EC%8A%A4%ED%8A%B8%EB%A7%81Query-String
 
 import "../css/searchBar.css";
 import {useInput} from "../scripts/common";
 
 
-function SearchBar(props: { [key: string]: string|undefined }) {
+function SearchBar(props: { [key: string]: string|null }) {
 
-    const navigate = useNavigate()
-    const params = useParams()
+    //const navigate = useNavigate()
+    //const params = useParams()
+    const [searchParams, setSearchParams] = useSearchParams();
 
-    const queryText = useInput(params.queryText!==undefined?params.queryText:"");
+    const query=searchParams.get("query")
+    const queryText = useInput(query!==null?query:"");
 
 
     const search=()=>{
-        navigate("/search/"+encodeURIComponent(queryText.value))
+        //navigate("/search?query="+encodeURIComponent(queryText.value)+"&currPage=1")
+        window.location.href="/search?query="+encodeURIComponent(queryText.value)+"&currPage=1"
+
     }
 
     return (

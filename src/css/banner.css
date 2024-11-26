@@ -1,0 +1,9 @@
+#banner-container{
+    position: absolute;
+    left: 0;
+    width: 150%;
+    height: 300px;
+    background: red;
+    margin: 0 auto;
+}
+
