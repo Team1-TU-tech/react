@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {useSearchParams} from "react-router-dom";
 
 import "../css/common.css";
@@ -212,12 +212,21 @@ function Pagination(props: { [key: string]: string | number | null }) {
     //console.log("preset::: "+preset)
 
 
-    window.onload=()=>{
+    // alert(currPage && totalPage)
+    // alert(totalPage)
+    // alert(currPage)
+    useEffect(()=>{
         if(currPage && totalPage){
             const selected = document.getElementById("page-link-"+currPage.toString())
             if (selected) selected.classList.add("selected")
         }
-    }
+    },[currPage])
+    // window.onload=()=>{
+    //     if(currPage && totalPage){
+    //         const selected = document.getElementById("page-link-"+currPage.toString())
+    //         if (selected) selected.classList.add("selected")
+    //     }
+    // }
 
     return (
         <div id={"pagination"}>
