@@ -5,7 +5,7 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import './css/index.css';
 import reportWebVitals from './scripts/reportWebVitals';
 
-import App from './components/App';
+//import App from './components/App';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Join from "./components/Join";
@@ -26,8 +26,8 @@ root.render(
             {/*    <li><Link to="/join">회원가입</Link></li>*/}
             {/*</ul>*/}
             <Routes>
-                <Route path="/" element={<App/>}/>
-                {/*<Route path="/" element={<Main />}/>*/}
+                {/*<Route path="/" element={<App/>}/>*/}
+                <Route path="/" element={<Main />}/>
                 <Route path="/join" element={<Join/>}/>
                 <Route path="/search" element={<SearchRst />}/>
                 <Route path="/detail/:id" element={<DetailPage />}/>

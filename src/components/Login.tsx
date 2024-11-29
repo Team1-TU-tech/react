@@ -45,9 +45,7 @@ function Login() {
 
     return (
         <>
-            <div data-bs-toggle="modal" data-bs-target="#loginModal" className={"headerTopBtn"}>
-                로그인
-            </div>
+            <div data-bs-toggle="modal" data-bs-target="#loginModal" className={"headerTopBtn"} id={"loginBtn"}>  </div>
 
             <div className="modal fade" id="loginModal" aria-labelledby="loginModalLabel" aria-hidden="true">
                 <div className="modal-dialog">

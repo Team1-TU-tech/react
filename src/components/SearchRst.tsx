@@ -112,7 +112,7 @@ function SearchRst() {
         xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 
         xhr.onreadystatechange=function(){
-            if(xhr.readyState==4){
+            if(xhr.readyState===4){
                 //alert(1)
                 const rst=JSON.parse(xhr.response)
                 setData(rst)
@@ -121,7 +121,7 @@ function SearchRst() {
             }
         }
         xhr.send()
-    },[queryText,currPage])
+    },[queryText, currPage, searchParams])
 
 
     return (

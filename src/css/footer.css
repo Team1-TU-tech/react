@@ -3,13 +3,14 @@
     grid-template-columns: 1fr 1fr 1fr;
     background-color: #EEEEEE;
     padding-top: 10px;
-    padding-bottom: 5px;
+    padding-bottom: 25px;
 }
 
 #footerLogo{
-    height: 60px;
+    width: 270px;
     position: relative;
-    top: 5px;
+    top: 22px;
+    left: 22px;
 }
 
 .footer-title{

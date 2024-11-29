@@ -1,15 +1,18 @@
 import React from "react";
-import "../css/App.css";
+import "../css/main.css";
 
 import SearchBar from "./SearchBar";
-import SearchRst from "./SearchRst";
 import Banner from "./Banner";
+import SlideTest from "./SliderTest";
+import Footer from "./Footer";
+import WeekendRecommend from "./WeekendRecommend";
 
 function Main() {
     return (
         <div className="App">
+            <SearchBar />
             <Banner />
-            <SearchRst />
+            <WeekendRecommend />
         </div>
     );
 }

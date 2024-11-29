@@ -13,7 +13,7 @@ function DetailPage() {
 
     return (
         <>
-            <h6>{params.id}번 데이터</h6>
+            <h1>{params.id}번 데이터</h1>
             <button className={"btn btn-warning"} onClick={back}>뒤로가기</button>
         </>
     )
