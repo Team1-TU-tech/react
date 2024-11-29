@@ -5,6 +5,7 @@ import "../css/searchBar.css";
 import {useInput} from "../scripts/common";
 import Calendar from "./Calendar";
 import SearchCalendar from "./SearchCalendar";
+import SearchBarInput from "./SearchBarInput";
 
 
 function SearchBar(props: { [key: string]: string|null }) {
@@ -15,13 +16,15 @@ function SearchBar(props: { [key: string]: string|null }) {
     const [location,setLocation] = useState(0);
 
 
-    const query=searchParams.get("query")
-    const queryText = useInput(query!==null?query:"");
+    //const query=searchParams.get("query")
+    //const queryText = useInput(props.queryText?props.queryText:query!==null?query:"");
     //alert(startDate.toJSON().split("T")[0])
 
     const search=()=>{
         //navigate("/search?query="+encodeURIComponent(queryText.value)+"&currPage=1")
 
+        const queryInput=document.getElementById("queryText") as HTMLInputElement;
+        const queryText = queryInput!==null?queryInput.value:"";
         /*@ts-ignore*/
         const startDate=$("#startDate").val()
         /*@ts-ignore*/
@@ -40,7 +43,7 @@ function SearchBar(props: { [key: string]: string|null }) {
 
         //return rst
         //window.location.href="/search?query="+encodeURIComponent(queryText.value)+"&currPage=1"
-        window.location.href= "/search?query="+encodeURIComponent(queryText.value)+"&startDate="+startDate.split("-").join("")+"&endDate="+endDate.split("-").join("")+"&currPage=1"
+        window.location.href= "/search?query="+encodeURIComponent(queryText)+"&startDate="+startDate.split("-").join("")+"&endDate="+endDate.split("-").join("")+"&currPage=1"
         // fetch("http://127.0.0.1:8000/",{
         //     method:"GET",
         //     headers:{
@@ -70,8 +73,9 @@ function SearchBar(props: { [key: string]: string|null }) {
     //         if (endDate.value==="") endDate.value=startDate.value;
     //     }
     // }
+    useEffect(() => {
 
-
+    }, []);
 
 
 
@@ -101,7 +105,8 @@ function SearchBar(props: { [key: string]: string|null }) {
                 {/*<Calendar placeholder={"종료일"} id={"endDate"} selected={searchParams.get("endDate")} />*/}
                 <SearchCalendar />
                 <div className={"input-group"}>
-                    <input id={"queryText"} type={"text"} {...queryText} />
+                    {/*<input id={"queryText"} type={"text"} {...queryText} />*/}
+                    <SearchBarInput />
                     <button className={"btn btn-primary"} onClick={search} id={"searchBtn"}>Search</button>
                 </div>
             </div>
