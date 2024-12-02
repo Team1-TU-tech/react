@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useRef, useState} from "react";
 // @ts-ignore
 import {HmacSHA256} from "crypto-js";
 
@@ -15,9 +15,8 @@ const useInput=(initValue:string)=>{
 }
 
 const encSHA256=(data:string)=>{
-    return HmacSHA256(data,'enterthegrandline').toString();
+    return HmacSHA256(data,"encore-team1").toString();
 }
-
 
 
 const verify=(type:string, target:string)=>{
@@ -35,6 +34,10 @@ const verify=(type:string, target:string)=>{
             /* const pattern2 =/^(?:[0-9])+?(?:[A-z])+?(?:[!@#$%&])+?(?:[0-9A-z!@#$%&])*?$/ */
             const pattern3 =/^[ㄱ-힇]{1,5}$/
             return pattern3.test(target)
+        case "pn":
+            /* const pattern2 =/^(?:[0-9])+?(?:[A-z])+?(?:[!@#$%&])+?(?:[0-9A-z!@#$%&])*?$/ */
+            const pattern4 =/^[0-9]{0,11}?$/
+            return pattern4.test(target)
         default:
             return null
     }

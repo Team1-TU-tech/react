@@ -3,8 +3,6 @@ import "../css/main.css";
 
 import SearchBar from "./SearchBar";
 import Banner from "./Banner";
-import SlideTest from "./SliderTest";
-import Footer from "./Footer";
 import WeekendRecommend from "./WeekendRecommend";
 import MainElem from "./MainElem";
 

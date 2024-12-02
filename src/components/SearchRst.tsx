@@ -5,7 +5,6 @@ import SearchRstTop from "./SearchRstTop";
 import SearchRstMain from "./SearchRstMain";
 import {useSearchParams} from "react-router-dom";
 import Pagination from "./Pagination";
-import {useInput} from "../scripts/common";
 
 function SearchRst() {
 

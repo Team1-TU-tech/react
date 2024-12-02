@@ -1,9 +1,7 @@
 import React, {useEffect, useState} from "react";
-import {useSearchParams} from "react-router-dom";  //https://velog.io/@leah1225/React-%EC%BF%BC%EB%A6%AC-%EC%8A%A4%ED%8A%B8%EB%A7%81Query-String
+//import {useSearchParams} from "react-router-dom";  //https://velog.io/@leah1225/React-%EC%BF%BC%EB%A6%AC-%EC%8A%A4%ED%8A%B8%EB%A7%81Query-String
 
 import "../css/searchBar.css";
-import {useInput} from "../scripts/common";
-import Calendar from "./Calendar";
 import SearchCalendar from "./SearchCalendar";
 import SearchBarInput from "./SearchBarInput";
 
@@ -12,7 +10,7 @@ function SearchBar(props: { [key: string]: string|null }) {
 
     //const navigate = useNavigate()
     //const params = useParams()
-    const [searchParams, setSearchParams] = useSearchParams();
+    //const [searchParams, setSearchParams] = useSearchParams();
     const [location,setLocation] = useState(0);
 
 
