@@ -142,8 +142,6 @@ function Join() {
         }
     }
 
-    alert("re render")
-
     return (
         <>
             <hr/>

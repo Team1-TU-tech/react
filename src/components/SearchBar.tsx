@@ -1,22 +1,28 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef} from "react";
 //import {useSearchParams} from "react-router-dom";  //https://velog.io/@leah1225/React-%EC%BF%BC%EB%A6%AC-%EC%8A%A4%ED%8A%B8%EB%A7%81Query-String
 
 import "../css/searchBar.css";
 import SearchCalendar from "./SearchCalendar";
-import SearchBarInput from "./SearchBarInput";
+import {useSearchParams} from "react-router-dom";
+import {Simulate} from "react-dom/test-utils";
+import submit = Simulate.submit;
 
 
 function SearchBar(props: { [key: string]: string|null }) {
 
     //const navigate = useNavigate()
     //const params = useParams()
-    //const [searchParams, setSearchParams] = useSearchParams();
-    const [location,setLocation] = useState(0);
+    const [searchParams, setSearchParams] = useSearchParams();
 
 
-    //const query=searchParams.get("query")
-    //const queryText = useInput(props.queryText?props.queryText:query!==null?query:"");
-    //alert(startDate.toJSON().split("T")[0])
+    const query=searchParams.get("query")
+    const queryRef=useRef<HTMLInputElement>(null);
+    if(queryRef.current) queryRef.current.value = query?query:"";
+
+    const locationRef = useRef<HTMLSelectElement>(null);
+    const queryLoca=searchParams.get("location")
+    if(locationRef.current) if(queryLoca) locationRef.current.value=queryLoca
+
 
     const search=()=>{
         //navigate("/search?query="+encodeURIComponent(queryText.value)+"&currPage=1")
@@ -41,7 +47,7 @@ function SearchBar(props: { [key: string]: string|null }) {
 
         //return rst
         //window.location.href="/search?query="+encodeURIComponent(queryText.value)+"&currPage=1"
-        window.location.href= "/search?query="+encodeURIComponent(queryText)+"&startDate="+startDate.split("-").join("")+"&endDate="+endDate.split("-").join("")+"&currPage=1"
+        window.location.href= "/search?query="+encodeURIComponent(queryText)+"&location="+(locationRef.current?locationRef.current.value:"")+"&startDate="+startDate.split("-").join("")+"&endDate="+endDate.split("-").join("")+"&currPage=1"
         // fetch("http://127.0.0.1:8000/",{
         //     method:"GET",
         //     headers:{
@@ -75,7 +81,9 @@ function SearchBar(props: { [key: string]: string|null }) {
 
     }, []);
 
-
+    const onEnter=(e:React.KeyboardEvent)=>{
+        if(e.keyCode===13) search()
+    }
 
     return (
         <>
@@ -88,7 +96,7 @@ function SearchBar(props: { [key: string]: string|null }) {
                         <path
                             d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103zM2.25 8.184l3.897 1.67a.5.5 0 0 1 .262.263l1.67 3.897L12.743 3.52z"/>
                     </svg>
-                    <select className="form-select" aria-label="City" id={"city"}>
+                    <select className="form-select" aria-label="City" id={"city"} ref={locationRef} >
                         <option value="0" selected>전국</option>
                         <option value="1">서울</option>
                         <option value="2">경기</option>
@@ -104,8 +112,9 @@ function SearchBar(props: { [key: string]: string|null }) {
                 <SearchCalendar />
                 <div className={"input-group"}>
                     {/*<input id={"queryText"} type={"text"} {...queryText} />*/}
-                    <SearchBarInput />
-                    <button className={"btn btn-primary"} onClick={search} id={"searchBtn"}>Search</button>
+                    <input id={"queryText"} type={"text"} ref={queryRef} onKeyUp={onEnter} />
+                    <button type={"submit"} className={"btn btn-primary"} onClick={search} id={"searchBtn"}>Search</button>
+                    {/*<button type={"submit"} className={"btn btn-primary"} onSubmit={search} id={"searchBtn"}>Search</button>*/}
                 </div>
             </div>
         </>

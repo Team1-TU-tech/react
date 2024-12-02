@@ -1,4 +1,4 @@
-import {useRef, useState} from "react";
+import React, {useRef, useState} from "react";
 // @ts-ignore
 import {HmacSHA256} from "crypto-js";
 
@@ -43,5 +43,16 @@ const verify=(type:string, target:string)=>{
     }
 }
 
+const locaCode:{[key:string]:string} = {
+    "0" : "전국",
+    "1" : "서울",
+    "2" : "경기",
+    "3" : "경상",
+    "4" : "전라",
+    "5" : "강원",
+    "6" : "충청",
+    "7" : "제주"
+}
 
 export {useInput, encSHA256, verify}
+export {locaCode}

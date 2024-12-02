@@ -2,18 +2,21 @@ import React, {useEffect} from "react";
 import "../css/rstPage.css";
 import SearchBar from "./SearchBar";
 import {useSearchParams} from "react-router-dom";
+import {locaCode} from "../scripts/common";
 
 function SearchRstTop(props:{"query":string|null}) {
 
     //const params = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
+    const queryLoca=searchParams.get("location")
+
     let query
     if(props.query){
         query=props.query;
     } else if(searchParams.get("startDate")!=="") {
         query=searchParams.get("startDate")+"~"+searchParams.get("endDate");
-    } else if(searchParams.get("location")!==""){
-        query=searchParams.get("location")
+    } else if(queryLoca!=="" && queryLoca!== null){
+        query=locaCode[queryLoca]
     } else {
         query="전체"
     }
@@ -25,7 +28,7 @@ function SearchRstTop(props:{"query":string|null}) {
     return (
         <div id={"searchRstTop"}>
             {/*<div id={"searchRstTopTitle"}> "{props.query}"에 대한 검색결과입니다. </div>*/}
-            <div id={"searchRstTopTitle"}> {query}에 대한 검색결과입니다. </div>
+            <div id={"searchRstTopTitle"}> "{query}"에 대한 검색결과입니다. </div>
             <SearchBar queryText={searchParams.get("query")}/>
         </div>
     );
