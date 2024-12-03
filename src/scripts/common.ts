@@ -18,6 +18,10 @@ const encSHA256=(data:string)=>{
     return HmacSHA256(data,"encore-team1").toString();
 }
 
+const pwEncode=(data:string)=>{
+    return btoa(escape(encodeURIComponent(encSHA256(data))));
+}
+
 
 const verify=(type:string, target:string)=>{
 
@@ -46,7 +50,7 @@ const verify=(type:string, target:string)=>{
 const locaCode:{[key:string]:string} = {
     "0" : "전국",
     "1" : "서울",
-    "2" : "경기",
+    "2" : "수도권",
     "3" : "경상",
     "4" : "전라",
     "5" : "강원",
@@ -54,5 +58,5 @@ const locaCode:{[key:string]:string} = {
     "7" : "제주"
 }
 
-export {useInput, encSHA256, verify}
+export {useInput, pwEncode, verify}
 export {locaCode}

@@ -1,5 +1,4 @@
 import React from "react";
-import App from "./App";
 import MainEntry from "./MainEntry";
 
 
@@ -19,9 +18,10 @@ import MainEntry from "./MainEntry";
 function Entry(props:{[key:string]:string|number|{[key:string]:string|number|boolean|undefined}[]|undefined}):JSX.Element {
     const data = props.data as {[key:string]:string|number|boolean}[];
     const category = props.category;
+    const division = props.division;
 
     const fdata = data.filter((data)=>
-        data["category"] === category
+        data[division as string] === category
     )
 
     return (<div id={props.id as string} className={"mainEntryContainer"}>
@@ -55,7 +55,7 @@ function MainElem(props: { [key: string]: string | {[key: string]: string|number
                 if(arg===data[i].id) elem.style.display="grid"
             }
         }
-        alert("arg::::::"+arg)
+        //alert("arg::::::"+arg)
     }
 
     setTimeout(()=>{
@@ -64,14 +64,14 @@ function MainElem(props: { [key: string]: string | {[key: string]: string|number
 
 
     return (
-        <div id={props.id ? props.id as string : "mainElem-" + randint}>
+        <div className={"mainSection"} id={props.id ? props.id as string : "mainElem-" + randint}>
             <h3>{props.title ? props.title as string : "당신을 위한 추천"}</h3>
             {/*<div className={"btn-group"}>*/}
             {/*<div className="btn-group" role="group" aria-label="Basic radio toggle button group">*/}
             <div>
                 {
                     data.map((i, j) => {
-                        return (<button className={"btn btn-primary"} onClick={()=>{disp(i["id"] as string)}}>{i["name"]}</button>)
+                        return (<button className={"btn btn-primary mainSectionBtn"} onClick={()=>{disp(i["id"] as string)}}>{i["name"]}</button>)
                     })
                 }
                 {/*{*/}
@@ -80,13 +80,19 @@ function MainElem(props: { [key: string]: string | {[key: string]: string|number
                 {/*    })*/}
                 {/*}*/}
             </div>
-            {/*여기 리스트 뿌리고*/}
             {
                 data.map((i, j) => {
-                    return (<Entry data={props.listData as {[key:string]: string|number|boolean}[]} category={i["name"] as string} id={i["id"] as string} />)
+                    return (
+                        <Entry
+                            data={props.listData as {[key:string]: string|number|boolean}[]}
+                            category={i["name"] as string}
+                            id={i["id"] as string}
+                            division={props.division}
+                        />
+                    )
                 })
             }
-            <button className={"btn btn-secondary"}>전체보기</button>
+            <a className={"gotoTotalBtn"} href={"/search?location=0&startDate=&endDate=&currPage=1&query="+props.query}>전체보기 {'>'}</a>
         </div>
     );
 }

@@ -45,7 +45,7 @@ function SearchBar(props: { [key: string]: string|null }) {
 
         //return rst
         //window.location.href="/search?query="+encodeURIComponent(queryText.value)+"&currPage=1"
-        window.location.href= "/search?query="+encodeURIComponent(queryText)+"&location="+(locationRef.current?locationRef.current.value:"")+"&startDate="+startDate.split("-").join("")+"&endDate="+endDate.split("-").join("")+"&currPage=1"
+        window.location.href= "/search?query="+encodeURIComponent(queryText)+"&location="+(locationRef.current?locationRef.current.value:"")+"&startDate="+startDate.split("-").join(".")+"&endDate="+endDate.split("-").join(".")+"&currPage=1"
         // fetch("http://127.0.0.1:8000/",{
         //     method:"GET",
         //     headers:{
@@ -88,7 +88,7 @@ function SearchBar(props: { [key: string]: string|null }) {
                     <select className="form-select" aria-label="City" id={"city"} ref={locationRef} >
                         <option value="0" selected>전국</option>
                         <option value="1">서울</option>
-                        <option value="2">경기</option>
+                        <option value="2">수도권</option>
                         <option value="3">경상</option>
                         <option value="4">전라</option>
                         <option value="5">강원</option>

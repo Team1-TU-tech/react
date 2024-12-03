@@ -1,6 +1,6 @@
 import React, {useRef} from "react";
 import "../css/join.css";
-import {encSHA256, verify} from "../scripts/common";
+import {pwEncode, verify} from "../scripts/common";
 import AgreeModal from "./AgreeModal";
 
 
@@ -69,7 +69,7 @@ function Join() {
             body:JSON.stringify({
                 username:nameRef.current?nameRef.current.value:"",
                 id:idRef.current?idRef.current.value:"",
-                pw:pwRef.current?encSHA256(pwRef.current.value):"",
+                pw:pwRef.current?pwEncode(pwRef.current.value):"",
                 email:emailRef.current?emailRef.current.value:"",
                 phoneNumber:phoneNumberRef.current?phoneNumberRef.current.value:"",
                 agreeMarketing:agreeMarketingRef.current?agreeMarketingRef.current.checked:false

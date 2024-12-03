@@ -152,6 +152,7 @@ function Banner() {
                      ***********************************/
                     return (<div id={"entryWrap"} style={{width: "10px"}}>
                         <MainEntry
+                            className={"sliderContainer"}
                             posterImg= {d["posterImg"]}
                             showTitle={d["showTitle"]}
                             showLocation={d["showLocation"]}
