@@ -57,6 +57,16 @@ const locaCode:{[key:string]:string} = {
     "6" : "충청",
     "7" : "제주"
 }
+const locaCodeRev:{[key:string]:string} = {
+    "전국" : "0",
+    "서울" : "1",
+    "수도권" : "2",
+    "경상" : "3",
+    "전라" : "4",
+    "강원" : "5",
+    "충청" : "6",
+    "제주" : "7"
+}
 
 export {useInput, pwEncode, verify}
-export {locaCode}
+export {locaCode, locaCodeRev}

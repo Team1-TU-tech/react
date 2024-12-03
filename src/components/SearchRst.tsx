@@ -106,20 +106,38 @@ function SearchRst() {
 
     //let data;
     useEffect(()=>{
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET","http://127.0.0.1:8000/search?"+searchParams.toString());
-        xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        // const xhr = new XMLHttpRequest();
+        // //xhr.open("GET","http://127.0.0.1:7000/search?"+searchParams.toString());
+        // xhr.open("GET","http://127.0.0.1:7000/search");
+        // xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        //
+        //
+        // xhr.onreadystatechange=function(){
+        //     if(xhr.readyState===4){
+        //         //alert(1)
+        //         console.log(xhr.response);
+        //         const rst=JSON.parse(xhr.response)
+        //         setData(rst)
+        //         setRstNum(rst.length)
+        //         //console.log(data)
+        //     }
+        // }
+        // xhr.send()
 
-        xhr.onreadystatechange=function(){
-            if(xhr.readyState===4){
-                //alert(1)
-                const rst=JSON.parse(xhr.response)
-                setData(rst)
-                setRstNum(rst.length)
-                //console.log(data)
-            }
-        }
-        xhr.send()
+
+        //fetch("http://127.0.0.1:8000/search?"+searchParams.toString(),{
+        fetch("http://localhost:7000/search?"+searchParams.toString(),{
+            method:"GET",
+        })
+            .then(response => response.json())
+            .then((json)=>{
+                console.log(json)
+                setData(json)
+                setRstNum(json.length)
+            })
+            .catch(err => console.log(err))
+
+
     },[queryText, currPage, searchParams])
 
 

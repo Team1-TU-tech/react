@@ -106,7 +106,7 @@ function SearchRstMain(props:{[key:string]:string|number|{[key:string]:string|nu
 
     return (
         <div id={"rstMain"}>
-            <div id={"rstNum"}>검색결과 ({rstNumProp})</div>
+            <div id={"rstNum"}>티켓 ({rstNumProp})</div>
             <div id={"rstRoot"}>
                 {
                     partitionData.map((d,i)=>{
@@ -122,10 +122,10 @@ function SearchRstMain(props:{[key:string]:string|number|{[key:string]:string|nu
                         }
                         ***********************************/
                         return <RstEntity
-                            posterImg= {d["posterImg"]}
-                            showTitle={d["showTitle"]}
-                            showLocation={d["showLocation"]}
-                            showDate={d["showDate"]}
+                            posterImg= {d["poster_url"]}
+                            showTitle={d["title"]}
+                            showLocation={d["location"]}
+                            showDate={d["start_date"]+"~"+d["end_date"]}
                             onSale={d["onSale"]}
                             isExclusive={d["isExclusive"]}
                             _link={d["id"]}

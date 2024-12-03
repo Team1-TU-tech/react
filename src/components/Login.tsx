@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom"
 import "../css/login.css";
 import kakaoLogin from "../img/kakao_login_medium_narrow.png"
 import {pwEncode} from "../scripts/common";
+import {json} from "node:stream/consumers";
 
 function Login() {
 
@@ -37,8 +38,21 @@ function Login() {
     // }
 
     const kakao=()=>{
-        //window.location.href="http://localhost:7000/getcode"
-        alert("kakao")
+        // Object.assign(document.createElement("a"), {
+        //     target: '_parent',
+        //     href: "http://localhost:8000/getcode"
+        // }).click();
+        const w = window.open("http://localhost:8000/getcode", "kakaoLogin", 'width=800, height=1200, left=300, top=300');
+        if(w){
+            w.onbeforeunload = ()=> {
+                console.log(w);
+            };
+            w.close();
+        }
+
+        //window.location.href="http://localhost:8000/getcode"
+
+        //alert("kakao")
     }
 
     const join=()=>{

@@ -2,6 +2,7 @@ import React, {useRef} from "react";
 import "../css/join.css";
 import {pwEncode, verify} from "../scripts/common";
 import AgreeModal from "./AgreeModal";
+import Calendar from "./Calendar";
 
 
 function Join() {
@@ -15,6 +16,7 @@ function Join() {
 
     const emailRef = useRef<HTMLInputElement>(null);
     const phoneNumberRef = useRef<HTMLInputElement>(null);
+    const genderRef = useRef<HTMLSelectElement>(null);
 
     const agreeAllRef = useRef<HTMLInputElement>(null);
     const agreeAgeRef= useRef<HTMLInputElement>(null);
@@ -152,56 +154,77 @@ function Join() {
                 <hr/>
                 <div className="mb-3">
                     <label htmlFor="username" className="form-label">이름</label>
-                    <input type="text" className="form-control" id="username" ref={nameRef} placeholder={"이름을 입력해주세요"} maxLength={5}/>
+                    <input type="text" className="form-control" id="username" ref={nameRef} placeholder={"이름을 입력해주세요"}
+                           maxLength={5}/>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="inputId" className="form-label">아이디</label>
-                    <input type="text" className="form-control" id="inputId" aria-describedby="idHelp" ref={idRef} placeholder={"4~15자리 영문, 숫자로 입력해주세요"} onKeyUp={idDuplChk} minLength={4} maxLength={15}/>
+                    <input type="text" className="form-control" id="inputId" aria-describedby="idHelp" ref={idRef}
+                           placeholder={"4~15자리 영문, 숫자로 입력해주세요"} onKeyUp={idDuplChk} minLength={4} maxLength={15}/>
                     <div id="idHelp" className="form-text" ref={helpMsgRef}></div>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="inputPassword1" className="form-label">비밀번호</label>
-                    <input type="password" className="form-control" id="inputPassword1" ref={pwRef} placeholder={"8~20자리 영문, 숫자, 특수문자(!@#$%&)로 입력해주세요"} minLength={8} maxLength={20}/>
+                    <input type="password" className="form-control" id="inputPassword1" ref={pwRef}
+                           placeholder={"8~20자리 영문, 숫자, 특수문자(!@#$%&)로 입력해주세요"} minLength={8} maxLength={20}/>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="inputPassword2" className="form-label">비밀번호 확인</label>
-                    <input type="password" className="form-control" id="inputPassword2" ref={pwChkRef} onKeyUp={pwCompare} placeholder={"비밀번호를 한번 더 입력해주세요"} minLength={8} maxLength={20}/>
+                    <input type="password" className="form-control" id="inputPassword2" ref={pwChkRef}
+                           onKeyUp={pwCompare} placeholder={"비밀번호를 한번 더 입력해주세요"} minLength={8} maxLength={20}/>
                     <div id="pwHelp" className="form-text" ref={helpMsgPWRef}></div>
                 </div>
+                <div className="mb-3">
+                    <label htmlFor="gender" className="form-label">성별</label>
+                    <select className="form-select" aria-label="Gender" id={"gender"} ref={genderRef}>
+                        <option value="" selected>밝히지 않음</option>
+                        <option value="M">남</option>
+                        <option value="F">여</option>
+                    </select>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="birthday" className="form-label">성별</label>
+                    <Calendar />
+                </div>
+
+
                 <br/>
                 <h5>선택정보</h5>
                 <hr/>
                 <div className="mb-3">
                     <label htmlFor="emailInput" className="form-label">이메일</label>
-                    <input type="email" className="form-control" id="emailInput" placeholder="이메일 주소를 입력해주세요" ref={emailRef} />
+                    <input type="email" className="form-control" id="emailInput" placeholder="이메일 주소를 입력해주세요"
+                           ref={emailRef}/>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="phoneInput" className="form-label">휴대전화</label>
-                    <input type="text" className="form-control" id="phoneInput" placeholder="- 없이 숫자만 입력해주세요" maxLength={11} ref={phoneNumberRef} onChange={phoneChk} />
+                    <input type="text" className="form-control" id="phoneInput" placeholder="- 없이 숫자만 입력해주세요"
+                           maxLength={11} ref={phoneNumberRef} onChange={phoneChk}/>
                 </div>
                 <br/>
                 <h5>서비스 정책</h5>
                 <div className="mb-3 form-check">
                     <label className="form-check-label" htmlFor="agree_all">전체동의</label>
-                    <input type="checkbox" className="form-check-input" id="agree_all" ref={agreeAllRef} onChange={toggle_agree_all}/>
+                    <input type="checkbox" className="form-check-input" id="agree_all" ref={agreeAllRef}
+                           onChange={toggle_agree_all}/>
                 </div>
                 <hr/>
                 <div className="mb-3 form-check">
-                    <input type="checkbox" className="form-check-input" id="agree_age" ref={agreeAgeRef} />
+                    <input type="checkbox" className="form-check-input" id="agree_age" ref={agreeAgeRef}/>
                     <label className="form-check-label" htmlFor="agree_age">만 14세 이상입니다. (필수)</label>
                 </div>
                 <div className="mb-3 form-check">
-                    <input type="checkbox" className="form-check-input" id="agree_terms" ref={agreeTermsRef} />
+                    <input type="checkbox" className="form-check-input" id="agree_terms" ref={agreeTermsRef}/>
                     <label className="form-check-label" htmlFor="agree_terms">서비스 이용약관 동의 (필수)</label>
                     <AgreeModal tagId="terms" title={"서비스 이용약관 동의 (필수)"} body={"서비스 이용약관 동의 (필수)"}/>
                 </div>
                 <div className="mb-3 form-check">
-                    <input type="checkbox" className="form-check-input" id="agree_personal" ref={agreePersonalRef} />
+                    <input type="checkbox" className="form-check-input" id="agree_personal" ref={agreePersonalRef}/>
                     <label className="form-check-label" htmlFor="agree_personal">개인정보 수집 및 이용 동의 (필수)</label>
                     <AgreeModal tagId="personal" title={"개인정보 수집 및 이용 동의 (필수)"} body={"개인정보 수집 및 이용 동의 (필수)"}/>
                 </div>
                 <div className="mb-3 form-check">
-                    <input type="checkbox" className="form-check-input" id="agree_marketing" ref={agreeMarketingRef} />
+                    <input type="checkbox" className="form-check-input" id="agree_marketing" ref={agreeMarketingRef}/>
                     <label className="form-check-label" htmlFor="agree_marketing">마케팅 수신 동의 (선택)</label>
                     <AgreeModal tagId="marketing" title={"마케팅 수신 동의 (선택)"} body={"마케팅 수신 동의 (선택)"}/>
                 </div>

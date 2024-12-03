@@ -34,12 +34,17 @@
 
 #rstRoot{
     display: grid;
-    grid-template-columns:1fr 1fr 1fr 1fr 1fr;
+    /*grid-template-columns:1fr 1fr 1fr 1fr 1fr;*/
+    grid-template-columns:250px 250px 250px 250px 250px ;
 }
 
 .card-body{
     height: 230px;
 }
+
+
+
+
 
 /** pagination override ************************************************************/
 #pagination {
@@ -58,3 +63,4 @@
     --bs-pagination-hover-border-color: var(--bs-border-color);
 }
 /** pagination override end ********************************************************/
+

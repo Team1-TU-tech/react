@@ -12,6 +12,7 @@ import Join from "./components/Join";
 import SearchRst from "./components/SearchRst";
 import Main from "./components/Main";
 import DetailPage from "./components/DetailPage";
+import SearchRstNone from "./components/SearchRstNone";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

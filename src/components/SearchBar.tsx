@@ -4,6 +4,7 @@ import React, {useEffect, useRef} from "react";
 import "../css/searchBar.css";
 import SearchCalendar from "./SearchCalendar";
 import {useSearchParams} from "react-router-dom";
+import {locaCode, locaCodeRev} from "../scripts/common";
 
 
 function SearchBar(props: { [key: string]: string|null }) {
@@ -18,8 +19,9 @@ function SearchBar(props: { [key: string]: string|null }) {
     if(queryRef.current) queryRef.current.value = query?query:"";
 
     const locationRef = useRef<HTMLSelectElement>(null);
-    const queryLoca=searchParams.get("location")
-    if(locationRef.current) if(queryLoca) locationRef.current.value=queryLoca
+    const queryLoca=searchParams.get("region")
+    if(locationRef.current) if(queryLoca) locationRef.current.value=locaCodeRev[queryLoca]
+    const category = searchParams.get("category")?searchParams.get("category"):""
 
 
     const search=()=>{
@@ -45,8 +47,7 @@ function SearchBar(props: { [key: string]: string|null }) {
 
         //return rst
         //window.location.href="/search?query="+encodeURIComponent(queryText.value)+"&currPage=1"
-        window.location.href= "/search?query="+encodeURIComponent(queryText)+"&location="+(locationRef.current?locationRef.current.value:"")+"&startDate="+startDate.split("-").join(".")+"&endDate="+endDate.split("-").join(".")+"&currPage=1"
-        // fetch("http://127.0.0.1:8000/",{
+        window.location.href= "/search?query="+encodeURIComponent(queryText)+"&region="+(locationRef.current?locaCode[locationRef.current.value]:"")+"&start_date="+startDate.split("-").join(".")+"&end_date="+endDate.split("-").join(".")+"&category="+category+"&currPage=1"        // fetch("http://127.0.0.1:8000/",{
         //     method:"GET",
         //     headers:{
         //         "Content-Type": "application/json",
