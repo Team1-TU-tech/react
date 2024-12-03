@@ -17,8 +17,8 @@ function Calendar(props:{[key:string]:string|undefined|null}) {
         dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
         showMonthAfterYear: true,
         yearSuffix: '년',
-        //changeMonth: true, // month 셀렉트박스 사용
-        //changeYear: true, // year 셀렉트박스 사용
+        changeMonth: true, // month 셀렉트박스 사용
+        changeYear: true, // year 셀렉트박스 사용
         closeText: "닫기",
         currentText: "오늘",
         showButtonPanel: true,

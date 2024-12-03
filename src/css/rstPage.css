@@ -30,6 +30,7 @@
 .posterImg, .showTitle{
     cursor: pointer;
 }
+.showTitle{ white-space: nowrap;overflow: hidden;text-overflow: ellipsis; }
 
 
 #rstRoot{

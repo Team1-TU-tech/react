@@ -2,7 +2,6 @@ import React, {useEffect} from "react";
 import "../css/rstPage.css";
 import SearchBar from "./SearchBar";
 import {useSearchParams} from "react-router-dom";
-import {locaCodeRev} from "../scripts/common";
 
 function SearchRstTop(props:{"query":string|null}) {
 

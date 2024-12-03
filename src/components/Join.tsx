@@ -183,7 +183,7 @@ function Join() {
                     </select>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="birthday" className="form-label">성별</label>
+                    <label htmlFor="birthday" className="form-label">생년월일</label><br/>
                     <Calendar />
                 </div>
 

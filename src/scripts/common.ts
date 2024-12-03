@@ -67,6 +67,11 @@ const locaCodeRev:{[key:string]:string} = {
     "충청" : "6",
     "제주" : "7"
 }
+const ticketHost:{[key:string]:string} = {
+    "1" : "인터파크 티켓",
+    "서울" : "1",
+    "수도권" : "2",
+}
 
 export {useInput, pwEncode, verify}
-export {locaCode, locaCodeRev}
+export {locaCode, locaCodeRev, ticketHost}

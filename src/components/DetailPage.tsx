@@ -1,16 +1,21 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
+
+import "../css/detail.css"
+import {ticketHost} from "../scripts/common";
 
 
 function DetailPage() {
 
     const navigate=useNavigate()
     const params = useParams()
+    const [data, setData] = useState(null)
     const id=params.id as string;
 
     const back=()=>{
         navigate(-1)
     }
+
 
     useEffect(() => {
 
@@ -18,7 +23,7 @@ function DetailPage() {
             method: "GET"
         })
             .then(response => response.json())
-            .then(json => console.log(json))
+            .then(json => setData(json["data"]))
             .catch(err => console.log(err))
     },[id])
 
@@ -49,12 +54,67 @@ function DetailPage() {
 //     _id : "674ebd3aaaaa801633be7055"
 
 
-    return (
+    return data?(
         <>
             <h1>{params.id}번 데이터</h1>
+            <h4>{data["title"]}</h4>
+            <div id={"detail-top"}>
+                <img src={data["poster_url"]} alt="poster-image"/>
+                <div>
+                    <table>
+                        <colgroup>
+                            <col width={"30%;"}/>
+                            <col width={"70%;"}/>
+                        </colgroup>
+                        <tr>
+                            <th>장소</th>
+                            <td>{data["location"]}</td>
+                        </tr>
+                        <tr>
+                            <th>공연기간</th>
+                            <td>{data["start_date"] + "~" + data["end_date"]}</td>
+                        </tr>
+                        <tr>
+                            <th>공연시간</th>
+                            <td>{data["running_time"]}</td>
+                        </tr>
+                        <tr>
+                            <th>관람연령</th>
+                            <td>{data["rating"]}</td>
+                        </tr>
+                        <tr>
+                            <th>가격</th>
+                            <td>
+                                {
+                                    (data["price"] as Array<string>).map((i, j) => {
+                                        /*@ts-ignore*/
+                                        return (<div><span>{i["seat"]}</span><span>{i["price"]}</span></div>)
+                                    })
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            {
+                                (data["hosts"] as Array<string>).map((i, j) => {
+                                    /*@ts-ignore*/
+                                    return (<a className={"btn btn-primary"} href={i["ticket_url"]} target={"_blank"}>{ticketHost[i["site_id"]]}</a>)
+                                })
+                            }
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div>
+                <h3>출연진</h3>
+                <div>~</div>
+            </div>
+            <div>
+                <h3>줄거리</h3>
+                <div>{data["description"]}</div>
+            </div>
             <button className={"btn btn-warning"} onClick={back}>뒤로가기</button>
         </>
-    )
+    ) : (<></>)
         ;
 }
 
