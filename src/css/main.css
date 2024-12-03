@@ -8,3 +8,10 @@
     align-items: center;
     text-align: center;
 }
+
+
+
+.mainEntryContainer{
+    display: grid;
+    grid-template-columns:1fr 1fr 1fr 1fr;
+}

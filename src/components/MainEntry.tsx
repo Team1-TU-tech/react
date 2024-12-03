@@ -2,7 +2,7 @@ import React from "react";
 import "../css/rstPage.css";
 import {useNavigate} from "react-router-dom";
 
-function MainEntity(props:{[key:string]:string|number|boolean|undefined}) {
+function MainEntry(props:{[key:string]:string|number|boolean|undefined}) {
 
     const navigate = useNavigate();
 
@@ -12,7 +12,7 @@ function MainEntity(props:{[key:string]:string|number|boolean|undefined}) {
 
     return (
         <div>
-            <div className="card sliderContainer">
+            <div className={"card sliderContainer "+props.className}>
                 <img src={props.posterImg?.toString()} alt={"Poster"} className="card-img-top posterImg" onClick={()=>{move(props._link)}} />
                 <div className="card-body">
                     <h1>{props._link}</h1>
@@ -29,4 +29,4 @@ function MainEntity(props:{[key:string]:string|number|boolean|undefined}) {
     );
 }
 
-export default MainEntity;
+export default MainEntry;

@@ -4,8 +4,6 @@ import React, {useEffect, useRef} from "react";
 import "../css/searchBar.css";
 import SearchCalendar from "./SearchCalendar";
 import {useSearchParams} from "react-router-dom";
-import {Simulate} from "react-dom/test-utils";
-import submit = Simulate.submit;
 
 
 function SearchBar(props: { [key: string]: string|null }) {
@@ -68,15 +66,6 @@ function SearchBar(props: { [key: string]: string|null }) {
 
     }
 
-    // const setDate=()=>{
-    //     const startDate=document.getElementById("startDate") as HTMLInputElement
-    //     const endDate=document.getElementById("endDate") as HTMLInputElement
-    //
-    //     if(startDate && endDate){
-    //         if (startDate.value==="") startDate.value=endDate.value;
-    //         if (endDate.value==="") endDate.value=startDate.value;
-    //     }
-    // }
     useEffect(() => {
 
     }, []);
@@ -114,7 +103,6 @@ function SearchBar(props: { [key: string]: string|null }) {
                     {/*<input id={"queryText"} type={"text"} {...queryText} />*/}
                     <input id={"queryText"} type={"text"} ref={queryRef} onKeyUp={onEnter} />
                     <button type={"submit"} className={"btn btn-primary"} onClick={search} id={"searchBtn"}>Search</button>
-                    {/*<button type={"submit"} className={"btn btn-primary"} onSubmit={search} id={"searchBtn"}>Search</button>*/}
                 </div>
             </div>
         </>
