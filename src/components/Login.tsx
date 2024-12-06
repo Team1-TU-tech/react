@@ -4,7 +4,6 @@ import {useNavigate} from "react-router-dom"
 import "../css/login.css";
 import kakaoLogin from "../img/kakao_login_medium_narrow.png"
 import {pwEncode} from "../scripts/common";
-import {json} from "node:stream/consumers";
 
 function Login() {
 
@@ -31,28 +30,52 @@ function Login() {
         }
     }
 
-
     // const onSubmit=(e:SubmitEvent)=>{
     //     e.preventDefault()
     //     alert(id.value+pw.value)
     // }
 
-    const kakao=()=>{
+    const kakao=()=> {
         // Object.assign(document.createElement("a"), {
         //     target: '_parent',
         //     href: "http://localhost:8000/getcode"
         // }).click();
-        const w = window.open("http://localhost:8000/getcode", "kakaoLogin", 'width=800, height=1200, left=300, top=300');
-        if(w){
-            w.onbeforeunload = ()=> {
-                console.log(w);
-            };
-            w.close();
-        }
 
-        //window.location.href="http://localhost:8000/getcode"
 
-        //alert("kakao")
+        // const w = window.open("http://localhost:3000/getcode", "kakaoLogin", 'width=800, height=1200, left=300, top=300');
+        // if(w) {
+        //     w.onbeforeunload = () => {
+        //         console.log(w);
+        //     };
+        //     // w.close()
+        // }
+
+        window.location.href="http://localhost:8000/getcode";
+        //window.location.href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id="+process.env.REACT_APP_KAKAO_CLIENT_ID+"&redirect_uri="+process.env.REACT_APP_KAKAO_REDIRECT_URI+"&scope=profile_nickname, profile_image&prompt=login";
+
+
+            //
+            // window.onmessage = function(e){
+            //     // if(e.origin === "https://보낸곳의도메인주소"){
+            //         // 처리
+            //         console.log(e);
+            //     // }
+            // }}
+
+
+            // window.addEventListener('message', function(e) {
+            //     console.log('parent message');
+            //     console.log(e.data); // { childData : 'test data' }
+            //     console.log("e.origin : " + e.origin); //http://123.com(자식창 도메인)
+            //
+            //     if(e.data.childData === 'test data'){
+            //         alert(111111)
+            //     }
+            // });
+
+    //window.location.href="http://localhost:8000/getcode"
+
+    //alert("kakao")
     }
 
     const join=()=>{
@@ -74,7 +97,7 @@ function Login() {
                             <button type="button" className="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close" id={"btn-close"}></button>
                         </div>
-                        <form>
+                        <form id={"loginForm"}>
                             <div className="modal-body" id={"loginForm"}>
                                 <div className="form-floating mb-3">
                                     {/*<input type="text" className="form-control" id="floatingInput" {...id} placeholder="ID" required minLength={4} maxLength={15} />*/}

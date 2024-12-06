@@ -33,6 +33,7 @@ function Header() {
         window.location.reload()
     }
 
+
     return (
         <div id={"header"}>
             <div className={"headerComponents"} id={"headerTop"}>

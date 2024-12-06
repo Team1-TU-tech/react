@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useState} from "react";
 // @ts-ignore
 import {HmacSHA256} from "crypto-js";
 
@@ -47,6 +47,9 @@ const verify=(type:string, target:string)=>{
     }
 }
 
+
+
+
 const locaCode:{[key:string]:string} = {
     "0" : "전국",
     "1" : "서울",
@@ -69,9 +72,48 @@ const locaCodeRev:{[key:string]:string} = {
 }
 const ticketHost:{[key:string]:string} = {
     "1" : "인터파크 티켓",
-    "서울" : "1",
-    "수도권" : "2",
+    "2" : "2",
+    "3" : "3",
 }
 
-export {useInput, pwEncode, verify}
+const mkLoadingPage=()=>{
+
+    const root = document.getElementById("root") as HTMLDivElement;
+    const div = document.createElement("div")
+    div.id="loadingPage"
+    div.style.position = "fixed"
+    div.style.top = "0"
+    div.style.left = "0"
+    div.style.height = "100%"
+    div.style.width = "100%"
+    div.style.backgroundColor = "#FFFFFF"
+    div.style.textAlign = "center"
+    div.style.zIndex="9999"
+
+    const img = document.createElement("img")
+    img.src="/img/loading.gif"
+    img.style.position="fixed"
+    img.style.top = "25vh"
+    img.style.left = "15vw"
+    img.style.width="70vw"
+    img.style.zIndex="9999"
+
+    div.appendChild(img)
+    root.appendChild(div)
+
+    setTimeout(()=>{
+        removeLoadingPage()
+    },1000)
+}
+
+
+const removeLoadingPage=()=>{
+
+    const root = document.getElementById("root") as HTMLDivElement;
+    const loadingPage = document.getElementById("loadingPage") as HTMLDivElement;
+
+    root.removeChild(loadingPage);
+}
+
+export {useInput, pwEncode, verify, mkLoadingPage, removeLoadingPage}
 export {locaCode, locaCodeRev, ticketHost}

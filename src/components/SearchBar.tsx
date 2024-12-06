@@ -20,7 +20,7 @@ function SearchBar(props: { [key: string]: string|null }) {
 
     const locationRef = useRef<HTMLSelectElement>(null);
     const queryLoca=searchParams.get("region")
-    if(locationRef.current) if(queryLoca) locationRef.current.value=locaCodeRev[queryLoca]
+    if(locationRef.current) if(queryLoca) locationRef.current.value=locaCodeRev[queryLoca]?locaCodeRev[queryLoca]:"전국"
     const category = searchParams.get("category")?searchParams.get("category"):""
 
 
@@ -47,7 +47,7 @@ function SearchBar(props: { [key: string]: string|null }) {
 
         //return rst
         //window.location.href="/search?query="+encodeURIComponent(queryText.value)+"&currPage=1"
-        window.location.href= "/search?query="+encodeURIComponent(queryText)+"&region="+(locationRef.current?locaCode[locationRef.current.value]:"")+"&start_date="+startDate.split("-").join(".")+"&end_date="+endDate.split("-").join(".")+"&category="+category+"&currPage=1"        // fetch("http://127.0.0.1:8000/",{
+        window.location.href= "/search?query="+encodeURIComponent(queryText)+"&region="+(locationRef.current && locationRef.current.value!=="전국"?locaCode[locationRef.current.value]:"")+"&start_date="+startDate.split("-").join(".")+"&end_date="+endDate.split("-").join(".")+"&category="+category+"&currPage=1"        // fetch("http://127.0.0.1:8000/",{
         //     method:"GET",
         //     headers:{
         //         "Content-Type": "application/json",
@@ -86,7 +86,7 @@ function SearchBar(props: { [key: string]: string|null }) {
                             d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103zM2.25 8.184l3.897 1.67a.5.5 0 0 1 .262.263l1.67 3.897L12.743 3.52z"/>
                     </svg>
                     <select className="form-select" aria-label="City" id={"city"} ref={locationRef} >
-                        <option value="0" selected>전국</option>
+                        <option selected>전국</option>
                         <option value="1">서울</option>
                         <option value="2">수도권</option>
                         <option value="3">경상</option>

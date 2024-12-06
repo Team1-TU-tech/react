@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React, {useMemo, useRef} from "react";
 import "../css/join.css";
 import {pwEncode, verify} from "../scripts/common";
 import AgreeModal from "./AgreeModal";
@@ -18,17 +18,29 @@ function Join() {
     const phoneNumberRef = useRef<HTMLInputElement>(null);
     const genderRef = useRef<HTMLSelectElement>(null);
 
+
     const agreeAllRef = useRef<HTMLInputElement>(null);
     const agreeAgeRef= useRef<HTMLInputElement>(null);
     const agreeTermsRef= useRef<HTMLInputElement>(null);
     const agreePersonalRef= useRef<HTMLInputElement>(null);
     const agreeMarketingRef= useRef<HTMLInputElement>(null);
 
+
     let toggle=false
 
+    const debounce=(callback:Function, limit = 1000) =>{
+        let timeout:NodeJS.Timeout;
+        return function () {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                /*@ts-ignore*/
+                callback.apply(this);
+            }, limit);
+        };
+    }
 
     const idDuplChk=()=>{
-        if (idRef.current!==null && idRef.current.value.length<4){
+       if (idRef.current!==null && idRef.current.value.length<4){
             if(helpMsgRef.current!==null) helpMsgRef.current.innerHTML= "아이디는 4자 이상이어야 합니다."
         } else {
             // 대충 체크해서 true false 반환 지금은 없으니까 그냥 전환으로 구현
@@ -41,6 +53,7 @@ function Join() {
             }
         }
     }
+    const debouncedValidateId = useMemo(() => debounce(() => idDuplChk(), 350), [] );
 
     const pwCompare=(e:React.KeyboardEvent<HTMLInputElement>)=>{
         if(pwRef.current!==null && pwChkRef.current!==null){
@@ -63,6 +76,8 @@ function Join() {
 
 
     const submit=()=>{
+        const birthday=document.getElementById("birthday") as HTMLInputElement;
+
         fetch("http://localhost:8000/join", {
             method:"POST",
             headers: {
@@ -74,6 +89,8 @@ function Join() {
                 pw:pwRef.current?pwEncode(pwRef.current.value):"",
                 email:emailRef.current?emailRef.current.value:"",
                 phoneNumber:phoneNumberRef.current?phoneNumberRef.current.value:"",
+                gender:genderRef.current?genderRef.current.value:"",
+                birthday:birthday!==null?birthday.value:"",
                 agreeMarketing:agreeMarketingRef.current?agreeMarketingRef.current.checked:false
             })
         }).then((response:Response) => {
@@ -97,39 +114,39 @@ function Join() {
             return
         }
 
-        if(toggle){
-            if (idRef.current!==null && verify("id", idRef.current.value)){
-                if (pwRef.current!==null && verify("pw", pwRef.current.value)){
-                    if (pwChkRef.current!==null && pwRef.current.value===pwChkRef.current.value){
-                        //if (agreeAge.valueOf() &&  agreeTerms.valueOf() && agreePersonal.valueOf()){
-                        if ( (agreeAgeRef.current?agreeAgeRef.current.checked:false) &&  (agreeTermsRef.current?agreeTermsRef.current.checked:false) && (agreePersonalRef.current?agreePersonalRef.current.checked:false) ){
-                            submit()
-                        } else {
-                            alert("서비스 이용에 동의해주세요")
-                        }
+        if(!toggle){   // id 중복체크
+            alert("입력하신 아이디가 이미 존재합니다.")
+            setTimeout(()=>{
+                if(idRef.current) idRef.current.focus()
+            }, 100);
+            return
+        }
+
+        if (idRef.current!==null && verify("id", idRef.current.value)){
+            if (pwRef.current!==null && verify("pw", pwRef.current.value)){
+                if (pwChkRef.current!==null && pwRef.current.value===pwChkRef.current.value){
+                    //if (agreeAge.valueOf() &&  agreeTerms.valueOf() && agreePersonal.valueOf()){
+                    if ( (agreeAgeRef.current?agreeAgeRef.current.checked:false) &&  (agreeTermsRef.current?agreeTermsRef.current.checked:false) && (agreePersonalRef.current?agreePersonalRef.current.checked:false) ){
+                        submit()
                     } else {
-                        alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.")
-                        setTimeout(()=>{
-                            if(pwChkRef.current) pwChkRef.current.focus()
-                        }, 100);
-                        return
+                        alert("서비스 이용에 동의해주세요")
                     }
                 } else {
-                    alert("비밀번호는 영문, 숫자, 특수문자를 조합하여 8~20자리로 입력해야 합니다.")
+                    alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.")
                     setTimeout(()=>{
-                        if(pwRef.current) pwRef.current.focus()
+                        if(pwChkRef.current) pwChkRef.current.focus()
                     }, 100);
                     return
                 }
             } else {
-                alert("아이디는 영문, 숫자를 조합하여 4~15자리로 입력해야 합니다.")
+                alert("비밀번호는 영문, 숫자, 특수문자를 조합하여 8~20자리로 입력해야 합니다.")
                 setTimeout(()=>{
-                    if(idRef.current) idRef.current.focus()
+                    if(pwRef.current) pwRef.current.focus()
                 }, 100);
                 return
             }
         } else {
-            alert("입력하신 아이디가 이미 존재합니다.")
+            alert("아이디는 영문, 숫자를 조합하여 4~15자리로 입력해야 합니다.")
             setTimeout(()=>{
                 if(idRef.current) idRef.current.focus()
             }, 100);
@@ -160,7 +177,7 @@ function Join() {
                 <div className="mb-3">
                     <label htmlFor="inputId" className="form-label">아이디</label>
                     <input type="text" className="form-control" id="inputId" aria-describedby="idHelp" ref={idRef}
-                           placeholder={"4~15자리 영문, 숫자로 입력해주세요"} onKeyUp={idDuplChk} minLength={4} maxLength={15}/>
+                           placeholder={"4~15자리 영문, 숫자로 입력해주세요"} onKeyUp={debouncedValidateId} minLength={4} maxLength={15}/>
                     <div id="idHelp" className="form-text" ref={helpMsgRef}></div>
                 </div>
                 <div className="mb-3">
@@ -184,7 +201,7 @@ function Join() {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="birthday" className="form-label">생년월일</label><br/>
-                    <Calendar />
+                    <Calendar id={"birthday"} placeholder={"생년월일"} />
                 </div>
 
 

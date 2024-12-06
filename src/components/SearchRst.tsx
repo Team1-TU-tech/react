@@ -5,6 +5,8 @@ import SearchRstTop from "./SearchRstTop";
 import SearchRstMain from "./SearchRstMain";
 import {useSearchParams} from "react-router-dom";
 import Pagination from "./Pagination";
+import WeeklyBest from "./WeeklyBest";
+import {mkLoadingPage} from "../scripts/common";
 
 function SearchRst() {
 
@@ -106,6 +108,7 @@ function SearchRst() {
 
     //let data;
     useEffect(()=>{
+        mkLoadingPage()
         // const xhr = new XMLHttpRequest();
         // //xhr.open("GET","http://127.0.0.1:7000/search?"+searchParams.toString());
         // xhr.open("GET","http://127.0.0.1:7000/search");
@@ -137,17 +140,26 @@ function SearchRst() {
             })
             .catch(err => console.log(err))
 
-
     },[queryText, currPage, searchParams])
 
 
     return (
         <>
-            <SearchRstTop query={queryText} />
-            <SearchRstMain rstNum={rstNum} data={data} />
-            <div id={"pagination"}>
+            <SearchRstTop query={queryText}/>
+            <div id={"rstNum"}>티켓 ({rstNum})</div>
+            { rstNum>0?
+                ( <SearchRstMain rstNum={rstNum} data={data}/> )
+                :( <div id={"rstMain"}>
+                        <div id={"noRst"}>
+                            <h4> 검색하신 "{queryText}"에 대한 티켓이 존재하지 않습니다.</h4>
+                            <div>다른 검색어를 입력해주세요</div>
+                        </div>
+                    <WeeklyBest />
+                </div> )
+            }
+    <div id={"pagination"}>
                 <div></div>
-                {totalPage>1?<Pagination totalPage={totalPage} currentPage={currPage} />:<></>}
+                {totalPage > 1 ? <Pagination totalPage={totalPage} currentPage={currPage}/> : <></>}
                 <div></div>
             </div>
         </>

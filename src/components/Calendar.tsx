@@ -1,4 +1,4 @@
-import React from "react";
+import React, {MutableRefObject, useRef} from "react";
 import {useInput} from "../scripts/common";
 //https://sir.kr/bbs/board.php?bo_table=g5_skin&wr_id=18719
 //https://lpla.tistory.com/144
@@ -41,11 +41,12 @@ function Calendar(props:{[key:string]:string|undefined|null}) {
     });
 
     //const date = props.selected.slice(0,4)+"-"+props.selected.slice(4,6)+"-"+props.selected.slice(6,8)
-    const date=useInput(props.selected?props.selected.slice(0,4)+"-"+props.selected.slice(4,6)+"-"+props.selected.slice(6,8):"")
+    //const date=useInput(props.selected?props.selected.slice(0,4)+"-"+props.selected.slice(4,6)+"-"+props.selected.slice(6,8):"")
+
 
     return (
         <>
-            <input className={"datepicker"} id={props.id?props.id:""} placeholder={"📅 "+(props.placeholder?props.placeholder?.toString():"")} {...date} />
+            <input className={"datepicker"} id={props.id?props.id:""} placeholder={"📅 "+(props.placeholder?props.placeholder?.toString():"")} />
         </>
     );
 }

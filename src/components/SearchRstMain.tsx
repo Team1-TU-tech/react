@@ -6,8 +6,6 @@ import {useSearchParams} from "react-router-dom";
 function SearchRstMain(props:{[key:string]:string|number|{[key:string]:string|number|boolean}[]|undefined}) {
 
     const [searchParams, setSearchParams] = useSearchParams();
-    const [rstNum, setRstNum] = useState(0);
-    const rstNumProp = props.rstNum?Number.parseInt(props.rstNum.toString()):0
 
     const currPage=searchParams.get("currPage")
     const currPageNum=currPage?Number.parseInt(currPage):1
@@ -98,15 +96,9 @@ function SearchRstMain(props:{[key:string]:string|number|{[key:string]:string|nu
     const data:{[key:string]:string|number|boolean}[] = (props.data && typeof props.data==="object")?props.data:[]
     const partitionData = data.slice(((currPageNum-1)*50),currPageNum*50)
 
-    useEffect(()=>{
-        setRstNum(rstNum);
-    },[data])
-
-
 
     return (
         <div id={"rstMain"}>
-            <div id={"rstNum"}>티켓 ({rstNumProp})</div>
             <div id={"rstRoot"}>
                 {
                     partitionData.map((d,i)=>{
