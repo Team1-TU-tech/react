@@ -1,10 +1,9 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 
 import "../css/detail.css"
-import {mkLoadingPage, ticketHost} from "../scripts/common";
+import {ticketHost} from "../scripts/common";
 import ErrorPage from "./ErrorPage";
-import AgreeModal from "./AgreeModal";
 import ArtistModal from "./ArtistModal";
 import Loading from "./Loading";
 
@@ -125,7 +124,7 @@ function DetailPage() {
                             (data["hosts"] as Array<string>).map((i, j) => {
                                 /*@ts-ignore*/
                                 return (<a className={"btn btn-primary"} href={i["ticket_url"]}
-                                           target={"_blank"}>{ticketHost[i["site_id"]]}</a>)
+                                           target={"_blank"} rel="noreferrer" >{ticketHost[i["site_id"]]}</a>)
                             })
                         }
                     </div>

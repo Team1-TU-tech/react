@@ -60,7 +60,9 @@ function Login() {
         if (btn_close) btn_close.click()
         navigate("/join")
     }
-
+    const onKeyUp=(e:React.KeyboardEvent<HTMLInputElement>)=>{
+        if(e.keyCode===13) loginLogic()
+    }
 
     return (
         <>
@@ -83,7 +85,7 @@ function Login() {
                                 </div>
                                 <div className="form-floating">
                                     {/*<input type="password" className="form-control" id="floatingPassword" placeholder="Password" {...pw} required minLength={8} maxLength={20} />*/}
-                                    <input type="password" className="form-control" id="floatingPassword" placeholder="Password" ref={pwRef} required minLength={8} maxLength={20} />
+                                    <input type="password" className="form-control" id="floatingPassword" placeholder="Password" ref={pwRef} required minLength={8} maxLength={20} onKeyUp={onKeyUp} />
                                     <label htmlFor="floatingPassword">비밀번호</label>
                                 </div>
                             </div>

@@ -6,7 +6,6 @@ import SearchRstMain from "./SearchRstMain";
 import {useSearchParams} from "react-router-dom";
 import Pagination from "./Pagination";
 import WeeklyBest from "./WeeklyBest";
-import {mkLoadingPage} from "../scripts/common";
 import Loading from "./Loading";
 
 function SearchRst() {
