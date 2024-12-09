@@ -33,5 +33,28 @@
     line-height: 1.1;
 }
 
+#priceLevel{
+    /*display:inline-block;*/
+    padding-right:15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
+#artistList{
+    /*display:grid;*/
+    /*grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;*/
+}
+.artistImg{
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    background-position: center;
+    border-radius: 100%;
+}
+.artistElem{
+    display: inline-block;
+    height: 230px;
+    width: 180px;
+}
 

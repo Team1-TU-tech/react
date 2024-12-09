@@ -43,13 +43,13 @@ function Header() {
     
     const topMenu=(cat:string)=>{
         //navigate("/search?query="+encodeURIComponent(cat)+"&currPage=1")
-        navigate("/search?category="+encodeURIComponent(cat)+"&currPage=1")
+        navigate("/search?query=&region=&start_date=&end_date=&category="+encodeURIComponent(cat)+"&currPage=1")
         window.location.reload()
     }
 
-    alert("loginYN::::::::::::"+loadSession("loginYN"))
-    alert("kakaoToken::::::::::::"+loadSession("kakaoToken"))
-    alert("loginToken::::::::::::"+loadSession("loginToken"))
+    // alert("loginYN::::::::::::"+loadSession("loginYN"))
+    // alert("kakaoToken::::::::::::"+loadSession("kakaoToken"))
+    // alert("loginToken::::::::::::"+loadSession("loginToken"))
 
     return (
         <div id={"header"}>

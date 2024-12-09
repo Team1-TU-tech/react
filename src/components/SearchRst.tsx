@@ -121,23 +121,7 @@ function SearchRst() {
     //let data;
     useEffect(()=>{
         mkLoadingPage()
-        // const xhr = new XMLHttpRequest();
-        // //xhr.open("GET","http://127.0.0.1:7000/search?"+searchParams.toString());
-        // xhr.open("GET","http://127.0.0.1:7000/search");
-        // xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-        //
-        //
-        // xhr.onreadystatechange=function(){
-        //     if(xhr.readyState===4){
-        //         //alert(1)
-        //         console.log(xhr.response);
-        //         const rst=JSON.parse(xhr.response)
-        //         setData(rst)
-        //         setRstNum(rst.length)
-        //         //console.log(data)
-        //     }
-        // }
-        // xhr.send()
+
         loadData()
 
         //fetch("http://127.0.0.1:8000/search?"+searchParams.toString(),{

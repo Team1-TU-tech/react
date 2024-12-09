@@ -5,11 +5,11 @@ function AgreeModal(props:any) {
 
     return (
         <>
-            <span data-bs-toggle="modal" data-bs-target={"#model" + props.tagId} className={"agree-modal"} >
+            <span data-bs-toggle="modal" data-bs-target={"#modal" + props.tagId} className={"agree-modal"} >
                 내용보기
             </span>
 
-            <div className="modal fade" id={"model" + props.tagId} aria-labelledby="loginModalLabel" aria-hidden="true">
+            <div className="modal fade" id={"modal" + props.tagId} aria-labelledby="loginModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
