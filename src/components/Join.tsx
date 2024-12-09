@@ -75,10 +75,10 @@ function Join() {
     }
 
 
-    const submit=()=>{
+    const submit=async ()=>{
         const birthday=document.getElementById("birthday") as HTMLInputElement;
 
-        fetch("http://localhost:8000/join", {
+        await fetch("http://localhost:8000/signup", {
             method:"POST",
             headers: {
                 "Content-Type": "application/json",
@@ -91,13 +91,14 @@ function Join() {
                 phoneNumber:phoneNumberRef.current?phoneNumberRef.current.value:"",
                 gender:genderRef.current?genderRef.current.value:"",
                 birthday:birthday!==null?birthday.value:"",
-                agreeMarketing:agreeMarketingRef.current?agreeMarketingRef.current.checked:false
+                agreeMarketing:agreeMarketingRef.current?agreeMarketingRef.current.checked.toString():false
             })
         }).then((response:Response) => {
             return response.json()
         }).then((json)=>{
             if(json){
-                window.location.href="/";
+                //window.location.href="/";
+                console.log(json)
             }
         })
     }

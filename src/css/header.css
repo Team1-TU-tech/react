@@ -23,6 +23,9 @@
 #loginBtn{ background-image: url(../img/loginBtn.png); background-repeat: no-repeat; background-size: 130px; background-position: center; cursor: pointer; }
 #loginBtn:hover{ background-image: url(../img/loginBtn_hover.png); }
 
+#logoutBtn{ background-image: url(../img/logoutBtn.png); background-repeat: no-repeat; background-size: 170px; background-position: center; cursor: pointer; }
+#logoutBtn:hover{ background-image: url(../img/logoutBtn_hover.png); }
+
 .headerComponents{
 
 }

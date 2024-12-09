@@ -105,6 +105,18 @@ function SearchRst() {
     //     },
     // ]
 
+    const loadData=async ()=>{
+        await fetch("http://localhost:7000/search?"+searchParams.toString(),{
+            method:"GET",
+        })
+            .then(response => response.json())
+            .then((json)=>{
+                console.log(json)
+                setData(json)
+                setRstNum(json.length)
+            })
+            .catch(err => console.log(err))
+    }
 
     //let data;
     useEffect(()=>{
@@ -126,19 +138,10 @@ function SearchRst() {
         //     }
         // }
         // xhr.send()
-
+        loadData()
 
         //fetch("http://127.0.0.1:8000/search?"+searchParams.toString(),{
-        fetch("http://localhost:7000/search?"+searchParams.toString(),{
-            method:"GET",
-        })
-            .then(response => response.json())
-            .then((json)=>{
-                console.log(json)
-                setData(json)
-                setRstNum(json.length)
-            })
-            .catch(err => console.log(err))
+
 
     },[queryText, currPage, searchParams])
 

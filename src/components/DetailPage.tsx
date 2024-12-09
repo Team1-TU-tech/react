@@ -16,10 +16,8 @@ function DetailPage() {
         navigate(-1)
     }
 
-    useEffect(() => {
-        mkLoadingPage()
-
-        fetch("http://localhost:7000/detail/"+id,{
+    const loadData=async ()=>{
+        await fetch("http://localhost:7000/detail/"+id,{
             method: "GET"
         })
             .then(response => response.json())
@@ -29,7 +27,12 @@ function DetailPage() {
                 }
             )
             .catch(err => console.log(err))
-    },[id])
+    }
+
+    useEffect(() => {
+        mkLoadingPage()
+        loadData()
+    }, [id])
 
 // data :
 //     artist : Array(0)
@@ -87,11 +90,11 @@ function DetailPage() {
                         <tr>
                             <th>가격</th>
                             <td>
-                                {
+                                {(data["price"] as Array<string>).length>0?
                                     (data["price"] as Array<string>).map((i, j) => {
                                         /*@ts-ignore*/
-                                        return (<div><span>{i["seat"]}</span><span>{i["price"]}</span></div>)
-                                    })
+                                        return (<div><span style={{display:"inline-block", width:"87px"}}>{i["seat"]}</span><span>{i["price"]}</span></div>)
+                                    }):new Date()<new Date(data["start_date"])?"판매 예정":"판매 종료"
                                 }
                             </td>
                         </tr>

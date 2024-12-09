@@ -12,7 +12,8 @@ import Join from "./components/Join";
 import SearchRst from "./components/SearchRst";
 import Main from "./components/Main";
 import DetailPage from "./components/DetailPage";
-import KakaoCallback from "./components/KakaoCallback";
+import LoginCallback from "./components/Kakao/LoginCallback";
+import LogoutCallback from "./components/Kakao/LogoutCallback";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -32,7 +33,8 @@ root.render(
                 <Route path="/join" element={<Join/>}/>
                 <Route path="/search" element={<SearchRst />}/>
                 <Route path="/detail/:id" element={<DetailPage />}/>
-                <Route path="/callback" element={<KakaoCallback />}/>
+                <Route path="/callback" element={<LoginCallback />}/>
+                <Route path="/callbackLogout" element={<LogoutCallback />}/>
             </Routes>
             <Footer/>
         </BrowserRouter>

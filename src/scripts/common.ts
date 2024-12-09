@@ -115,5 +115,16 @@ const removeLoadingPage=()=>{
     root.removeChild(loadingPage);
 }
 
-export {useInput, pwEncode, verify, mkLoadingPage, removeLoadingPage}
+
+function saveSession(key:string, data:string) {
+    sessionStorage.setItem(key, data);
+}
+function loadSession(key:string) {
+    return sessionStorage.getItem(key);
+}
+function removeSession(key:string) {
+    return sessionStorage.removeItem(key);
+}
+
+export {useInput, pwEncode, verify, mkLoadingPage, removeLoadingPage, saveSession, loadSession, removeSession}
 export {locaCode, locaCodeRev, ticketHost}

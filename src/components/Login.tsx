@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom"
 
 import "../css/login.css";
 import kakaoLogin from "../img/kakao_login_medium_narrow.png"
-import {pwEncode} from "../scripts/common";
+import {pwEncode, saveSession} from "../scripts/common";
 
 function Login() {
 
@@ -13,19 +13,27 @@ function Login() {
     const pwRef=useRef<HTMLInputElement>(null);
 
 
-    const loginLogic=()=>{
+    const loginLogic=async ()=>{
         if((idRef.current && idRef.current.value.length>=4) && (pwRef.current&&pwRef.current.value.length>=8)){
 
-            fetch("http://localhost:8000/login", {
+            await fetch("http://localhost:8000/auth/login", {
                 method:"POST",
                 headers:{
                     "Content-Type":"application/json"
                 },
                 //body: JSON.stringify({id:id.value, pw:encSHA256(pw.value)})
-                body: JSON.stringify({id:idRef.current?idRef.current.value:"", pw:pwRef.current?pwEncode(pwRef.current.value):""})
+                body: JSON.stringify({id:idRef.current?idRef.current.value:"", password:pwRef.current?pwEncode(pwRef.current.value):""})
             })
                 .then(response=> response.json())
-                .then(json=> console.log(json))
+                .then(json=> {
+                        saveSession("loginToken", json["access_token"]);
+                        saveSession("refreshToken", json["refresh_token"]);
+                        saveSession("loginYN", "Y");
+                    }
+                )
+                .then(()=>{
+                    window.location.href="/";
+                })
                 .catch(err=>console.error(err))
         }
     }
