@@ -6,6 +6,7 @@ import {mkLoadingPage, ticketHost} from "../scripts/common";
 import ErrorPage from "./ErrorPage";
 import AgreeModal from "./AgreeModal";
 import ArtistModal from "./ArtistModal";
+import Loading from "./Loading";
 
 
 function DetailPage() {
@@ -13,6 +14,8 @@ function DetailPage() {
     const params = useParams()
     const [data, setData] = useState(null)
     const [artist, setArtist] = useState({})
+    const [isLoading,setIsLoading]=useState(true)
+
     const id=params.id as string;
 
     const back=()=>{
@@ -30,16 +33,18 @@ function DetailPage() {
 
                     let temp={} as {[key:string]:string}
                     json["data"]["artist"].map((i:{[key:string]:string})=>{
-                        temp[i["artist_name"]]=i["artist_url"]
+                        temp[i["artist_name"]]=i["artist_url"].includes("noImage")?"../img/person-circle.svg":i["artist_url"]
                     })
                     setArtist(temp)
                 }
-            )
+            ).then(()=>{
+                setIsLoading(false)
+            })
             .catch(err => console.log(err))
     }
 
     useEffect(() => {
-        mkLoadingPage()
+        //mkLoadingPage()
         loadData()
     }, [id])
 
@@ -69,7 +74,7 @@ function DetailPage() {
 //     title : "연극 ［손 없는 색시］"
 //     _id : "674ebd3aaaaa801633be7055"
 
-    return data?(
+    return isLoading?<Loading />:(data?(
         <div id={"detailPageContainer"}>
             <button className={"btn btn-warning"} onClick={back} style={{position: "relative", left: "70vw", top: "40px"}}>뒤로가기🔙
             </button>
@@ -170,7 +175,7 @@ function DetailPage() {
                 <div id={"detail-description"}>{data["description"]}</div>
             </div>
         </div>
-    ) : (<ErrorPage/>)
+    ) : (<ErrorPage/>))
         ;
 }
 

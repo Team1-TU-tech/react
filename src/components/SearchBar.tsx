@@ -21,7 +21,7 @@ function SearchBar(props: { [key: string]: string|null }) {
     const locationRef = useRef<HTMLSelectElement>(null);
     const queryLoca=searchParams.get("region")
     if(locationRef.current) if(queryLoca) locationRef.current.value=locaCodeRev[queryLoca]?locaCodeRev[queryLoca]:"전국"
-    const category = searchParams.get("category")?searchParams.get("category"):""
+    let category = searchParams.get("category")?searchParams.get("category"):""
 
 
     const search=()=>{
@@ -42,6 +42,10 @@ function SearchBar(props: { [key: string]: string|null }) {
         if (startDate>endDate){
             alert("종료일이 시작일보다 작을 수 없습니다.")
             return;
+        }
+
+        if(["연극", "뮤지컬", "콘서트", "전시", "행사"].includes(queryText as string)){
+            category=queryText
         }
 
 

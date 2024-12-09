@@ -7,6 +7,7 @@ import {useSearchParams} from "react-router-dom";
 import Pagination from "./Pagination";
 import WeeklyBest from "./WeeklyBest";
 import {mkLoadingPage} from "../scripts/common";
+import Loading from "./Loading";
 
 function SearchRst() {
 
@@ -18,6 +19,7 @@ function SearchRst() {
 
     const [data,setData]=useState([])
     const [rstNum,setRstNum]=useState(0)
+    const [isLoading,setIsLoading]=useState(true)
 
     //const totalRst=1001
     const totalPage=Math.ceil(rstNum / 50)
@@ -114,13 +116,14 @@ function SearchRst() {
                 console.log(json)
                 setData(json)
                 setRstNum(json.length)
+                setIsLoading(false)
             })
             .catch(err => console.log(err))
     }
 
     //let data;
     useEffect(()=>{
-        mkLoadingPage()
+        //mkLoadingPage()
 
         loadData()
 
@@ -131,6 +134,7 @@ function SearchRst() {
 
 
     return (
+        isLoading?(<Loading />):(
         <>
             <SearchRstTop query={queryText}/>
             <div id={"rstNum"}>티켓 ({rstNum})</div>
@@ -149,7 +153,7 @@ function SearchRst() {
                 {totalPage > 1 ? <Pagination totalPage={totalPage} currentPage={currPage}/> : <></>}
                 <div></div>
             </div>
-        </>
+        </>)
     );
 }
 
