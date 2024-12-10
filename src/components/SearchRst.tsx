@@ -107,7 +107,7 @@ function SearchRst() {
     // ]
 
     const loadData=async ()=>{
-        await fetch("http://localhost:7000/search?"+searchParams.toString(),{
+        await fetch("http://localhost:7777/search?"+searchParams.toString(),{
             method:"GET",
         })
             .then(response => response.json())

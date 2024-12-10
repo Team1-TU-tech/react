@@ -22,7 +22,7 @@ function DetailPage() {
     }
 
     const loadData=async ()=>{
-        await fetch("http://localhost:7000/detail/"+id,{
+        await fetch("http://localhost:7777/detail/"+id,{
             method: "GET"
         })
             .then(response => response.json())
@@ -30,11 +30,13 @@ function DetailPage() {
                     console.log(json)
                     setData(json["data"])
 
-                    let temp={} as {[key:string]:string}
-                    json["data"]["artist"].map((i:{[key:string]:string})=>{
-                        temp[i["artist_name"]]=i["artist_url"].includes("noImage")?"../img/person-circle.svg":i["artist_url"]
-                    })
-                    setArtist(temp)
+                    if(json["data"]["artist"]!==null){
+                        let temp={} as {[key:string]:string}
+                        json["data"]["artist"].map((i:{[key:string]:string})=>{
+                            temp[i["artist_name"]]=i["artist_url"].includes("noImage")?"../img/person-circle.svg":i["artist_url"]
+                        })
+                        setArtist(temp)
+                    }
                 }
             ).then(()=>{
                 setIsLoading(false)
@@ -106,7 +108,7 @@ function DetailPage() {
                             <th>가격</th>
                             <td>
                                 <table>
-                                    {(data["price"] as Array<string>).length > 0 ?
+                                    {((data["price"] as Array<string>)!==null && (data["price"] as Array<string>).length > 0) ?
                                         (data["price"] as Array<string>).map((i, j) => {
                                             /*@ts-ignore*/
                                             return (<tr>
@@ -123,7 +125,7 @@ function DetailPage() {
                         {
                             (data["hosts"] as Array<string>).map((i, j) => {
                                 /*@ts-ignore*/
-                                return (<a className={"btn btn-primary"} href={i["ticket_url"]}
+                                return (<a className={"btn btn-primary ticketBtn"} href={i["ticket_url"]}
                                            target={"_blank"} rel="noreferrer" >{ticketHost[i["site_id"]]}</a>)
                             })
                         }
@@ -134,7 +136,7 @@ function DetailPage() {
                 <h3 className={"detail-section-title"}>출연진</h3>
                 <div id={"artistList"} style={{textAlign: "center"}}>
                     {
-                        (data["casting"] as Array<string>).length > 0 ?
+                        ((data["casting"] as Array<string>!==null) && (data["casting"] as Array<string>).length > 0) ?
                             (data["casting"] as Array<string>).length > 6 ?
                                 ((data["casting"] as Array<string>).slice(0, 6).map((i, j) => {
                                     /*@ts-ignore*/
@@ -158,13 +160,13 @@ function DetailPage() {
                                             <small>{i["role"]}</small>
                                         </div>)
                                 })
-                            : "확인중"
+                            : "."
                     }
                 </div>
             </div>
             <div style={{textAlign: "center"}}>
                 {(
-                    (data["casting"] as Array<string>).length > 6 ?
+                    ((data["casting"] as Array<string>!==null) && (data["casting"] as Array<string>).length > 6)  ?
                         <ArtistModal artistData={artist} castingData={data["casting"]}/>
                         : <></>
                 )}

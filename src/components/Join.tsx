@@ -43,7 +43,11 @@ function Join() {
     const setIdHelp=async ()=>{
         if(idRef.current!==null){
            if (idRef.current.value.length<4){
-                if(helpMsgRef.current!==null) helpMsgRef.current.innerHTML= "아이디는 4자 이상이어야 합니다."
+                if(helpMsgRef.current!==null) {
+                    helpMsgRef.current.innerHTML = "아이디는 4자 이상이어야 합니다."
+                    helpMsgRef.current.classList.add("no");
+                    helpMsgRef.current.classList.remove("ok");
+                }
            } else {
                // 대충 체크해서 true false 반환 지금은 없으니까 그냥 전환으로 구현
                //idDuplChk(idRef.current.value)
@@ -58,10 +62,18 @@ function Join() {
                        (Boolean(is_taken))
                        if (is_taken){
                            setIdDuplChk(false)
-                           if(helpMsgRef.current!==null) helpMsgRef.current.innerHTML= "사용 가능한 아이디입니다."
+                           if(helpMsgRef.current!==null) {
+                               helpMsgRef.current.innerHTML = "사용 가능한 아이디입니다."
+                               helpMsgRef.current.classList.remove("no");
+                               helpMsgRef.current.classList.add("ok");
+                           }
                        } else {
                            setIdDuplChk(true)
-                           if(helpMsgRef.current!==null) helpMsgRef.current.innerHTML= "이미 사용중인 아이디입니다."
+                           if(helpMsgRef.current!==null) {
+                               helpMsgRef.current.innerHTML = "이미 사용중인 아이디입니다."
+                               helpMsgRef.current.classList.add("no");
+                               helpMsgRef.current.classList.remove("ok");
+                           }
                        }
                    })
                    .catch(err => alert(err))
@@ -75,8 +87,16 @@ function Join() {
     const pwCompare=(e:React.KeyboardEvent<HTMLInputElement>)=>{
         if(pwRef.current!==null && pwChkRef.current!==null){
             if(helpMsgPWRef.current!==null){
-                if(pwRef.current.value===pwChkRef.current.value) helpMsgPWRef.current.innerText="설정한 비밀번호가 일치합니다."
-                else helpMsgPWRef.current.innerText="설정한 비밀번호가 일치하지 않습니다."
+                if(pwRef.current.value===pwChkRef.current.value) {
+                    helpMsgPWRef.current.innerText = "설정한 비밀번호가 일치합니다."
+                    helpMsgPWRef.current.classList.remove("no");
+                    helpMsgPWRef.current.classList.add("ok");
+                }
+                else {
+                    helpMsgPWRef.current.innerText = "설정한 비밀번호가 일치하지 않습니다."
+                    helpMsgPWRef.current.classList.add("no");
+                    helpMsgPWRef.current.classList.remove("ok");
+                }
             }
         }
     }
