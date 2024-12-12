@@ -108,7 +108,7 @@ function DetailPage() {
             </div>
             <div>
                 <h3 className={"detail-section-title"}>출연진</h3>
-                <div id={"artistList"} style={{textAlign: "center"}}>
+                <div id={"artistList"} >
                     {
                         ((data["casting"] as Array<string>!==null) && (data["casting"] as Array<string>).length > 0) ?
                             (data["casting"] as Array<string>).length > 6 ?

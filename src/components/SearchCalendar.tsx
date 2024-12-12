@@ -1,6 +1,4 @@
-import React, {
-    useEffect, useRef
-} from "react";
+import React, { useEffect, useRef } from "react";
 import {useSearchParams} from "react-router-dom";
 //https://sir.kr/bbs/board.php?bo_table=g5_skin&wr_id=18719
 //https://lpla.tistory.com/144
@@ -21,6 +19,7 @@ function SearchCalendar(props:{[key:string]:string|undefined|null}) {
     const endDateRef=useRef<HTMLInputElement>(null);
     if(startDateRef.current) if(from) startDateRef.current.value = nodash2dashed(from)
     if(endDateRef.current) if(to) endDateRef.current.value = nodash2dashed(to)
+
 
     useEffect(()=>{
         /*@ts-ignore*/
