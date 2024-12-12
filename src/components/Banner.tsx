@@ -160,10 +160,11 @@ function Banner() {
         })
             .then(res => res.json())
             .then(json => {
-                console.log(json)
+                //console.log(json)
                 setData(json)
                 setIsLoading(false)
                 /***** banner fetch save ************/
+                localStorage.removeItem("bannerData")
                 localStorage.setItem("bannerData", JSON.stringify(json))
                 /***** banner fetch save ************/
             })

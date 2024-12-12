@@ -29,7 +29,7 @@ function SearchRst() {
         })
             .then(response => response.json())
             .then((json)=>{
-                console.log(json)
+                //console.log(json)
                 setData(json)
                 setRstNum(json.length)
                 setIsLoading(false)
