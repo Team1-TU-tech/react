@@ -14,100 +14,17 @@ function SearchRst() {
     const [searchParams, setSearchParams] = useSearchParams();
 
     const currPage=searchParams.get("currPage")?searchParams.get("currPage"):"1";
-    const queryText=searchParams.get("query")?searchParams.get("query"):"";
+    const queryText=searchParams.get("keyword")?searchParams.get("keyword"):"";
 
     const [data,setData]=useState([])
     const [rstNum,setRstNum]=useState(0)
     const [isLoading,setIsLoading]=useState(true)
 
-    //const totalRst=1001
     const totalPage=Math.ceil(rstNum / 50)
-    // const data = [
-    //     {
-    //         "posterImg": "https://ticketimage.interpark.com/Play/image/large/24/24016997_p.gif",
-    //         "showTitle": "MC스나이퍼 - Back To The Oldschool 3",
-    //         "showLocation": "홍대 무신사 개러지",
-    //         "showDate": "2024년 11월 22일(금) 오후 6시",
-    //         "onSale": true,
-    //         "isExclusive": true,
-    //         "id":1
-    //     },
-    //     {
-    //         "posterImg": "https://ticketimage.interpark.com/Play/image/large/24/24016997_p.gif",
-    //         "showTitle": "MC스나이퍼 - Back To The Oldschool 3",
-    //         "showLocation": "홍대 무신사 개러지",
-    //         "showDate": "2024년 11월 22일(금) 오후 6시",
-    //         "onSale": false,
-    //         "isExclusive": true,
-    //         "id":2
-    //     },
-    //     {
-    //         "posterImg": "https://ticketimage.interpark.com/Play/image/large/24/24016997_p.gif",
-    //         "showTitle": "MC스나이퍼 - Back To The Oldschool 3",
-    //         "showLocation": "홍대 무신사 개러지",
-    //         "showDate": "2024년 11월 22일(금) 오후 6시",
-    //         "onSale": true,
-    //         "isExclusive": false,
-    //         "id":3
-    //     },
-    //     {
-    //         "posterImg": "https://ticketimage.interpark.com/Play/image/large/24/24016997_p.gif",
-    //         "showTitle": "MC스나이퍼 - Back To The Oldschool 3",
-    //         "showLocation": "홍대 무신사 개러지",
-    //         "showDate": "2024년 11월 22일(금) 오후 6시",
-    //         "onSale": true,
-    //         "isExclusive": true,
-    //         "id":4
-    //     },
-    //     {
-    //         "posterImg": "https://ticketimage.interpark.com/Play/image/large/24/24016997_p.gif",
-    //         "showTitle": "MC스나이퍼 - Back To The Oldschool 3",
-    //         "showLocation": "홍대 무신사 개러지",
-    //         "showDate": "2024년 11월 22일(금) 오후 6시",
-    //         "onSale": false,
-    //         "isExclusive": false,
-    //         "id":5
-    //     },
-    //     {
-    //         "posterImg": "https://ticketimage.interpark.com/Play/image/large/24/24016997_p.gif",
-    //         "showTitle": "MC스나이퍼 - Back To The Oldschool 3",
-    //         "showLocation": "홍대 무신사 개러지",
-    //         "showDate": "2024년 11월 22일(금) 오후 6시",
-    //         "onSale": true,
-    //         "isExclusive": true,
-    //         "id":6
-    //     },
-    //     {
-    //         "posterImg": "https://ticketimage.interpark.com/Play/image/large/24/24016997_p.gif",
-    //         "showTitle": "MC스나이퍼 - Back To The Oldschool 3",
-    //         "showLocation": "홍대 무신사 개러지",
-    //         "showDate": "2024년 11월 22일(금) 오후 6시",
-    //         "onSale": true,
-    //         "isExclusive": true,
-    //         "id":7
-    //     },
-    //     {
-    //         "posterImg": "https://ticketimage.interpark.com/Play/image/large/24/24016997_p.gif",
-    //         "showTitle": "MC스나이퍼 - Back To The Oldschool 3",
-    //         "showLocation": "홍대 무신사 개러지",
-    //         "showDate": "2024년 11월 22일(금) 오후 6시",
-    //         "onSale": true,
-    //         "isExclusive": true,
-    //         "id":8
-    //     },
-    //     {
-    //         "posterImg": "https://ticketimage.interpark.com/Play/image/large/24/24016997_p.gif",
-    //         "showTitle": "MC스나이퍼 - Back To The Oldschool 3",
-    //         "showLocation": "홍대 무신사 개러지",
-    //         "showDate": "2024년 11월 22일(금) 오후 6시",
-    //         "onSale": true,
-    //         "isExclusive": true,
-    //         "id":9
-    //     },
-    // ]
+
 
     const loadData=async ()=>{
-        await fetch("http://localhost:7777/search?"+searchParams.toString(),{
+        await fetch(`http://${process.env.REACT_APP_HOST}:7777/search?`+searchParams.toString(),{
             method:"GET",
         })
             .then(response => response.json())
@@ -122,13 +39,7 @@ function SearchRst() {
 
     //let data;
     useEffect(()=>{
-        //mkLoadingPage()
-
         loadData()
-
-        //fetch("http://127.0.0.1:8000/search?"+searchParams.toString(),{
-
-
     },[queryText, currPage, searchParams])
 
 

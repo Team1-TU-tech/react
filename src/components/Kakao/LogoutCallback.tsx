@@ -1,11 +1,11 @@
 import React, {useEffect} from "react";
-import {loadSession, removeSession, saveSession} from "../../scripts/common";
+import {loadSession, removeSession} from "../../scripts/common";
 
 function LogoutCallback() {
 
 
     useEffect(() => {
-        removeSession("loginYN")
+        removeSession("isLogin")
         removeSession("kakaoToken")
 
         if(!loadSession("kakaoToken")) window.location.href="/"

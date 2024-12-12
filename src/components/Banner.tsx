@@ -1,11 +1,11 @@
+import React, {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
+
 import Slider from 'react-slick';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import "../css/banner.css";
-
-import React, {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
 
 
 function BannerEntry(props:{[key:string]:string|number|boolean|undefined}) {
@@ -154,9 +154,8 @@ function Banner() {
     //     }
     // ]
 
-
     const loadData=async ()=> {
-        await fetch("http://localhost:7777/banner", {
+        await fetch(`http://${process.env.REACT_APP_HOST}:7777/banner`, {
             method: "GET"
         })
             .then(res => res.json())
@@ -164,21 +163,33 @@ function Banner() {
                 console.log(json)
                 setData(json)
                 setIsLoading(false)
+                /***** banner fetch save ************/
+                localStorage.setItem("bannerData", JSON.stringify(json))
+                /***** banner fetch save ************/
             })
+            .catch(err=> {
+                console.log("banner\n└", err)
+                const json = localStorage.getItem("bannerData")
+                if(json!==null){
+                    setData(JSON.parse(json))
+                    setIsLoading(false)
+                }
+            });
     }
 
-    useEffect(() => {
+
+
+    useEffect( () => {
         loadData()
     }, []);
 
-
-    return isLoading?<></>:(
+    return isLoading?
+        <div id="bannerLoadingSection" >
+            <img src={"./img/loading.gif"} alt={"Loading"} />
+            <h3>배너 로딩중..</h3>
+        </div>
+        :(
         <Slider {...settings}>
-            {/*{[1,2,3,4,5,6,7,8,9,10,11].map((i)=> {*/}
-            {/*    return (<div style={{width: "10px"}}>*/}
-            {/*        <h3>{i}</h3>*/}
-            {/*    </div>)*/}
-            {/*})}*/}
             {
                 data.map((d,i)=>{
                     /********************************

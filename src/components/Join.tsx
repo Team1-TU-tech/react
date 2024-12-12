@@ -3,7 +3,6 @@ import "../css/join.css";
 import {pwEncode, verify} from "../scripts/common";
 import AgreeModal from "./AgreeModal";
 import Calendar from "./Calendar";
-import {json} from "node:stream/consumers";
 
 
 function Join() {
@@ -49,9 +48,7 @@ function Join() {
                     helpMsgRef.current.classList.remove("ok");
                 }
            } else {
-               // 대충 체크해서 true false 반환 지금은 없으니까 그냥 전환으로 구현
-               //idDuplChk(idRef.current.value)
-               await fetch("http://localhost:8000/check-id",{
+               await fetch(`http://${process.env.REACT_APP_HOST}:8000/signup/check-id`,{
                    method:"POST",
                    headers:{"Content-type":"application/json"},
                    body:JSON.stringify({id:idRef.current.value})
@@ -76,9 +73,11 @@ function Join() {
                            }
                        }
                    })
-                   .catch(err => alert(err))
-
-
+                   .catch(err => {
+                           console.log(err)
+                           alert("오류가 발생하였습니다.\n잠시 후 다시 시도해주세요.")
+                       }
+                   )
            }
         }
     }
@@ -115,7 +114,7 @@ function Join() {
     const submit=async ()=>{
         const birthday=document.getElementById("birthday") as HTMLInputElement;
 
-        await fetch("http://localhost:8000/signup", {
+        await fetch(`http://${process.env.REACT_APP_HOST}:8000/signup/signup`, {
             method:"POST",
             headers: {
                 "Content-Type": "application/json",

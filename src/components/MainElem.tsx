@@ -95,7 +95,7 @@ function MainElem(props: { [key: string]: string | {[key: string]: string|number
                     )
                 })
             }
-            <a className={"gotoTotalBtn"} href={"/search?region=전국&start_date=&end_date=&currPage=1&category=&query="+props.query}>전체보기 {'>'}</a>
+            <a className={"gotoTotalBtn"} href={"/search?region=전국&start_date=&end_date=&currPage=1&category=&keyword="+props.query}>전체보기 {'>'}</a>
         </div>
     );
 }

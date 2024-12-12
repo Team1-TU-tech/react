@@ -4,7 +4,6 @@ import {useNavigate} from "react-router-dom"
 import "../css/login.css";
 import kakaoLogin from "../img/kakao_login_medium_narrow.png"
 import {loadSession, pwEncode, removeSession, saveSession} from "../scripts/common";
-import {json} from "node:stream/consumers";
 
 function Login() {
 
@@ -17,7 +16,7 @@ function Login() {
     const loginLogic=async ()=>{
         if((idRef.current && idRef.current.value.length>=4) && (pwRef.current&&pwRef.current.value.length>=8)){
 
-            await fetch("http://localhost:8000/auth/login", {
+            await fetch(`http://${process.env.REACT_APP_HOST}:8000/auth/login`, {
                 method:"POST",
                 headers:{
                     "Content-Type":"application/json"
@@ -29,17 +28,17 @@ function Login() {
                 .then(json=> {
                         saveSession("loginToken", json["access_token"]);
                         saveSession("refreshToken", json["refresh_token"]);
-                        saveSession("loginYN", "Y");
+                        saveSession("isLogin", true);
                 })
                 .then(()=>{
-                    if (loadSession("loginYN")==="Y"){
+                    if (loadSession("isLogin")){
                         if((loadSession("loginToken")!=="undefined" || loadSession("refreshToken"))!=="undefined"){
                             window.location.href="/";
                         }
                         else {
                             removeSession("loginToken")
                             removeSession("refreshToken")
-                            removeSession("loginYN")
+                            removeSession("isLogin")
                             alert("로그인 과정에서 오류가 생겼습니다.\n다시 시도해주세요.")
                         }
                     }
@@ -52,7 +51,7 @@ function Login() {
     }
 
     const kakao=()=> {
-        window.location.href="http://localhost:8000/getcode";
+        window.location.href=`http://${process.env.REACT_APP_HOST}:8000/kakao/getcode`;
     }
 
     const join=()=>{

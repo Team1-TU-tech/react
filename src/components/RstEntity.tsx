@@ -24,12 +24,6 @@ function RstEntity(props:{[key:string]:string|number|boolean|undefined}) {
                     {props.isExclusive ? <span className="badge text-bg-danger">단독판매</span> : <></>}
                 </div>
             </div>
-            {/*<img src={props.posterImg} alt={"Poster"}/>*/}
-            {/*<div className={"showTitle"}>{props.showTitle}</div>*/}
-            {/*<div className={"showLocation"}>{props.showLocation}</div>*/}
-            {/*<div className={"showDate"}>{props.showDate}</div>*/}
-            {/*<span className="badge text-bg-primary">판매중</span>*/}
-            {/*<span className="badge text-bg-danger">단독판매</span>*/}
         </div>
     );
 }

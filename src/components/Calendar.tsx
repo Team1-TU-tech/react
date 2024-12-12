@@ -26,10 +26,6 @@ function Calendar(props:{[key:string]:string|undefined|null}) {
     // Today 버튼 코드 추가
     /*@ts-ignore*/
     $.datepicker._gotoToday = function(id) {
-        /*@ts-ignore
-        $(id).datepicker('setDate', new Date());*/
-        /*@ts-ignore
-        $(".ui-datepicker").hide().blur();*/
         /*@ts-ignore*/
         $(id).datepicker('setDate', new Date()).datepicker('hide').blur();
     };
@@ -39,10 +35,6 @@ function Calendar(props:{[key:string]:string|undefined|null}) {
         /*@ts-ignore*/
         $(".datepicker").datepicker();
     });
-
-    //const date = props.selected.slice(0,4)+"-"+props.selected.slice(4,6)+"-"+props.selected.slice(6,8)
-    //const date=useInput(props.selected?props.selected.slice(0,4)+"-"+props.selected.slice(4,6)+"-"+props.selected.slice(6,8):"")
-
 
     return (
         <>

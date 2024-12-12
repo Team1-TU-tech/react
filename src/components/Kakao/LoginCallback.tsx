@@ -9,21 +9,21 @@ function LoginCallback() {
 
     if(!code){
         setTimeout(()=>{
-            window.location.href="http://localhost:3000"
+            window.location.href=`http://${process.env.REACT_APP_HOST}:3000`
         },3000)
     }
 
     const login=async ()=>{
-        await fetch("http://localhost:8000/getToken?code="+code,{
+        await fetch(`http://${process.env.REACT_APP_HOST}:8000/kakao/getToken?code=`+code,{
             method: "GET"
         })
             .then(res=> res.json())
-            .then((json) => {
-                saveSession("kakaoToken", json["access_token"]);
-                saveSession("loginYN", "Y");
-            })
+            .then((json) => saveSession("kakaoToken", json["access_token"]) )
             .then(()=>{
-                if(loadSession("token")!=="") window.location.href="/";
+                if(loadSession("kakaoToken")!=="") {
+                    saveSession("isLogin", true);
+                    window.location.href = "/";
+                }
             })
             .catch(err => console.log(err) );
     }
@@ -35,7 +35,6 @@ function LoginCallback() {
     return code?
         <div style={{textAlign:"center", height:"calc(100vh - 125px - 145px)"}}>
             <img src={"/img/loading.gif"} alt="loading" id={"loading"} style={{zIndex: 9999, width: "70%"}} />
-            {/*position:"absolute"  "z-index:10;position:absolute;top: 25vh;left: 15vw;right:0;bottom:0;width: 70vw;"*/}
             <h3>카카오 로그인이 진행중입니다.</h3>
             <h3>잠시만 기다려주세요.</h3>
         </div> :

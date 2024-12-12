@@ -34,7 +34,7 @@ function SearchRstTop(props:{"query":string|null}) {
         <div id={"searchRstTop"}>
             {/*<div id={"searchRstTopTitle"}> "{props.query}"에 대한 검색결과입니다. </div>*/}
             <div id={"searchRstTopTitle"}> "{query}"에 대한 검색결과입니다. </div>
-            <SearchBar queryText={searchParams.get("query")}/>
+            <SearchBar queryText={searchParams.get("keyword")}/>
         </div>
     );
 }
