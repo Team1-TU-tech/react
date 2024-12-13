@@ -17,9 +17,6 @@ function SearchCalendar(props:{[key:string]:string|undefined|null}) {
 
     const startDateRef=useRef<HTMLInputElement>(null);
     const endDateRef=useRef<HTMLInputElement>(null);
-    if(startDateRef.current) if(from) startDateRef.current.value = nodash2dashed(from)
-    if(endDateRef.current) if(to) endDateRef.current.value = nodash2dashed(to)
-
 
     useEffect(()=>{
         /*@ts-ignore*/
@@ -64,9 +61,12 @@ function SearchCalendar(props:{[key:string]:string|undefined|null}) {
             /*@ts-ignore*/
             $("#endDate").datepicker("option", "minDate", $("#startDate").datepicker("getDate"))
         });
-
     })
 
+    useEffect(() => {
+        if(startDateRef.current) if(from) startDateRef.current.value = nodash2dashed(from)
+        if(endDateRef.current) if(to) endDateRef.current.value = nodash2dashed(to)
+    }, []);
 
     return (
         <>

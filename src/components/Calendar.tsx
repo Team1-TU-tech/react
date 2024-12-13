@@ -22,6 +22,7 @@ function Calendar(props:{[key:string]:string|undefined|null}) {
         closeText: "닫기",
         currentText: "오늘",
         showButtonPanel: true,
+        yearRange: 'c-50:c+0'
     });
     // Today 버튼 코드 추가
     /*@ts-ignore*/

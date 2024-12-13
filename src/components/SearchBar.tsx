@@ -15,11 +15,9 @@ function SearchBar(props: { [key: string]: string|null }) {
 
     const query=searchParams.get("keyword")
     const queryRef=useRef<HTMLInputElement>(null);
-    if(queryRef.current) queryRef.current.value = query?query:"";
 
     const locationRef = useRef<HTMLSelectElement>(null);
     const queryLoca=searchParams.get("region")
-    if(locationRef.current) if(queryLoca) locationRef.current.value=locaCodeRev[queryLoca]?locaCodeRev[queryLoca]:"전국"
     let category = searchParams.get("category")?searchParams.get("category"):""
 
 
@@ -51,7 +49,8 @@ function SearchBar(props: { [key: string]: string|null }) {
     }
 
     useEffect(() => {
-
+        if(queryRef.current) queryRef.current.value = query?query:"";
+        if(locationRef.current) if(queryLoca) locationRef.current.value=locaCodeRev[queryLoca]?locaCodeRev[queryLoca]:"전국"
     }, []);
 
     const onEnter=(e:React.KeyboardEvent)=>{
