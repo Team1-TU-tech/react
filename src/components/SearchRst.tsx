@@ -7,7 +7,7 @@ import Pagination from "./Pagination";
 import WeeklyBest from "./WeeklyBest";
 import Loading from "./Loading";
 
-import {testData, testFilter} from "../scripts/common";
+import {loadSession, testData, testFilter} from "../scripts/common";
 import "../css/rstPage.css";
 
 function SearchRst() {
@@ -27,6 +27,7 @@ function SearchRst() {
     const loadData=async ()=>{
         await fetch(`http://${process.env.REACT_APP_HOST}:7777/search?`+searchParams.toString(),{
             method:"GET",
+            body:JSON.stringify({"token":loadSession("loginToken")})
         })
             .then(response => response.json())
             .then((json)=>{

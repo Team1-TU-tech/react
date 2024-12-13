@@ -34,6 +34,12 @@ function Header() {
                     alert("오류가 발생하였습니다.\n잠시 후 다시 시도해주세요.")
                 })
         } else {
+            fetch(`http://${process.env.REACT_APP_HOST}:8000/auth/logout`,{
+                method:"POST",
+                body:JSON.stringify({"token":loadSession("loginToken")})
+            })
+                .then(resp=> console.log(resp))
+
             removeSession("isLogin")
             removeSession("loginToken")
             removeSession("refreshToken")

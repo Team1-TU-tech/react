@@ -5,7 +5,7 @@ import ErrorPage from "./ErrorPage";
 import ArtistModal from "./ArtistModal";
 import Loading from "./Loading";
 
-import {ticketHost} from "../scripts/common";
+import {loadSession, ticketHost} from "../scripts/common";
 import "../css/detail.css"
 
 
@@ -24,7 +24,8 @@ function DetailPage() {
 
     const loadData=async ()=>{
         await fetch(`http://${process.env.REACT_APP_HOST}:7777/detail/`+id,{
-            method: "GET"
+            method: "GET",
+            body:JSON.stringify({"token":loadSession("loginToken")})
         })
             .then(response => response.json())
             .then(json => {
