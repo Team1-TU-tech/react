@@ -10,6 +10,7 @@ ENTRYPOINT ["npm","run","build"]
 ########################################
 FROM node:current-slim
 
-COPY --from=builder /app/build/* app/
+COPY --from=builder /app/build/* /app/
 
-ENTRYPOINT ["npx","serve","-s","build"]
+
+ENTRYPOINT ["npx","serve","-s","/app"]

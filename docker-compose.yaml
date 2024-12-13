@@ -1,7 +1,7 @@
 services:
   web:
-    build: .
-    env_file: # 파일이 여러 개라면 리스트 형태로 삽입한다.
+    env_file: 
       - .env.production
+    build: .
     ports:
-      - "3000:3000"
+      - "3001:3000"

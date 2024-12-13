@@ -23,8 +23,9 @@ function DetailPage() {
     }
 
     const loadData=async ()=>{
-        await fetch(`http://${process.env.REACT_APP_HOST}:7777/detail/`+id,{
+        await fetch(`http://${process.env.REACT_APP_HOST}:8000/detail/`+id,{
             method: "GET",
+            headers:{"Content-Type":"application/json"},
             body:JSON.stringify({"token":loadSession("loginToken")})
         })
             .then(response => response.json())

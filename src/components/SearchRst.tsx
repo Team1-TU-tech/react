@@ -25,8 +25,9 @@ function SearchRst() {
     const totalPage=Math.ceil(rstNum / 50)
 
     const loadData=async ()=>{
-        await fetch(`http://${process.env.REACT_APP_HOST}:7777/search?`+searchParams.toString(),{
+        await fetch(`http://${process.env.REACT_APP_HOST}:8000/search?`+searchParams.toString(),{
             method:"GET",
+            headers:{"Content-Type":"application/json"},
             body:JSON.stringify({"token":loadSession("loginToken")})
         })
             .then(response => response.json())

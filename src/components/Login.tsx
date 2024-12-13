@@ -18,9 +18,7 @@ function Login() {
 
             await fetch(`http://${process.env.REACT_APP_HOST}:8000/auth/login`, {
                 method:"POST",
-                headers:{
-                    "Content-Type":"application/json"
-                },
+                headers:{"Content-Type":"application/json"},
                 //body: JSON.stringify({id:id.value, pw:encSHA256(pw.value)})
                 body: JSON.stringify({id:idRef.current?idRef.current.value:"", password:pwRef.current?pwEncode(pwRef.current.value):""})
             })

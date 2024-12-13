@@ -155,8 +155,8 @@ function Banner() {
     // ]
 
     const loadData=async ()=> {
-        await fetch(`http://${process.env.REACT_APP_HOST}:7777/banner`, {
-            method: "GET"
+        await fetch(`http://${process.env.REACT_APP_HOST}:8000/banner`, {
+            method: "GET",
         })
             .then(res => res.json())
             .then(json => {
@@ -170,11 +170,11 @@ function Banner() {
             })
             .catch(err=> {
                 console.log("banner\n└", err)
-                const json = localStorage.getItem("bannerData")
-                if(json!==null){
-                    setData(JSON.parse(json))
-                    setIsLoading(false)
-                }
+                //const json = localStorage.getItem("bannerData")
+                //if(json!==null){
+                //    setData(JSON.parse(json))
+                //    setIsLoading(false)
+                //}
             });
     }
 
@@ -186,7 +186,7 @@ function Banner() {
 
     return isLoading?
         <div id="bannerLoadingSection" >
-            <img src={"./img/loading.gif"} alt={"Loading"} />
+            <img src={"./static/media/loading.gif"} alt={"Loading"} />
             <h3>배너 로딩중..</h3>
         </div>
         :(

@@ -36,6 +36,7 @@ function Header() {
         } else {
             fetch(`http://${process.env.REACT_APP_HOST}:8000/auth/logout`,{
                 method:"POST",
+                headers:{"Content-Type":"application/json"},
                 body:JSON.stringify({"token":loadSession("loginToken")})
             })
                 .then(resp=> console.log(resp))

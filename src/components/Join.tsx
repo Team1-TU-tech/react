@@ -116,9 +116,7 @@ function Join() {
 
         await fetch(`http://${process.env.REACT_APP_HOST}:8000/signup/signup`, {
             method:"POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
+            headers:{"Content-Type":"application/json"},
             body:JSON.stringify({
                 username:nameRef.current?nameRef.current.value:"",
                 id:idRef.current?idRef.current.value:"",
