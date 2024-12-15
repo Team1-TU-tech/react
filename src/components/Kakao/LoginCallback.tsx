@@ -13,20 +13,55 @@ function LoginCallback() {
         },3000)
     }
 
-    const login=async ()=>{
-        await fetch(`http://${process.env.REACT_APP_HOST}:8000/kakao/getToken?code=`+code,{
-            method: "GET"
-        })
-            .then(res=> res.json())
-            .then((json) => saveSession("kakaoToken", json["access_token"]) )
-            .then(()=>{
-                if(loadSession("kakaoToken")!=="") {
-                    saveSession("isLogin", true);
-                    window.location.href = "/";
-                }
-            })
-            .catch(err => console.log(err) );
-    }
+    // const login=async ()=>{
+    //     await fetch(`http://${process.env.REACT_APP_HOST}:8000/kakao/getToken?code=`+code,{
+    //         method: "GET"
+    //     })
+    //         .then(res=> res.json())
+    //         .then((json) => saveSession("kakaoToken", json["access_token"]) )
+    //         .then(()=>{
+    //             if(loadSession("kakaoToken")!=="") {
+    //                 saveSession("isLogin", true);
+    //                 window.location.href = "/";
+    //             }
+    //         })
+    //         .catch(err => console.log(err) );
+    // }
+
+    const login = async () => {
+        try {
+            const response = await fetch(`http://${process.env.REACT_APP_HOST}:8000/kakao/getToken?code=` + code, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json", // JSON 형식의 데이터로 요청
+                },
+                credentials: "include", // 쿠키 인증 정보를 포함
+            });
+    
+            // CORS 오류 디버깅용
+            console.log("응답 상태 코드:", response.status);
+            console.log("응답 헤더:", [...response.headers]);
+    
+            // 응답 확인
+            if (!response.ok) {
+                throw new Error(`HTTP 에러! 상태 코드: ${response.status}`);
+            }
+    
+            // 응답 JSON 처리
+            const json = await response.json();
+            console.log("응답 데이터:", json);
+    
+            // 세션 저장 및 로그인 확인
+            saveSession("kakaoToken", json["access_token"]);
+            if (loadSession("kakaoToken") !== "") {
+                saveSession("isLogin", true);
+                window.location.href = "/";
+            }
+        } catch (err) {
+            console.error("요청 중 에러 발생:", err);
+        }
+    };
+    
 
     useEffect(() => {
         login()

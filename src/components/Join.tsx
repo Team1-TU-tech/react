@@ -1,6 +1,6 @@
 import React, {useMemo, useRef, useState} from "react";
 import "../css/join.css";
-import {pwEncode, verify} from "../scripts/common";
+import {loadSession, pwEncode, verify} from "../scripts/common";
 import AgreeModal from "./AgreeModal";
 import Calendar from "./Calendar";
 
@@ -50,7 +50,7 @@ function Join() {
            } else {
                await fetch(`http://${process.env.REACT_APP_HOST}:8000/signup/check-id`,{
                    method:"POST",
-                   headers:{"Content-type":"application/json"},
+                   headers:{ "Content-Type":"application/json"},
                    body:JSON.stringify({id:idRef.current.value})
                })
                    .then(res => res.json())
@@ -116,7 +116,7 @@ function Join() {
 
         await fetch(`http://${process.env.REACT_APP_HOST}:8000/signup/signup`, {
             method:"POST",
-            headers:{"Content-Type":"application/json"},
+            headers:{ "Content-Type":"application/json", "Authorization": loadSession("loginToken") ?? ''},
             body:JSON.stringify({
                 username:nameRef.current?nameRef.current.value:"",
                 id:idRef.current?idRef.current.value:"",

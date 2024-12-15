@@ -27,8 +27,7 @@ function SearchRst() {
     const loadData=async ()=>{
         await fetch(`http://${process.env.REACT_APP_HOST}:8000/search?`+searchParams.toString(),{
             method:"GET",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify({"token":loadSession("loginToken")})
+            headers:{ "Content-Type":"application/json", "Authorization": loadSession("loginToken") ?? ''},
         })
             .then(response => response.json())
             .then((json)=>{
