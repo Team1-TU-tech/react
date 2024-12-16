@@ -2,7 +2,8 @@
 
 ### Description
 > TicketMoa의 front-end를 담당하는 application입니다.
-> nginx
+> 
+> Nginx를 Load Balancer로 활용하여 가용성을 높였습니다.
 
 ### Usage
 ```bash
