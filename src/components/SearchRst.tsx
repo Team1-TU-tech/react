@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from "react";
-import "../css/rstPage.css";
+import {useSearchParams} from "react-router-dom";
 
 import SearchRstTop from "./SearchRstTop";
 import SearchRstMain from "./SearchRstMain";
-import {useSearchParams} from "react-router-dom";
 import Pagination from "./Pagination";
 import WeeklyBest from "./WeeklyBest";
 import Loading from "./Loading";
+
+import {testData, testFilter} from "../scripts/common";
+import "../css/rstPage.css";
 
 function SearchRst() {
 
@@ -22,7 +24,6 @@ function SearchRst() {
 
     const totalPage=Math.ceil(rstNum / 50)
 
-
     const loadData=async ()=>{
         await fetch(`http://${process.env.REACT_APP_HOST}:7777/search?`+searchParams.toString(),{
             method:"GET",
@@ -30,8 +31,13 @@ function SearchRst() {
             .then(response => response.json())
             .then((json)=>{
                 //console.log(json)
-                setData(json)
-                setRstNum(json.length)
+                console.log(testData(json))             /**** 나중에 지우기 ****/
+                const fdata=testFilter(json)
+                return fdata
+            })
+            .then((fdata)=>{
+                setData(fdata)
+                setRstNum(fdata.length)
                 setIsLoading(false)
             })
             .catch(err => {

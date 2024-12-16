@@ -126,5 +126,16 @@ function removeSession(key:string) {
     return sessionStorage.removeItem(key);
 }
 
-export {useInput, pwEncode, verify, mkLoadingPage, removeLoadingPage, saveSession, loadSession, removeSession}
+const testFilter=(data)=>{
+    return data.filter(datum=>{
+        return (!(datum["title"] as string).includes("구매금지")) && (!(datum["title"] as string).includes("TEST]")) && (!(datum["title"] as string).includes("구매불가"))
+    })
+}
+const testData=(data)=>{                /**** 나중에 지우기 ****/
+    return data.filter(datum=>{
+        return ((datum["title"] as string).includes("구매금지")) || ((datum["title"] as string).includes("TEST]")) || ((datum["title"] as string).includes("구매불가"))
+    })
+}
+
+export {useInput, pwEncode, verify, mkLoadingPage, removeLoadingPage, saveSession, loadSession, removeSession,testFilter,testData}
 export {locaCode, locaCodeRev, ticketHost}
