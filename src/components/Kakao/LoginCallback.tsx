@@ -1,8 +1,8 @@
 import React, {useEffect} from "react";
-import {redirect, useSearchParams} from "react-router-dom";
-import Session from 'react-session-api'
+import {useSearchParams} from "react-router-dom";
+import {loadSession, saveSession} from "../../scripts/common";
 
-function KakaoCallback() {
+function LoginCallback() {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const code=searchParams.get("code")
@@ -11,24 +11,25 @@ function KakaoCallback() {
         setTimeout(()=>{
             window.location.href="http://localhost:3000"
         },3000)
+    }
 
+    const login=async ()=>{
+        await fetch("http://localhost:8000/getToken?code="+code,{
+            method: "GET"
+        })
+            .then(res=> res.json())
+            .then((json) => {
+                saveSession("kakaoToken", json["access_token"]);
+                saveSession("loginYN", "Y");
+            })
+            .then(()=>{
+                if(loadSession("token")!=="") window.location.href="/";
+            })
+            .catch(err => console.log(err) );
     }
 
     useEffect(() => {
-
-        fetch("http://localhost:8000/getToken?code="+code,{
-                method: "GET"
-            })
-                .then(res=> res.json())
-                .then((json) => {
-                    console.log(json)
-                    Session.set("token", json);
-                })
-                .then(()=>{
-                    Session.get("token")
-                })
-                .catch(err => console.log(err) );
-
+        login()
     },[code])
 
     return code?
@@ -44,4 +45,4 @@ function KakaoCallback() {
         </>;
 }
 
-export default KakaoCallback;
+export default LoginCallback;

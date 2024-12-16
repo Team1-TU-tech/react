@@ -6,7 +6,7 @@ import SearchRstMain from "./SearchRstMain";
 import {useSearchParams} from "react-router-dom";
 import Pagination from "./Pagination";
 import WeeklyBest from "./WeeklyBest";
-import {mkLoadingPage} from "../scripts/common";
+import Loading from "./Loading";
 
 function SearchRst() {
 
@@ -18,6 +18,7 @@ function SearchRst() {
 
     const [data,setData]=useState([])
     const [rstNum,setRstNum]=useState(0)
+    const [isLoading,setIsLoading]=useState(true)
 
     //const totalRst=1001
     const totalPage=Math.ceil(rstNum / 50)
@@ -105,31 +106,8 @@ function SearchRst() {
     //     },
     // ]
 
-
-    //let data;
-    useEffect(()=>{
-        mkLoadingPage()
-        // const xhr = new XMLHttpRequest();
-        // //xhr.open("GET","http://127.0.0.1:7000/search?"+searchParams.toString());
-        // xhr.open("GET","http://127.0.0.1:7000/search");
-        // xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-        //
-        //
-        // xhr.onreadystatechange=function(){
-        //     if(xhr.readyState===4){
-        //         //alert(1)
-        //         console.log(xhr.response);
-        //         const rst=JSON.parse(xhr.response)
-        //         setData(rst)
-        //         setRstNum(rst.length)
-        //         //console.log(data)
-        //     }
-        // }
-        // xhr.send()
-
-
-        //fetch("http://127.0.0.1:8000/search?"+searchParams.toString(),{
-        fetch("http://localhost:7000/search?"+searchParams.toString(),{
+    const loadData=async ()=>{
+        await fetch("http://localhost:7000/search?"+searchParams.toString(),{
             method:"GET",
         })
             .then(response => response.json())
@@ -137,13 +115,25 @@ function SearchRst() {
                 console.log(json)
                 setData(json)
                 setRstNum(json.length)
+                setIsLoading(false)
             })
             .catch(err => console.log(err))
+    }
+
+    //let data;
+    useEffect(()=>{
+        //mkLoadingPage()
+
+        loadData()
+
+        //fetch("http://127.0.0.1:8000/search?"+searchParams.toString(),{
+
 
     },[queryText, currPage, searchParams])
 
 
     return (
+        isLoading?(<Loading />):(
         <>
             <SearchRstTop query={queryText}/>
             <div id={"rstNum"}>티켓 ({rstNum})</div>
@@ -162,7 +152,7 @@ function SearchRst() {
                 {totalPage > 1 ? <Pagination totalPage={totalPage} currentPage={currPage}/> : <></>}
                 <div></div>
             </div>
-        </>
+        </>)
     );
 }
 

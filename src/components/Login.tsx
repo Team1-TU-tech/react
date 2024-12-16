@@ -3,7 +3,8 @@ import {useNavigate} from "react-router-dom"
 
 import "../css/login.css";
 import kakaoLogin from "../img/kakao_login_medium_narrow.png"
-import {pwEncode} from "../scripts/common";
+import {loadSession, pwEncode, removeSession, saveSession} from "../scripts/common";
+import {json} from "node:stream/consumers";
 
 function Login() {
 
@@ -13,69 +14,45 @@ function Login() {
     const pwRef=useRef<HTMLInputElement>(null);
 
 
-    const loginLogic=()=>{
+    const loginLogic=async ()=>{
         if((idRef.current && idRef.current.value.length>=4) && (pwRef.current&&pwRef.current.value.length>=8)){
 
-            fetch("http://localhost:8000/login", {
+            await fetch("http://localhost:8000/auth/login", {
                 method:"POST",
                 headers:{
                     "Content-Type":"application/json"
                 },
                 //body: JSON.stringify({id:id.value, pw:encSHA256(pw.value)})
-                body: JSON.stringify({id:idRef.current?idRef.current.value:"", pw:pwRef.current?pwEncode(pwRef.current.value):""})
+                body: JSON.stringify({id:idRef.current?idRef.current.value:"", password:pwRef.current?pwEncode(pwRef.current.value):""})
             })
                 .then(response=> response.json())
-                .then(json=> console.log(json))
+                .then(json=> {
+                        saveSession("loginToken", json["access_token"]);
+                        saveSession("refreshToken", json["refresh_token"]);
+                        saveSession("loginYN", "Y");
+                })
+                .then(()=>{
+                    if (loadSession("loginYN")==="Y"){
+                        if((loadSession("loginToken")!=="undefined" || loadSession("refreshToken"))!=="undefined"){
+                            window.location.href="/";
+                        }
+                        else {
+                            removeSession("loginToken")
+                            removeSession("refreshToken")
+                            removeSession("loginYN")
+                            alert("로그인 과정에서 오류가 생겼습니다.\n다시 시도해주세요.")
+                        }
+                    }
+                    else {
+                        alert("로그인 과정에서 오류가 생겼습니다.\n다시 시도해주세요.")
+                    }
+                })
                 .catch(err=>console.error(err))
         }
     }
 
-    // const onSubmit=(e:SubmitEvent)=>{
-    //     e.preventDefault()
-    //     alert(id.value+pw.value)
-    // }
-
     const kakao=()=> {
-        // Object.assign(document.createElement("a"), {
-        //     target: '_parent',
-        //     href: "http://localhost:8000/getcode"
-        // }).click();
-
-
-        // const w = window.open("http://localhost:3000/getcode", "kakaoLogin", 'width=800, height=1200, left=300, top=300');
-        // if(w) {
-        //     w.onbeforeunload = () => {
-        //         console.log(w);
-        //     };
-        //     // w.close()
-        // }
-
         window.location.href="http://localhost:8000/getcode";
-        //window.location.href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id="+process.env.REACT_APP_KAKAO_CLIENT_ID+"&redirect_uri="+process.env.REACT_APP_KAKAO_REDIRECT_URI+"&scope=profile_nickname, profile_image&prompt=login";
-
-
-            //
-            // window.onmessage = function(e){
-            //     // if(e.origin === "https://보낸곳의도메인주소"){
-            //         // 처리
-            //         console.log(e);
-            //     // }
-            // }}
-
-
-            // window.addEventListener('message', function(e) {
-            //     console.log('parent message');
-            //     console.log(e.data); // { childData : 'test data' }
-            //     console.log("e.origin : " + e.origin); //http://123.com(자식창 도메인)
-            //
-            //     if(e.data.childData === 'test data'){
-            //         alert(111111)
-            //     }
-            // });
-
-    //window.location.href="http://localhost:8000/getcode"
-
-    //alert("kakao")
     }
 
     const join=()=>{
@@ -83,7 +60,9 @@ function Login() {
         if (btn_close) btn_close.click()
         navigate("/join")
     }
-
+    const onKeyUp=(e:React.KeyboardEvent<HTMLInputElement>)=>{
+        if(e.keyCode===13) loginLogic()
+    }
 
     return (
         <>
@@ -106,7 +85,7 @@ function Login() {
                                 </div>
                                 <div className="form-floating">
                                     {/*<input type="password" className="form-control" id="floatingPassword" placeholder="Password" {...pw} required minLength={8} maxLength={20} />*/}
-                                    <input type="password" className="form-control" id="floatingPassword" placeholder="Password" ref={pwRef} required minLength={8} maxLength={20} />
+                                    <input type="password" className="form-control" id="floatingPassword" placeholder="Password" ref={pwRef} required minLength={8} maxLength={20} onKeyUp={onKeyUp} />
                                     <label htmlFor="floatingPassword">비밀번호</label>
                                 </div>
                             </div>

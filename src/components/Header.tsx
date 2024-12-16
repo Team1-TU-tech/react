@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom";
 import "../css/header.css";
 import Login from "./Login";
 import logo from "../img/TicketMoa-logo.png"
+import {loadSession, removeSession, saveSession} from "../scripts/common";
 
 function Header() {
 
@@ -18,21 +19,37 @@ function Header() {
         window.location.reload();
     }
 
-    const logout=()=>{
-        fetch("http://localhost:8000/logout", {
-            method:"POST"
-        })
-            .then(response=> response.json())
-            .then(json=> console.log(json))
-            .catch(err=>console.log(err))
+    const logout= async ()=>{
+
+        if(loadSession("kakaoToken")!==null){
+            //window.location.href="http://localhost:8000/logout";
+            await fetch("http://localhost:8000/logout", {
+                method:"POST",
+                headers:{"Content-Type":"application/json"},
+                body:JSON.stringify({"kakaoToken":loadSession("kakaoToken")})
+            })
+                .then(response=> window.location.href=response["url"])
+                .catch(err=>console.log(err))
+        } else {
+            removeSession("loginYN")
+            removeSession("loginToken")
+            removeSession("refreshToken")
+
+            if(!loadSession("refreshToken")) window.location.href="/"
+        }
+
+
     }
     
     const topMenu=(cat:string)=>{
         //navigate("/search?query="+encodeURIComponent(cat)+"&currPage=1")
-        navigate("/search?category="+encodeURIComponent(cat)+"&currPage=1")
+        navigate("/search?query=&region=&start_date=&end_date=&category="+encodeURIComponent(cat)+"&currPage=1")
         window.location.reload()
     }
 
+    // alert("loginYN::::::::::::"+loadSession("loginYN"))
+    // alert("kakaoToken::::::::::::"+loadSession("kakaoToken"))
+    // alert("loginToken::::::::::::"+loadSession("loginToken"))
 
     return (
         <div id={"header"}>
@@ -44,7 +61,7 @@ function Header() {
                 {/*<div onClick={join}className={"headerTopBtn"} >회원가입</div>*/}
                 <div onClick={join} className={"headerTopBtn"} id={"joinBtn"}></div>
                 {/*<img src={joinBtn}>*/}
-                {true ? <Login/> : <div onClick={logout} className={"headerTopBtn"} >로그아웃</div>}
+                {loadSession("loginYN")!=="Y" ? <Login/> : <div onClick={logout} className={"headerTopBtn"} id={"logoutBtn"} ></div>}
             </div>
             <div className={"headerComponents"} id={"headerBot"}>
                 <div className={"headerBotBtn"} onClick={()=>{topMenu("콘서트")}} id={"concertBtn"} ></div>

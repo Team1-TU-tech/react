@@ -1,8 +1,9 @@
-import React, {useMemo, useRef} from "react";
+import React, {useMemo, useRef, useState} from "react";
 import "../css/join.css";
 import {pwEncode, verify} from "../scripts/common";
 import AgreeModal from "./AgreeModal";
 import Calendar from "./Calendar";
+import {json} from "node:stream/consumers";
 
 
 function Join() {
@@ -26,7 +27,7 @@ function Join() {
     const agreeMarketingRef= useRef<HTMLInputElement>(null);
 
 
-    let toggle=false
+    const [idDuplChk, setIdDuplChk] = useState(null);
 
     const debounce=(callback:Function, limit = 1000) =>{
         let timeout:NodeJS.Timeout;
@@ -39,21 +40,37 @@ function Join() {
         };
     }
 
-    const idDuplChk=()=>{
-       if (idRef.current!==null && idRef.current.value.length<4){
-            if(helpMsgRef.current!==null) helpMsgRef.current.innerHTML= "아이디는 4자 이상이어야 합니다."
-        } else {
-            // 대충 체크해서 true false 반환 지금은 없으니까 그냥 전환으로 구현
-            if (toggle){
-                toggle=!toggle
-                if(helpMsgRef.current!==null) helpMsgRef.current.innerHTML= "이미 사용중인 아이디입니다."
-            } else {
-                toggle=!toggle
-                if(helpMsgRef.current!==null) helpMsgRef.current.innerHTML= "사용 가능한 아이디입니다."
-            }
+    const setIdHelp=async ()=>{
+        if(idRef.current!==null){
+           if (idRef.current.value.length<4){
+                if(helpMsgRef.current!==null) helpMsgRef.current.innerHTML= "아이디는 4자 이상이어야 합니다."
+           } else {
+               // 대충 체크해서 true false 반환 지금은 없으니까 그냥 전환으로 구현
+               //idDuplChk(idRef.current.value)
+               await fetch("http://localhost:8000/check-id",{
+                   method:"POST",
+                   headers:{"Content-type":"application/json"},
+                   body:JSON.stringify({id:idRef.current.value})
+               })
+                   .then(res => res.json())
+                   .then(json=> json["is_taken"]===false)
+                   .then((is_taken)=>{
+                       (Boolean(is_taken))
+                       if (is_taken){
+                           setIdDuplChk(false)
+                           if(helpMsgRef.current!==null) helpMsgRef.current.innerHTML= "사용 가능한 아이디입니다."
+                       } else {
+                           setIdDuplChk(true)
+                           if(helpMsgRef.current!==null) helpMsgRef.current.innerHTML= "이미 사용중인 아이디입니다."
+                       }
+                   })
+                   .catch(err => alert(err))
+
+
+           }
         }
     }
-    const debouncedValidateId = useMemo(() => debounce(() => idDuplChk(), 350), [] );
+    const debouncedValidateId = useMemo(() => debounce(() => setIdHelp(), 350), [] );
 
     const pwCompare=(e:React.KeyboardEvent<HTMLInputElement>)=>{
         if(pwRef.current!==null && pwChkRef.current!==null){
@@ -75,10 +92,10 @@ function Join() {
     }
 
 
-    const submit=()=>{
+    const submit=async ()=>{
         const birthday=document.getElementById("birthday") as HTMLInputElement;
 
-        fetch("http://localhost:8000/join", {
+        await fetch("http://localhost:8000/signup", {
             method:"POST",
             headers: {
                 "Content-Type": "application/json",
@@ -91,13 +108,14 @@ function Join() {
                 phoneNumber:phoneNumberRef.current?phoneNumberRef.current.value:"",
                 gender:genderRef.current?genderRef.current.value:"",
                 birthday:birthday!==null?birthday.value:"",
-                agreeMarketing:agreeMarketingRef.current?agreeMarketingRef.current.checked:false
+                agreeMarketing:agreeMarketingRef.current?agreeMarketingRef.current.checked.toString():false
             })
-        }).then((response:Response) => {
-            return response.json()
+        }).then((resp) => {
+            return resp.json()
         }).then((json)=>{
             if(json){
-                window.location.href="/";
+                //window.location.href="/";
+                if(json["success"]) window.location.href="/";
             }
         })
     }
@@ -114,7 +132,7 @@ function Join() {
             return
         }
 
-        if(!toggle){   // id 중복체크
+        if(idDuplChk){   // id 중복체크
             alert("입력하신 아이디가 이미 존재합니다.")
             setTimeout(()=>{
                 if(idRef.current) idRef.current.focus()
@@ -177,7 +195,7 @@ function Join() {
                 <div className="mb-3">
                     <label htmlFor="inputId" className="form-label">아이디</label>
                     <input type="text" className="form-control" id="inputId" aria-describedby="idHelp" ref={idRef}
-                           placeholder={"4~15자리 영문, 숫자로 입력해주세요"} onKeyUp={debouncedValidateId} minLength={4} maxLength={15}/>
+                           placeholder={"4~15자리 영문, 숫자로 입력해주세요"} onChange={debouncedValidateId} minLength={4} maxLength={15}/>
                     <div id="idHelp" className="form-text" ref={helpMsgRef}></div>
                 </div>
                 <div className="mb-3">

@@ -1,35 +1,51 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 
 import "../css/detail.css"
-import {mkLoadingPage, removeLoadingPage, ticketHost} from "../scripts/common";
+import {ticketHost} from "../scripts/common";
 import ErrorPage from "./ErrorPage";
+import ArtistModal from "./ArtistModal";
+import Loading from "./Loading";
 
 
 function DetailPage() {
     const navigate=useNavigate()
     const params = useParams()
     const [data, setData] = useState(null)
+    const [artist, setArtist] = useState({})
+    const [isLoading,setIsLoading]=useState(true)
+
     const id=params.id as string;
 
     const back=()=>{
         navigate(-1)
     }
 
-    useEffect(() => {
-        mkLoadingPage()
-
-        fetch("http://localhost:7000/detail/"+id,{
+    const loadData=async ()=>{
+        await fetch("http://localhost:7000/detail/"+id,{
             method: "GET"
         })
             .then(response => response.json())
             .then(json => {
                     console.log(json)
                     setData(json["data"])
+
+                    let temp={} as {[key:string]:string}
+                    json["data"]["artist"].map((i:{[key:string]:string})=>{
+                        temp[i["artist_name"]]=i["artist_url"].includes("noImage")?"../img/person-circle.svg":i["artist_url"]
+                    })
+                    setArtist(temp)
                 }
-            )
+            ).then(()=>{
+                setIsLoading(false)
+            })
             .catch(err => console.log(err))
-    },[id])
+    }
+
+    useEffect(() => {
+        //mkLoadingPage()
+        loadData()
+    }, [id])
 
 // data :
 //     artist : Array(0)
@@ -57,9 +73,11 @@ function DetailPage() {
 //     title : "연극 ［손 없는 색시］"
 //     _id : "674ebd3aaaaa801633be7055"
 
-    return data?(
+    return isLoading?<Loading />:(data?(
         <div id={"detailPageContainer"}>
-            <h1>{data["title"]?data["title"]:params.id+"번 데이터"}</h1>
+            <button className={"btn btn-warning"} onClick={back} style={{position: "relative", left: "70vw", top: "40px"}}>뒤로가기🔙
+            </button>
+            <h1>{data["title"] ? data["title"] : params.id + "번 데이터"}</h1>
             <div id={"detail-top"}>
                 <img src={data["poster_url"]} alt="poster-image"/>
                 <div id={"detail-top-contents"}>
@@ -87,12 +105,17 @@ function DetailPage() {
                         <tr>
                             <th>가격</th>
                             <td>
-                                {
-                                    (data["price"] as Array<string>).map((i, j) => {
-                                        /*@ts-ignore*/
-                                        return (<div><span>{i["seat"]}</span><span>{i["price"]}</span></div>)
-                                    })
-                                }
+                                <table>
+                                    {(data["price"] as Array<string>).length > 0 ?
+                                        (data["price"] as Array<string>).map((i, j) => {
+                                            /*@ts-ignore*/
+                                            return (<tr>
+                                                <td id={"priceLevel"}>{i["seat"]}</td>
+                                                <td>{i["price"]}</td>
+                                            </tr>)
+                                        }) : new Date() < new Date(data["start_date"]) ? "판매 예정" : "판매 종료"
+                                    }
+                                </table>
                             </td>
                         </tr>
                     </table>
@@ -100,7 +123,8 @@ function DetailPage() {
                         {
                             (data["hosts"] as Array<string>).map((i, j) => {
                                 /*@ts-ignore*/
-                                return (<a className={"btn btn-primary"} href={i["ticket_url"]} target={"_blank"}>{ticketHost[i["site_id"]]}</a>)
+                                return (<a className={"btn btn-primary"} href={i["ticket_url"]}
+                                           target={"_blank"} rel="noreferrer" >{ticketHost[i["site_id"]]}</a>)
                             })
                         }
                     </div>
@@ -108,16 +132,50 @@ function DetailPage() {
             </div>
             <div>
                 <h3 className={"detail-section-title"}>출연진</h3>
-                <div>~</div>
+                <div id={"artistList"} style={{textAlign: "center"}}>
+                    {
+                        (data["casting"] as Array<string>).length > 0 ?
+                            (data["casting"] as Array<string>).length > 6 ?
+                                ((data["casting"] as Array<string>).slice(0, 6).map((i, j) => {
+                                    /*@ts-ignore*/
+                                    return (
+                                        <div className={"artistElem"}>
+                                            <div className={"artistImg"}
+                                                 style={{backgroundImage: `url(${artist[i["actor"]]})`}}></div>
+                                            {/*<img src={artist[i["actor"]]} alt={i["actor"]+"-image"} />*/}
+                                            <div>{i["actor"]}</div>
+                                            <small>{i["role"]}</small>
+                                        </div>)
+                                })) :
+                                (data["casting"] as Array<string>).map((i, j) => {
+                                    /*@ts-ignore*/
+                                    return (
+                                        <div className={"artistElem"}>
+                                            <div className={"artistImg"}
+                                                 style={{backgroundImage: `url(${artist[i["actor"]]})`}}></div>
+                                            {/*<img src={artist[i["actor"]]} alt={i["actor"]+"-image"} />*/}
+                                            <div>{i["actor"]}</div>
+                                            <small>{i["role"]}</small>
+                                        </div>)
+                                })
+                            : "확인중"
+                    }
+                </div>
+            </div>
+            <div style={{textAlign: "center"}}>
+                {(
+                    (data["casting"] as Array<string>).length > 6 ?
+                        <ArtistModal artistData={artist} castingData={data["casting"]}/>
+                        : <></>
+                )}
             </div>
             <div>
                 <h3 className={"detail-section-title"}>줄거리</h3>
                 <div id={"detail-description"}>{data["description"]}</div>
             </div>
-            <button className={"btn btn-warning"} onClick={back}>뒤로가기</button>
         </div>
-    ) : (<ErrorPage />)
-    ;
+    ) : (<ErrorPage/>))
+        ;
 }
 
 export default DetailPage;

@@ -55,7 +55,6 @@ function MainElem(props: { [key: string]: string | {[key: string]: string|number
                 if(arg===data[i].id) elem.style.display="grid"
             }
         }
-        //alert("arg::::::"+arg)
     }
 
     setTimeout(()=>{

@@ -216,25 +216,15 @@ function Pagination(props: { [key: string]: string | number | null }) {
             preset.push(i)
         }
     }
-    //console.log("totalPage::: "+totalPage)
-    //console.log("preset::: "+preset)
 
 
-    // alert(currPage && totalPage)
-    // alert(totalPage)
-    // alert(currPage)
     useEffect(()=>{
         if(currPage && totalPage){
             const selected = document.getElementById("page-link-"+currPage.toString())
             if (selected) selected.classList.add("selected")
         }
     },[currPage,totalPage])
-    // window.onload=()=>{
-    //     if(currPage && totalPage){
-    //         const selected = document.getElementById("page-link-"+currPage.toString())
-    //         if (selected) selected.classList.add("selected")
-    //     }
-    // }
+    
 
     return (
         <div id={"pagination"}>
