@@ -1,29 +1,33 @@
-import React from "react";
+import React, {useRef} from "react";
 import {useNavigate} from "react-router-dom"
 
 import "../css/login.css";
 import kakaoLogin from "../img/kakao_login_medium_narrow.png"
-import {useInput, encSHA256} from "../scripts/common";
+import {pwEncode} from "../scripts/common";
 
 function Login() {
 
     const navigate = useNavigate()
 
-    const id=useInput("")
-    const pw=useInput("")
+    const idRef=useRef<HTMLInputElement>(null);
+    const pwRef=useRef<HTMLInputElement>(null);
 
 
     const loginLogic=()=>{
+        if((idRef.current && idRef.current.value.length>=4) && (pwRef.current&&pwRef.current.value.length>=8)){
 
-        fetch("http://localhost:8000/login", {
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body: JSON.stringify({id:id.value, pw:encSHA256(pw.value)})
-        })
-            .then(response=> console.log(response))
-            .catch(err=>console.error(err))
+            fetch("http://localhost:8000/login", {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                //body: JSON.stringify({id:id.value, pw:encSHA256(pw.value)})
+                body: JSON.stringify({id:idRef.current?idRef.current.value:"", pw:pwRef.current?pwEncode(pwRef.current.value):""})
+            })
+                .then(response=> response.json())
+                .then(json=> console.log(json))
+                .catch(err=>console.error(err))
+        }
     }
 
 
@@ -33,6 +37,7 @@ function Login() {
     // }
 
     const kakao=()=>{
+        //window.location.href="http://localhost:7000/getcode"
         alert("kakao")
     }
 
@@ -58,19 +63,19 @@ function Login() {
                         <form>
                             <div className="modal-body" id={"loginForm"}>
                                 <div className="form-floating mb-3">
-                                    <input type="text" className="form-control" id="floatingInput"
-                                           {...id} placeholder="ID" required minLength={4} maxLength={15} />
+                                    {/*<input type="text" className="form-control" id="floatingInput" {...id} placeholder="ID" required minLength={4} maxLength={15} />*/}
+                                    <input type="text" className="form-control" id="floatingInput" ref={idRef} placeholder="ID" required minLength={4} maxLength={15} />
                                     <label htmlFor="floatingInput">아이디</label>
                                 </div>
                                 <div className="form-floating">
-                                    <input type="password" className="form-control" id="floatingPassword"
-                                           placeholder="Password" {...pw} required minLength={8} maxLength={20} />
+                                    {/*<input type="password" className="form-control" id="floatingPassword" placeholder="Password" {...pw} required minLength={8} maxLength={20} />*/}
+                                    <input type="password" className="form-control" id="floatingPassword" placeholder="Password" ref={pwRef} required minLength={8} maxLength={20} />
                                     <label htmlFor="floatingPassword">비밀번호</label>
                                 </div>
                             </div>
                             <div className="modal-footer" id={"login-footer"}>
                                 {/*<button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>*/}
-                                <button type="submit" className="btn btn-primary" onClick={loginLogic} >로그인</button>
+                                <button type="button" className="btn btn-primary" onClick={loginLogic} >로그인</button>
                                 <img src={kakaoLogin} alt={"kakaoLoginBtn"} id={"kakaoLoginBtn"} onClick={kakao}/>
                                 <button type="button" className="btn btn-primary" onClick={join}>회원가입</button>
                             </div>

@@ -4,7 +4,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import "../css/banner.css";
 
-import MainEntity from "./MainEntity";
+import MainEntry from "./MainEntry";
 
 
 function Banner() {
@@ -151,7 +151,8 @@ function Banner() {
                      }
                      ***********************************/
                     return (<div id={"entryWrap"} style={{width: "10px"}}>
-                        <MainEntity
+                        <MainEntry
+                            className={"sliderContainer"}
                             posterImg= {d["posterImg"]}
                             showTitle={d["showTitle"]}
                             showLocation={d["showLocation"]}

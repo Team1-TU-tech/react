@@ -1,4 +1,4 @@
-import {useState} from "react";
+import React, {useRef, useState} from "react";
 // @ts-ignore
 import {HmacSHA256} from "crypto-js";
 
@@ -15,9 +15,12 @@ const useInput=(initValue:string)=>{
 }
 
 const encSHA256=(data:string)=>{
-    return HmacSHA256(data,'enterthegrandline').toString();
+    return HmacSHA256(data,"encore-team1").toString();
 }
 
+const pwEncode=(data:string)=>{
+    return btoa(escape(encodeURIComponent(encSHA256(data))));
+}
 
 
 const verify=(type:string, target:string)=>{
@@ -35,10 +38,25 @@ const verify=(type:string, target:string)=>{
             /* const pattern2 =/^(?:[0-9])+?(?:[A-z])+?(?:[!@#$%&])+?(?:[0-9A-z!@#$%&])*?$/ */
             const pattern3 =/^[ㄱ-힇]{1,5}$/
             return pattern3.test(target)
+        case "pn":
+            /* const pattern2 =/^(?:[0-9])+?(?:[A-z])+?(?:[!@#$%&])+?(?:[0-9A-z!@#$%&])*?$/ */
+            const pattern4 =/^[0-9]{0,11}?$/
+            return pattern4.test(target)
         default:
             return null
     }
 }
 
+const locaCode:{[key:string]:string} = {
+    "0" : "전국",
+    "1" : "서울",
+    "2" : "수도권",
+    "3" : "경상",
+    "4" : "전라",
+    "5" : "강원",
+    "6" : "충청",
+    "7" : "제주"
+}
 
-export {useInput, encSHA256, verify}
+export {useInput, pwEncode, verify}
+export {locaCode}

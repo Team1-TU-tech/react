@@ -22,7 +22,8 @@ function Header() {
         fetch("http://localhost:8000/logout", {
             method:"POST"
         })
-            .then(resp=>console.log(resp))
+            .then(response=> response.json())
+            .then(json=> console.log(json))
             .catch(err=>console.log(err))
     }
     

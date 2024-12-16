@@ -52,10 +52,17 @@
         padding-top: 25px;
       }
     </style>
-
+    <script>
+      window.onload = function () {
+        document.getElementById("spinner").style.display = "none";
+      }
+    </script>
    </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div class="spinner-border text-primary" role="status" id="spinner" style=" position: absolute; left: 50%; top: 50%; z-index: 10; width: 150px; height: 150px; font-size: 100px;">
+      <span class="visually-hidden">Loading...</span>
+    </div>
     <div id="root"></div>
     <!--
       This HTML file is a template.

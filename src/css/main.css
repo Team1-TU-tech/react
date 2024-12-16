@@ -1,10 +1,40 @@
 .App{
-    height: 1500px;
+    height: 3400px;
 }
 
-
-#weekendRecommend{
+.mainSection{
     margin-top:630px;
     align-items: center;
     text-align: center;
+}
+#exclusive, #weeklyBest{ margin-top:30px; }
+
+
+.mainEntryContainer{
+    display: grid;
+    grid-template-columns:1fr 1fr 1fr 1fr;
+}
+
+.mainEntryContainer div {
+    padding-left: 25px;
+    border: none;
+}
+
+.mainEntry{
+    width: 90%;
+}
+
+.mainSectionBtn{
+    margin: 10px;
+}
+
+.gotoTotalBtn {
+    color: gray;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.mainSection .gotoTotalBtn {
+    position: absolute;
+    right: 150px;
 }

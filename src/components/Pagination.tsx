@@ -19,8 +19,11 @@ function JumpTo(props: { [key: string]: string | number | undefined }):JSX.Eleme
     const currNum = Number.parseInt(currPage.toString())
     const totalPage = props.totalPage?props.totalPage:1
     const queryText = props.query
+    const location = props.location
+    const startDate = props.startDate
+    const endDate = props.endDate
 
-    const linkTo="/search?query=" + encodeURIComponent(queryText?queryText:"") + "&currPage="
+    const linkTo="/search?query=" + encodeURIComponent(queryText?queryText:"") +"&location="+location+"&startDate="+startDate+"&endDate="+endDate + "&currPage="
 
     switch (props.to) {
         case "first":
@@ -160,6 +163,9 @@ function Pagination(props: { [key: string]: string | number | null }) {
 
     const currPage = searchParams.get("currPage")
     const queryText = searchParams.get("query")
+    const location= searchParams.get("location")
+    const startDate= searchParams.get("startDate")
+    const endDate= searchParams.get("endDate")
     //const currPage = params.page
     // if (props.totalPage){
     //     let data;
@@ -235,11 +241,15 @@ function Pagination(props: { [key: string]: string | number | null }) {
                     {/*{totalPage!==null&&totalPage>10?<GoFirst />:<></> }*/}
                     {/*{totalPage!==null&&totalPage>10?<GoPrev currPage={currPage?currPage:1} />:<></> }*/}
                     {/*<li className="page-item"><a className="page-link" id={"prevBtn"}>Prev</a></li>*/}
-                    {totalPage!==null&&totalPage>10?<JumpTo to="first" totalPage={totalPage} query={queryText?queryText:""} currPage={currPage?currPage:1} />:<></> }
-                    {totalPage!==null&&totalPage>10?<JumpTo to="prev" totalPage={totalPage} query={queryText?queryText:""} currPage={currPage?currPage:1} />:<></> }
+                    {totalPage!==null&&totalPage>10?<JumpTo to="first" totalPage={totalPage} query={queryText?queryText:""} currPage={currPage?currPage:1} location={location?location:""} startDate={startDate?startDate:""} endDate={endDate?endDate:""}/>:<></> }
+                    {totalPage!==null&&totalPage>10?<JumpTo to="prev" totalPage={totalPage} query={queryText?queryText:""} currPage={currPage?currPage:1} location={location?location:""} startDate={startDate?startDate:""} endDate={endDate?endDate:""}/>:<></> }
                     {
                         // preset.map((d, i) => <li className="page-item"><a className="page-link" href={d.toString()} id={"page-link-"+d}>{d}</a></li>)
-                        preset.map((d, i) => <li className="page-item"><a className="page-link" href={"/search?query="+encodeURIComponent(queryText?queryText:"")+"&currPage="+d.toString()} id={"page-link-"+d}>{d}</a></li>)
+                        preset.map((d, i) =>
+                            <li className="page-item">
+                                <a className="page-link"
+                                   href={"/search?query="+encodeURIComponent(queryText?queryText:"")+"&location="+location+"&startDate="+startDate+"&endDate="+endDate+"&currPage="+d.toString()} id={"page-link-"+d}
+                                >{d}</a></li>)
                     }
                     {/*<li className="page-item"><a className="page-link" href="#">1</a></li>*/}
                     {/*<li className="page-item"><a className="page-link" href="#">2</a></li>*/}
@@ -247,8 +257,8 @@ function Pagination(props: { [key: string]: string | number | null }) {
                     {/*<li className="page-item"><a className="page-link" id={"nextBtn"}>Next</a></li>*/}
                     {/*{totalPage!==null&&totalPage>10?<GoNext totalPage={totalPage} currPage={currPage?currPage:1} />:<></> }*/}
                     {/*{totalPage!==null&&totalPage>10?<GoLast totalPage={totalPage} />:<></> }*/}
-                    {totalPage!==null&&totalPage>10?<JumpTo to="next" totalPage={totalPage} query={queryText?queryText:""} currPage={currPage?currPage:1} />:<></> }
-                    {totalPage!==null&&totalPage>10?<JumpTo to="last" totalPage={totalPage} query={queryText?queryText:""} currPage={currPage?currPage:1} />:<></> }
+                    {totalPage!==null&&totalPage>10?<JumpTo to="next" totalPage={totalPage} query={queryText?queryText:""} currPage={currPage?currPage:1} location={location?location:""} startDate={startDate?startDate:""} endDate={endDate?endDate:""}/>:<></> }
+                    {totalPage!==null&&totalPage>10?<JumpTo to="last" totalPage={totalPage} query={queryText?queryText:""} currPage={currPage?currPage:1} location={location?location:""} startDate={startDate?startDate:""} endDate={endDate?endDate:""}/>:<></> }
                 </ul>
             </nav>
         </div>
