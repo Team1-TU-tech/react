@@ -24,7 +24,7 @@ function JumpTo(props: { [key: string]: string | number | undefined }):JSX.Eleme
     const endDate = props.endDate
     const category = props.category
 
-    const linkTo="/search?query=" + encodeURIComponent(queryText?queryText:"") +"&region="+location+"&start_date="+startDate+"&end_date="+endDate + "&category="+category + "&currPage="
+    const linkTo="/search?keyword=" + encodeURIComponent(queryText?queryText:"") +"&region="+location+"&start_date="+startDate+"&end_date="+endDate + "&category="+category + "&currPage="
 
     switch (props.to) {
         case "first":
@@ -163,45 +163,11 @@ function Pagination(props: { [key: string]: string | number | null }) {
     const [searchParams, setSearchParams] = useSearchParams();
 
     const currPage = searchParams.get("currPage")
-    const queryText = searchParams.get("query")
+    const queryText = searchParams.get("keyword")
     const location= searchParams.get("region")
     const startDate= searchParams.get("start_date")
     const endDate= searchParams.get("end_date")
     const category= searchParams.get("category")
-    //const currPage = params.page
-    // if (props.totalPage){
-    //     let data;
-    //     for(let i=1;i<props.totalPage+1;i++){
-    //
-    //     }
-    // }
-
-    // const createEntry=(value:string)=> {
-    //
-    //     const li = document.createElement("li")
-    //     const a = document.createElement("a")
-    //
-    //     li.classList.add("page-item")
-    //     a.classList.add("page-link")
-    //     a.href = "#"
-    //     a.innerText=value
-    //
-    //     li.appendChild(a)
-    //
-    //     return li
-    // }
-    //
-    // if (totalPage>1){
-    //     const naviRoot:HTMLElement|null = document.getElementById("naviRoot");
-    //
-    //     if (naviRoot){
-    //         naviRoot.append(createEntry("Prev"))
-    //         for(let i=1;i<=totalPage;i++){
-    //             naviRoot.append(createEntry(i.toString()))
-    //         }
-    //         naviRoot.append(createEntry("Next"))
-    //     }
-    // }
 
     const totalPage = props.totalPage
 
@@ -210,7 +176,6 @@ function Pagination(props: { [key: string]: string | number | null }) {
         const currPageNum = Number.parseInt(currPage)
         const calc = (n:number)=>{return n-(n%10)+1}
         const initPage = currPageNum%10>0?calc(currPageNum):currPageNum-9
-        //console.log("initPage:: "+initPage)
 
         for (let i = initPage; i <= Math.min(Number.parseFloat(totalPage.toString()),initPage+9); i++) {
             preset.push(i)
@@ -230,25 +195,15 @@ function Pagination(props: { [key: string]: string | number | null }) {
         <div id={"pagination"}>
             <nav aria-label="Page navigation">
                 <ul className="pagination" id={"naviRoot"}>
-                    {/*{totalPage!==null&&totalPage>10?<GoFirst />:<></> }*/}
-                    {/*{totalPage!==null&&totalPage>10?<GoPrev currPage={currPage?currPage:1} />:<></> }*/}
-                    {/*<li className="page-item"><a className="page-link" id={"prevBtn"}>Prev</a></li>*/}
                     {totalPage!==null&&totalPage>10?<JumpTo to="first" totalPage={totalPage} query={queryText?queryText:""} currPage={currPage?currPage:1} location={location?location:""} startDate={startDate?startDate:""} endDate={endDate?endDate:""} category={category?category:""} />:<></> }
                     {totalPage!==null&&totalPage>10?<JumpTo to="prev" totalPage={totalPage} query={queryText?queryText:""} currPage={currPage?currPage:1} location={location?location:""} startDate={startDate?startDate:""} endDate={endDate?endDate:""} category={category?category:""} />:<></> }
                     {
-                        // preset.map((d, i) => <li className="page-item"><a className="page-link" href={d.toString()} id={"page-link-"+d}>{d}</a></li>)
                         preset.map((d, i) =>
                             <li className="page-item">
                                 <a className="page-link"
-                                   href={"/search?query="+encodeURIComponent(queryText?queryText:"")+"&region="+location+"&start_date="+startDate+"&end_date="+endDate+"&category="+category+"&currPage="+d.toString()} id={"page-link-"+d}
+                                   href={"/search?keyword="+encodeURIComponent(queryText?queryText:"")+"&region="+location+"&start_date="+startDate+"&end_date="+endDate+"&category="+category+"&currPage="+d.toString()} id={"page-link-"+d}
                                 >{d}</a></li>)
                     }
-                    {/*<li className="page-item"><a className="page-link" href="#">1</a></li>*/}
-                    {/*<li className="page-item"><a className="page-link" href="#">2</a></li>*/}
-                    {/*<li className="page-item"><a className="page-link" href="#">3</a></li>*/}
-                    {/*<li className="page-item"><a className="page-link" id={"nextBtn"}>Next</a></li>*/}
-                    {/*{totalPage!==null&&totalPage>10?<GoNext totalPage={totalPage} currPage={currPage?currPage:1} />:<></> }*/}
-                    {/*{totalPage!==null&&totalPage>10?<GoLast totalPage={totalPage} />:<></> }*/}
                     {totalPage!==null&&totalPage>10?<JumpTo to="next" totalPage={totalPage} query={queryText?queryText:""} currPage={currPage?currPage:1} location={location?location:""} startDate={startDate?startDate:""} endDate={endDate?endDate:""} category={category?category:""} />:<></> }
                     {totalPage!==null&&totalPage>10?<JumpTo to="last" totalPage={totalPage} query={queryText?queryText:""} currPage={currPage?currPage:1} location={location?location:""} startDate={startDate?startDate:""} endDate={endDate?endDate:""} category={category?category:""} />:<></> }
                 </ul>

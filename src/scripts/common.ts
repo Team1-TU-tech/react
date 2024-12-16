@@ -72,7 +72,7 @@ const locaCodeRev:{[key:string]:string} = {
 }
 const ticketHost:{[key:string]:string} = {
     "1" : "인터파크 티켓",
-    "2" : "2",
+    "2" : "예스24 티켓",
     "3" : "3",
 }
 

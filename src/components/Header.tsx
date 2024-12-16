@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 import "../css/header.css";
 import Login from "./Login";
 import logo from "../img/TicketMoa-logo.png"
-import {loadSession, removeSession, saveSession} from "../scripts/common";
+import {loadSession, removeSession} from "../scripts/common";
 
 function Header() {
 
@@ -23,7 +23,7 @@ function Header() {
 
         if(loadSession("kakaoToken")!==null){
             //window.location.href="http://localhost:8000/logout";
-            await fetch("http://localhost:8000/logout", {
+            await fetch(`http://${process.env.REACT_APP_HOST}:8000/kakao/logout`, {
                 method:"POST",
                 headers:{"Content-Type":"application/json"},
                 body:JSON.stringify({"kakaoToken":loadSession("kakaoToken")})
@@ -31,7 +31,7 @@ function Header() {
                 .then(response=> window.location.href=response["url"])
                 .catch(err=>console.log(err))
         } else {
-            removeSession("loginYN")
+            removeSession("isLogin")
             removeSession("loginToken")
             removeSession("refreshToken")
 
@@ -42,26 +42,16 @@ function Header() {
     }
     
     const topMenu=(cat:string)=>{
-        //navigate("/search?query="+encodeURIComponent(cat)+"&currPage=1")
         navigate("/search?query=&region=&start_date=&end_date=&category="+encodeURIComponent(cat)+"&currPage=1")
         window.location.reload()
     }
 
-    // alert("loginYN::::::::::::"+loadSession("loginYN"))
-    // alert("kakaoToken::::::::::::"+loadSession("kakaoToken"))
-    // alert("loginToken::::::::::::"+loadSession("loginToken"))
-
     return (
         <div id={"header"}>
             <div className={"headerComponents"} id={"headerTop"}>
-                {/*<div>*/}
                 <img src={logo} alt="Logo" onClick={index} id="logo" className={"headerTopBtn"} />
-                {/*</div>*/}
-                {/*<Link to={"/join"}>회원가입</Link>*/}
-                {/*<div onClick={join}className={"headerTopBtn"} >회원가입</div>*/}
                 <div onClick={join} className={"headerTopBtn"} id={"joinBtn"}></div>
-                {/*<img src={joinBtn}>*/}
-                {loadSession("loginYN")!=="Y" ? <Login/> : <div onClick={logout} className={"headerTopBtn"} id={"logoutBtn"} ></div>}
+                {!loadSession("isLogin") ? <Login/> : <div onClick={logout} className={"headerTopBtn"} id={"logoutBtn"} ></div>}
             </div>
             <div className={"headerComponents"} id={"headerBot"}>
                 <div className={"headerBotBtn"} onClick={()=>{topMenu("콘서트")}} id={"concertBtn"} ></div>

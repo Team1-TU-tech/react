@@ -16,3 +16,10 @@ form {
 
 body{
 }
+
+.ok{
+    color: #0d6efd;
+}
+.no{
+    color: red;
+}

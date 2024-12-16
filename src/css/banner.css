@@ -44,3 +44,21 @@
     color:gray;
     font-size:100px;
 }
+.bannerImg{
+    height: 300px;
+}
+
+.bannerBody{
+    height: 100px;
+    border-radius: 0;
+}
+
+#bannerLoadingSection{
+    position: absolute;
+    left: 0;
+    width:100%;
+    text-align:center;
+}
+#bannerLoadingSection img {
+    width:90%;
+}

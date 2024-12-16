@@ -71,6 +71,10 @@ function MainElem(props: { [key: string]: string | {[key: string]: string|number
                 {
                     data.map((i, j) => {
                         return (<button className={"btn btn-primary mainSectionBtn"} onClick={()=>{disp(i["id"] as string)}}>{i["name"]}</button>)
+
+                        //  (<>
+                        // <input type="radio" id={i["id"]} name={props.name} />
+                        // <label className="btn btn-secondary" for={i["id"]} onClick={() => { disp(i["id"] as string) }}>{i["name"]}</label> </>)
                     })
                 }
                 {/*{*/}
@@ -91,7 +95,7 @@ function MainElem(props: { [key: string]: string | {[key: string]: string|number
                     )
                 })
             }
-            <a className={"gotoTotalBtn"} href={"/search?region=전국&start_date=&end_date=&currPage=1&category=&query="+props.query}>전체보기 {'>'}</a>
+            <a className={"gotoTotalBtn"} href={"/search?region=전국&start_date=&end_date=&currPage=1&category=&keyword="+props.query}>전체보기 {'>'}</a>
         </div>
     );
 }

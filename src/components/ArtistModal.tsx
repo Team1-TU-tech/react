@@ -19,8 +19,7 @@ function ArtistModal(props:any) {
                         </div>
                         <form>
                             <div className="modal-body">
-                                {props.castingData.map((i) => {
-                                    /*@ts-ignore*/
+                                {props.castingData.map((i:{[key:string]:string}) => {
                                     return (
                                         <div className={"artistElem"}>
                                             <div className={"artistImg"}

@@ -9,12 +9,11 @@ import {locaCode, locaCodeRev} from "../scripts/common";
 
 function SearchBar(props: { [key: string]: string|null }) {
 
-    //const navigate = useNavigate()
-    //const params = useParams()
+
     const [searchParams, setSearchParams] = useSearchParams();
 
 
-    const query=searchParams.get("query")
+    const query=searchParams.get("keyword")
     const queryRef=useRef<HTMLInputElement>(null);
     if(queryRef.current) queryRef.current.value = query?query:"";
 
@@ -25,7 +24,6 @@ function SearchBar(props: { [key: string]: string|null }) {
 
 
     const search=()=>{
-        //navigate("/search?query="+encodeURIComponent(queryText.value)+"&currPage=1")
 
         const queryInput=document.getElementById("queryText") as HTMLInputElement;
         const queryText = queryInput!==null?queryInput.value:"";
@@ -49,25 +47,7 @@ function SearchBar(props: { [key: string]: string|null }) {
         }
 
 
-        //return rst
-        //window.location.href="/search?query="+encodeURIComponent(queryText.value)+"&currPage=1"
-        window.location.href= "/search?query="+encodeURIComponent(queryText)+"&region="+(locationRef.current && locationRef.current.value!=="전국"?locaCode[locationRef.current.value]:"")+"&start_date="+startDate.split("-").join(".")+"&end_date="+endDate.split("-").join(".")+"&category="+category+"&currPage=1"        // fetch("http://127.0.0.1:8000/",{
-        //     method:"GET",
-        //     headers:{
-        //         "Content-Type": "application/json",
-        //     },
-        //     body:JSON.stringify({
-        //         query:queryText,
-        //         /*@ts-ignore*/
-        //         startDate:document.getElementById("startDate").value,
-        //         /*@ts-ignore*/
-        //         endDate:document.getElementById("endDate").value,
-        //         /*@ts-ignore*/
-        //         location:document.getElementById("city").value
-        //     })
-        // }).then((response)=>{
-        //     return response.json();
-        // }).then(json=>{console.log(json)});
+        window.location.href= "/search?keyword="+encodeURIComponent(queryText)+"&region="+(locationRef.current && locationRef.current.value!=="전국"?locaCode[locationRef.current.value]:"")+"&start_date="+startDate.split("-").join(".")+"&end_date="+endDate.split("-").join(".")+"&category="+category+"&currPage=1"        // fetch("http://127.0.0.1:8000/",{
     }
 
     useEffect(() => {
@@ -104,7 +84,6 @@ function SearchBar(props: { [key: string]: string|null }) {
                 {/*<Calendar placeholder={"종료일"} id={"endDate"} selected={searchParams.get("endDate")} />*/}
                 <SearchCalendar />
                 <div className={"input-group"}>
-                    {/*<input id={"queryText"} type={"text"} {...queryText} />*/}
                     <input id={"queryText"} type={"text"} ref={queryRef} onKeyUp={onEnter} />
                     <button type={"submit"} className={"btn btn-primary"} onClick={search} id={"searchBtn"}>Search</button>
                 </div>
