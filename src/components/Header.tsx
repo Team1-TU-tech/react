@@ -25,8 +25,11 @@ function Header() {
             //window.location.href="http://localhost:8000/logout";
             await fetch(`http://${process.env.REACT_APP_HOST}:8000/kakao/logout`, {
                 method:"POST",
-                headers:{"Content-Type":"application/json"},
-                body:JSON.stringify({"kakaoToken":loadSession("kakaoToken")})
+                headers:{
+                    "Content-Type":"application/json",
+                    "Authorization": loadSession("kakaoToken") as string
+                },
+                //body:JSON.stringify({"kakaoToken":loadSession("kakaoToken")})
             })
                 .then(response=> window.location.href=response["url"])
                 .catch(err=> {
@@ -36,8 +39,11 @@ function Header() {
         } else {
             fetch(`http://${process.env.REACT_APP_HOST}:8000/auth/logout`,{
                 method:"POST",
-                headers:{"Content-Type":"application/json"},
-                body:JSON.stringify({"token":loadSession("loginToken")})
+                headers:{
+                    "Content-Type":"application/json",
+                    "Authorization": loadSession("loginToken") as string
+                },
+                //body:JSON.stringify({"token":loadSession("loginToken")})
             })
                 .then(resp=> console.log(resp))
 
