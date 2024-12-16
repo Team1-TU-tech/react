@@ -14,6 +14,7 @@ import Main from "./components/Main";
 import DetailPage from "./components/DetailPage";
 import LoginCallback from "./components/Kakao/LoginCallback";
 import LogoutCallback from "./components/Kakao/LogoutCallback";
+import JoinCongratuation from "./components/JoinCongratuation";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -35,6 +36,7 @@ root.render(
                 <Route path="/detail/:id" element={<DetailPage />}/>
                 <Route path="/callback" element={<LoginCallback />}/>
                 <Route path="/callbackLogout" element={<LogoutCallback />}/>
+                <Route path="/join/success" element={<JoinCongratuation />}/>
             </Routes>
             <Footer/>
         </BrowserRouter>

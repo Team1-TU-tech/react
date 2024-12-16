@@ -28,7 +28,7 @@ function DetailPage() {
         })
             .then(response => response.json())
             .then(json => {
-                    console.log(json)
+                    //console.log(json)
                     setData(json["data"])
 
                     if(json["data"]["artist"]!==null){
@@ -42,7 +42,11 @@ function DetailPage() {
             ).then(()=>{
                 setIsLoading(false)
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                console.log(err)
+                alert("오류가 발생하였습니다.\n잠시 후 다시 시도해주세요.")
+                navigate(-1)
+            })
     }
 
     useEffect(() => {
@@ -108,7 +112,7 @@ function DetailPage() {
             </div>
             <div>
                 <h3 className={"detail-section-title"}>출연진</h3>
-                <div id={"artistList"} style={{textAlign: "center"}}>
+                <div id={"artistList"} >
                     {
                         ((data["casting"] as Array<string>!==null) && (data["casting"] as Array<string>).length > 0) ?
                             (data["casting"] as Array<string>).length > 6 ?

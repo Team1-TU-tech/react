@@ -44,6 +44,8 @@
 #artistList{
     /*display:grid;*/
     /*grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;*/
+    width: 1092px;
+    text-align: center
 }
 .artistImg{
     display: inline-block;
