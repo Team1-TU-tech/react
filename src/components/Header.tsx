@@ -15,6 +15,7 @@ function Header() {
 
     const index=()=>{
         navigate("/")
+        window.location.reload();
     }
 
     const logout=()=>{
@@ -37,13 +38,15 @@ function Header() {
                 <img src={logo} alt="Logo" onClick={index} id="logo" className={"headerTopBtn"} />
                 {/*</div>*/}
                 {/*<Link to={"/join"}>회원가입</Link>*/}
-                <div onClick={join}className={"headerTopBtn"} >회원가입</div>
+                {/*<div onClick={join}className={"headerTopBtn"} >회원가입</div>*/}
+                <div onClick={join} className={"headerTopBtn"} id={"joinBtn"}></div>
+                {/*<img src={joinBtn}>*/}
                 {true ? <Login/> : <div onClick={logout} className={"headerTopBtn"} >로그아웃</div>}
             </div>
             <div className={"headerComponents"} id={"headerBot"}>
-                <div className={"headerBotBtn"} onClick={()=>{topMenu("콘서트")}} >콘서트</div>
-                <div className={"headerBotBtn"} onClick={()=>{topMenu("뮤지컬/연극")}} >뮤지컬/연극</div>
-                <div className={"headerBotBtn"} onClick={()=>{topMenu("전시/행사")}} >전시/행사</div>
+                <div className={"headerBotBtn"} onClick={()=>{topMenu("콘서트")}} id={"concertBtn"} ></div>
+                <div className={"headerBotBtn"} onClick={()=>{topMenu("뮤지컬/연극")}} id={"musicalBtn"} ></div>
+                <div className={"headerBotBtn"} onClick={()=>{topMenu("전시/행사")}} id={"exhibitBtn"} ></div>
                 <div> </div>
             </div>
         </div>

@@ -95,7 +95,7 @@ function SearchRstMain(props:{[key:string]:string|number|{[key:string]:string|nu
     //         "id":9
     //     },
     // ]
-    const data:{[key:string]:string|number|boolean}[] = props.data&&typeof props.data=="object"?props.data:[]
+    const data:{[key:string]:string|number|boolean}[] = props.data&&typeof props.data==="object"?props.data:[]
     const partitionData = data.slice(((currPageNum-1)*50),currPageNum*50)
 
     useEffect(()=>{

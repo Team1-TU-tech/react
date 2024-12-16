@@ -1,9 +1,11 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useSearchParams} from "react-router-dom";  //https://velog.io/@leah1225/React-%EC%BF%BC%EB%A6%AC-%EC%8A%A4%ED%8A%B8%EB%A7%81Query-String
 
 import "../css/searchBar.css";
 import {useInput} from "../scripts/common";
 import Calendar from "./Calendar";
+import SearchCalendar from "./SearchCalendar";
+import SearchBarInput from "./SearchBarInput";
 
 
 function SearchBar(props: { [key: string]: string|null }) {
@@ -14,25 +16,34 @@ function SearchBar(props: { [key: string]: string|null }) {
     const [location,setLocation] = useState(0);
 
 
-
-    const query=searchParams.get("query")
-    const queryText = useInput(query!==null?query:"");
+    //const query=searchParams.get("query")
+    //const queryText = useInput(props.queryText?props.queryText:query!==null?query:"");
     //alert(startDate.toJSON().split("T")[0])
 
     const search=()=>{
         //navigate("/search?query="+encodeURIComponent(queryText.value)+"&currPage=1")
 
+        const queryInput=document.getElementById("queryText") as HTMLInputElement;
+        const queryText = queryInput!==null?queryInput.value:"";
         /*@ts-ignore*/
         const startDate=$("#startDate").val()
         /*@ts-ignore*/
         const endDate=$("#endDate").val()
 
+        if((startDate!=="") !== (endDate!=="")){
+            alert("시작일과 종료일을 모두 입력해주세요.")
+            return;
+        }
 
+        if (startDate>endDate){
+            alert("종료일이 시작일보다 작을 수 없습니다.")
+            return;
+        }
 
 
         //return rst
         //window.location.href="/search?query="+encodeURIComponent(queryText.value)+"&currPage=1"
-        window.location.href= "/search?query="+encodeURIComponent(queryText.value)+"&startDate="+startDate.split("-").join("")+"&endDate="+endDate.split("-").join("")+"&currPage=1"
+        window.location.href= "/search?query="+encodeURIComponent(queryText)+"&startDate="+startDate.split("-").join("")+"&endDate="+endDate.split("-").join("")+"&currPage=1"
         // fetch("http://127.0.0.1:8000/",{
         //     method:"GET",
         //     headers:{
@@ -53,6 +64,21 @@ function SearchBar(props: { [key: string]: string|null }) {
 
     }
 
+    // const setDate=()=>{
+    //     const startDate=document.getElementById("startDate") as HTMLInputElement
+    //     const endDate=document.getElementById("endDate") as HTMLInputElement
+    //
+    //     if(startDate && endDate){
+    //         if (startDate.value==="") startDate.value=endDate.value;
+    //         if (endDate.value==="") endDate.value=startDate.value;
+    //     }
+    // }
+    useEffect(() => {
+
+    }, []);
+
+
+
     return (
         <>
             <div id={"searchContainer"} className={"input-group"}>
@@ -65,9 +91,7 @@ function SearchBar(props: { [key: string]: string|null }) {
                             d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103zM2.25 8.184l3.897 1.67a.5.5 0 0 1 .262.263l1.67 3.897L12.743 3.52z"/>
                     </svg>
                     <select className="form-select" aria-label="City" id={"city"}>
-                        <option selected>
-                            City
-                        </option>
+                        <option value="0" selected>전국</option>
                         <option value="1">서울</option>
                         <option value="2">경기</option>
                         <option value="3">경상</option>
@@ -77,10 +101,12 @@ function SearchBar(props: { [key: string]: string|null }) {
                         <option value="7">제주</option>
                     </select>
                 </div>
-                <Calendar placeholder={"시작일"} id={"startDate"} selected={searchParams.get("startDate")}/>
-                <Calendar placeholder={"종료일"} id={"endDate"} selected={searchParams.get("endDate")}/>
+                {/*<Calendar placeholder={"시작일"} id={"startDate"} selected={searchParams.get("startDate")} />*/}
+                {/*<Calendar placeholder={"종료일"} id={"endDate"} selected={searchParams.get("endDate")} />*/}
+                <SearchCalendar />
                 <div className={"input-group"}>
-                    <input id={"queryText"} type={"text"} {...queryText} />
+                    {/*<input id={"queryText"} type={"text"} {...queryText} />*/}
+                    <SearchBarInput />
                     <button className={"btn btn-primary"} onClick={search} id={"searchBtn"}>Search</button>
                 </div>
             </div>

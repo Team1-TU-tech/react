@@ -21,7 +21,7 @@ function Calendar(props:{[key:string]:string|undefined|null}) {
         //changeYear: true, // year 셀렉트박스 사용
         closeText: "닫기",
         currentText: "오늘",
-        showButtonPanel: true,
+        showButtonPanel: true
     });
     // Today 버튼 코드 추가
     /*@ts-ignore*/
@@ -37,8 +37,9 @@ function Calendar(props:{[key:string]:string|undefined|null}) {
     /*@ts-ignore*/
     $(function () {
         /*@ts-ignore*/
-        $(".datepicker").datepicker();
+        $(".datepicker").datepicker({});
     });
+
 
     //const date = props.selected.slice(0,4)+"-"+props.selected.slice(4,6)+"-"+props.selected.slice(6,8)
     const date=useInput(props.selected?props.selected.slice(0,4)+"-"+props.selected.slice(4,6)+"-"+props.selected.slice(6,8):"")

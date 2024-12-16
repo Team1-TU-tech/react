@@ -24,3 +24,4 @@ Ok to proceed? (y) y
 
 ### Stack
 ![react](https://img.shields.io/badge/react-61DAFB.svg?style=for-the-badge&logo=react&logoColor=000000)
+![bootstrap](https://img.shields.io/badge/bootstrap-7952B3.svg?style=for-the-badge&logo=bootstrap&logoColor=FFFFFF)

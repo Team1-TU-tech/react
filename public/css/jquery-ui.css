@@ -44,3 +44,9 @@ display: none; /* 화살표 없애기 for IE10, 11*/
  @media screen and (max-width:480px) {
 .ui-datepicker { width: 270px !important; left: 50% !important; margin-left: -135px !important; }
 }
+
+/***** 선택불가 날짜 스타일 지정 ***********************************************************/
+.ui-datepicker-unselectable{ background: #d3d3d3; }
+.ui-datepicker-unselectable .ui-state-default{ background: #d3d3d3; color: #777777; }
+/***** 선택불가 날짜 스타일 지정시 공백이 전부 색칠되므로 수정 **********************************/
+.ui-datepicker-other-month{ background: none; }

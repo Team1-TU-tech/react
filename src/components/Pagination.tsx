@@ -6,7 +6,7 @@ import "../css/common.css";
 
 function JumpTo(props: { [key: string]: string | number | undefined }):JSX.Element {
 
-    const [searchParams, setSearchParams] = useSearchParams();
+    //const [searchParams, setSearchParams] = useSearchParams();
 
     //console.log("searchParams::: " + searchParams)
     //console.log("searchParams.queryText::: " + searchParams.get("query"))
@@ -220,7 +220,7 @@ function Pagination(props: { [key: string]: string | number | null }) {
             const selected = document.getElementById("page-link-"+currPage.toString())
             if (selected) selected.classList.add("selected")
         }
-    },[currPage])
+    },[currPage,totalPage])
     // window.onload=()=>{
     //     if(currPage && totalPage){
     //         const selected = document.getElementById("page-link-"+currPage.toString())

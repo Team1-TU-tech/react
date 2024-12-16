@@ -22,7 +22,8 @@
 }
 
 .rstSimpleContainer{
-    width: 70%;
+    padding-left: 5%;
+    width: 95%;
     border: none
 }
 
@@ -34,6 +35,10 @@
 #rstRoot{
     display: grid;
     grid-template-columns:1fr 1fr 1fr 1fr 1fr;
+}
+
+.card-body{
+    height: 230px;
 }
 
 /** pagination override ************************************************************/
