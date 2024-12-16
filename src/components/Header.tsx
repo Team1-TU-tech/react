@@ -60,7 +60,7 @@ function Header() {
         <div id={"header"}>
             <div className={"headerComponents"} id={"headerTop"}>
                 <img src={logo} alt="Logo" onClick={index} id="logo" className={"headerTopBtn"} />
-                <div onClick={join} className={"headerTopBtn"} id={"joinBtn"}></div>
+                {!loadSession("isLogin") ? <div onClick={join} className={"headerTopBtn"} id={"joinBtn"}></div> : <></>}
                 {!loadSession("isLogin") ? <Login/> : <div onClick={logout} className={"headerTopBtn"} id={"logoutBtn"} ></div>}
             </div>
             <div className={"headerComponents"} id={"headerBot"}>
