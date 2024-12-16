@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useSearchParams} from "react-router-dom";
+import axios from 'axios'
 
 import SearchRstTop from "./SearchRstTop";
 import SearchRstMain from "./SearchRstMain";
@@ -25,27 +26,39 @@ function SearchRst() {
     const totalPage=Math.ceil(rstNum / 50)
 
     const loadData=async ()=>{
-        await fetch(`http://${process.env.REACT_APP_HOST}:8000/search?`+searchParams.toString(),{
-            method:"GET",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify({"token":loadSession("loginToken")})
+        // await fetch(`http://${process.env.REACT_APP_HOST}:7777/search?`+searchParams.toString(),{
+        //     method:"GET",
+        //     /*headers:{"Content-Type":"application/json"},
+        //     body:JSON.stringify({"token":loadSession("loginToken")})*/
+        // })
+        //     .then(response => response.json())
+        axios.get(`http://${process.env.REACT_APP_HOST}:7777/search?`+searchParams.toString(), {
+            headers: {
+                Authorization: loadSession("loginToken") || loadSession("kakaoToken") || ""
+            }
         })
-            .then(response => response.json())
-            .then((json)=>{
+            .then((res)=> res.data )
+            .then((data)=>{
                 //console.log(json)
-                console.log(testData(json))             /**** 나중에 지우기 ****/
-                const fdata=testFilter(json)
-                return fdata
+                console.log(testData(data))             /**** 나중에 지우기 ****/
+                const f_data=testFilter(data)
+                return f_data
             })
-            .then((fdata)=>{
-                setData(fdata)
-                setRstNum(fdata.length)
+            .then((f_data)=>{
+                setData(f_data)
+                setRstNum(f_data.length)
                 setIsLoading(false)
             })
             .catch(err => {
-                console.log(err)
+                console.error(err)
                 alert("오류가 발생하였습니다.\n잠시 후 다시 시도해주세요.")
                 window.history.back()
+                /*try {
+                    console.log(n)
+                }
+                catch (e) {
+                    console.log(e)
+                }*/
             })
     }
 

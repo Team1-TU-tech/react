@@ -23,10 +23,10 @@ function DetailPage() {
     }
 
     const loadData=async ()=>{
-        await fetch(`http://${process.env.REACT_APP_HOST}:8000/detail/`+id,{
+        await fetch(`http://${process.env.REACT_APP_HOST}:7777/detail/`+id,{
             method: "GET",
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify({"token":loadSession("loginToken")})
+            /*headers:{"Content-Type":"application/json"},
+            body:JSON.stringify({"token":loadSession("loginToken")})*/
         })
             .then(response => response.json())
             .then(json => {
@@ -45,7 +45,7 @@ function DetailPage() {
                 setIsLoading(false)
             })
             .catch(err => {
-                console.log(err)
+                console.error(err)
                 alert("오류가 발생하였습니다.\n잠시 후 다시 시도해주세요.")
                 navigate(-1)
             })

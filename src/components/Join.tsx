@@ -74,7 +74,7 @@ function Join() {
                        }
                    })
                    .catch(err => {
-                           console.log(err)
+                           console.error(err)
                            alert("오류가 발생하였습니다.\n잠시 후 다시 시도해주세요.")
                        }
                    )
