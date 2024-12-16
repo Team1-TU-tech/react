@@ -1,9 +1,11 @@
-FROM node:current-slim AS builder
+FROM node AS builder
 
 WORKDIR /app
 
 COPY . .
 
+RUN ["npm","install","react-scripts"]
+RUN ["npm","install","axios"]
 RUN ["npm","run","build"]
 
 
