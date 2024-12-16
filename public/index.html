@@ -54,15 +54,22 @@
     </style>
     <script>
       window.onload = function () {
-        document.getElementById("spinner").style.display = "none";
+        document.getElementById("loadingImg").style.display = "none";
+        document.getElementsByTagName("body")[0].removeChild(document.getElementById("loadingImg"));
+      }
+
+      window.onerror = function (event, message, source, lineno, colno, error) {
+        console.log(message, source, lineno, colno, error);
+        alert("error")
       }
     </script>
    </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div class="spinner-border text-primary" role="status" id="spinner" style=" position: absolute; left: 50%; top: 50%; z-index: 10; width: 150px; height: 150px; font-size: 100px;">
-      <span class="visually-hidden">Loading...</span>
-    </div>
+<!--    <div class="spinner-border text-primary" role="status" id="spinner" style=" position: absolute; left: 50%; top: 50%; z-index: 10; width: 150px; height: 150px; font-size: 100px;">-->
+<!--      <span class="visually-hidden">Loading...</span>-->
+<!--    </div>-->
+    <img src="%PUBLIC_URL%/img/loading.gif" alt="Loading..." id="loadingImg" style="z-index:10;position:absolute;top: 25vh;left: 15vw;right:0;bottom:0;width: 70vw;"/>
     <div id="root"></div>
     <!--
       This HTML file is a template.

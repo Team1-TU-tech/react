@@ -28,9 +28,11 @@ function Header() {
     }
     
     const topMenu=(cat:string)=>{
-        navigate("/search?query="+encodeURIComponent(cat)+"&currPage=1")
+        //navigate("/search?query="+encodeURIComponent(cat)+"&currPage=1")
+        navigate("/search?category="+encodeURIComponent(cat)+"&currPage=1")
         window.location.reload()
     }
+
 
     return (
         <div id={"header"}>

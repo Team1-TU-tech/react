@@ -8,12 +8,13 @@ import {useSearchParams} from "react-router-dom";
 function SearchCalendar(props:{[key:string]:string|undefined|null}) {
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const from=searchParams.get("startDate")
-    const to= searchParams.get("endDate")
+    const from=searchParams.get("start_date")
+    const to= searchParams.get("end_date")
 
     const nodash2dashed=(date:string)=>{
         // 20241101   ---->    2024-11-01
-        return date.slice(0,4)+"-"+date.slice(4,6)+"-"+date.slice(6,8)
+        //return date.slice(0,4)+"-"+date.slice(4,6)+"-"+date.slice(6,8)
+        return date.split(".").join("-")
     }
 
     const startDateRef=useRef<HTMLInputElement>(null);

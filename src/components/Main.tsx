@@ -7,6 +7,8 @@ import MainElem from "./MainElem";
 import WeeklyBest from "./WeeklyBest";
 
 function Main() {
+
+
     return (
         <div className="App">
             <SearchBar />

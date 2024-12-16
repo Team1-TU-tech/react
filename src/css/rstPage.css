@@ -5,6 +5,7 @@
     border-radius: 25px;
     text-align: center;
     padding: 25px;
+    margin: 15px;
 }
 
 #searchRstTopTitle{
@@ -16,9 +17,13 @@
 
 
 /*** SearchRstMain ************/
+#rstMain{ padding-left: 45px; }
+
 #rstNum{
     font-size: 27px;
     font-weight: 600;
+    margin-bottom: 20px;
+    padding-left: 70px;
 }
 
 .rstSimpleContainer{
@@ -30,21 +35,27 @@
 .posterImg, .showTitle{
     cursor: pointer;
 }
+.showTitle{ white-space: nowrap;overflow: hidden;text-overflow: ellipsis; }
 
 
 #rstRoot{
     display: grid;
-    grid-template-columns:1fr 1fr 1fr 1fr 1fr;
+    /*grid-template-columns:1fr 1fr 1fr 1fr 1fr;*/
+    grid-template-columns:250px 250px 250px 250px 250px ;
 }
 
 .card-body{
-    height: 230px;
+    height: 180px;
 }
+
+
+
+#noRst{ height:calc(100vh - 125px - 220px - 250px); text-align:center; padding-top: 15px}
 
 /** pagination override ************************************************************/
 #pagination {
     display: grid;
-    grid-template-columns:1fr 1fr 1fr;
+    grid-template-columns:1fr 0.5fr 1fr;
     margin-top: 15px;
     text-align: center;
     align-items: center;
@@ -58,3 +69,4 @@
     --bs-pagination-hover-border-color: var(--bs-border-color);
 }
 /** pagination override end ********************************************************/
+

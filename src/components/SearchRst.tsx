@@ -5,6 +5,8 @@ import SearchRstTop from "./SearchRstTop";
 import SearchRstMain from "./SearchRstMain";
 import {useSearchParams} from "react-router-dom";
 import Pagination from "./Pagination";
+import WeeklyBest from "./WeeklyBest";
+import {mkLoadingPage} from "../scripts/common";
 
 function SearchRst() {
 
@@ -106,30 +108,58 @@ function SearchRst() {
 
     //let data;
     useEffect(()=>{
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET","http://127.0.0.1:8000/search?"+searchParams.toString());
-        xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        mkLoadingPage()
+        // const xhr = new XMLHttpRequest();
+        // //xhr.open("GET","http://127.0.0.1:7000/search?"+searchParams.toString());
+        // xhr.open("GET","http://127.0.0.1:7000/search");
+        // xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        //
+        //
+        // xhr.onreadystatechange=function(){
+        //     if(xhr.readyState===4){
+        //         //alert(1)
+        //         console.log(xhr.response);
+        //         const rst=JSON.parse(xhr.response)
+        //         setData(rst)
+        //         setRstNum(rst.length)
+        //         //console.log(data)
+        //     }
+        // }
+        // xhr.send()
 
-        xhr.onreadystatechange=function(){
-            if(xhr.readyState===4){
-                //alert(1)
-                const rst=JSON.parse(xhr.response)
-                setData(rst)
-                setRstNum(rst.length)
-                //console.log(data)
-            }
-        }
-        xhr.send()
+
+        //fetch("http://127.0.0.1:8000/search?"+searchParams.toString(),{
+        fetch("http://localhost:7000/search?"+searchParams.toString(),{
+            method:"GET",
+        })
+            .then(response => response.json())
+            .then((json)=>{
+                console.log(json)
+                setData(json)
+                setRstNum(json.length)
+            })
+            .catch(err => console.log(err))
+
     },[queryText, currPage, searchParams])
 
 
     return (
         <>
-            <SearchRstTop query={queryText} />
-            <SearchRstMain rstNum={rstNum} data={data} />
-            <div id={"pagination"}>
+            <SearchRstTop query={queryText}/>
+            <div id={"rstNum"}>티켓 ({rstNum})</div>
+            { rstNum>0?
+                ( <SearchRstMain rstNum={rstNum} data={data}/> )
+                :( <div id={"rstMain"}>
+                        <div id={"noRst"}>
+                            <h4> 검색하신 "{queryText}"에 대한 티켓이 존재하지 않습니다.</h4>
+                            <div>다른 검색어를 입력해주세요</div>
+                        </div>
+                    <WeeklyBest />
+                </div> )
+            }
+    <div id={"pagination"}>
                 <div></div>
-                {totalPage>1?<Pagination totalPage={totalPage} currentPage={currPage} />:<></>}
+                {totalPage > 1 ? <Pagination totalPage={totalPage} currentPage={currPage}/> : <></>}
                 <div></div>
             </div>
         </>
