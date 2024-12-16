@@ -7,7 +7,7 @@ function RstEntity(props:{[key:string]:string|number|boolean|undefined}) {
     const navigate = useNavigate();
 
     const move= (i: string | number | boolean | undefined)=>{
-        navigate("/"+i?.toString());
+        navigate("/detail/"+i?.toString());
     }
 
     return (

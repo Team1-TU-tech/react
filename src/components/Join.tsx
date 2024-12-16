@@ -153,25 +153,32 @@ function Join() {
 
     return (
         <>
+            <hr/>
+            <h2>회원가입</h2>
+            <hr/>
             <form>
                 <h5>필수정보</h5>
                 <hr/>
                 <div className="mb-3">
                     <label htmlFor="username" className="form-label">이름</label>
-                    <input type="text" className="form-control" id="username" {...username} placeholder={"이름을 입력해주세요"} maxLength={5} />
+                    <input type="text" className="form-control" id="username" {...username} placeholder={"이름을 입력해주세요"}
+                           maxLength={5}/>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="inputId" className="form-label">아이디</label>
-                    <input type="text" className="form-control" id="inputId" aria-describedby="idHelp" {...id} placeholder={"4~15자리 영문, 숫자로 입력해주세요"} onKeyUp={idDuplChk} minLength={4} maxLength={15} />
+                    <input type="text" className="form-control" id="inputId" aria-describedby="idHelp" {...id}
+                           placeholder={"4~15자리 영문, 숫자로 입력해주세요"} onKeyUp={idDuplChk} minLength={4} maxLength={15}/>
                     <div id="idHelp" className="form-text">{helpMsg}</div>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="inputPassword1" className="form-label">비밀번호</label>
-                    <input type="password" className="form-control" id="inputPassword1" {...pw} placeholder={"8~20자리 영문, 숫자, 특수문자(!@#$%&)로 입력해주세요"} minLength={8} maxLength={20} />
+                    <input type="password" className="form-control" id="inputPassword1" {...pw}
+                           placeholder={"8~20자리 영문, 숫자, 특수문자(!@#$%&)로 입력해주세요"} minLength={8} maxLength={20}/>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="inputPassword2" className="form-label">비밀번호 확인</label>
-                    <input type="password" className="form-control" id="inputPassword2" {...pwChk} onKeyUp={pwCompare} placeholder={"비밀번호를 한번 더 입력해주세요"} minLength={8} maxLength={20} />
+                    <input type="password" className="form-control" id="inputPassword2" {...pwChk} onKeyUp={pwCompare}
+                           placeholder={"비밀번호를 한번 더 입력해주세요"} minLength={8} maxLength={20}/>
                     <div id="pwHelp" className="form-text">{helpMsgPW}</div>
                 </div>
                 <br/>
@@ -185,13 +192,14 @@ function Join() {
                 <div className="mb-3">
                     <label htmlFor="phoneInput" className="form-label">휴대전화</label>
                     <input type="number" className="form-control" id="phoneInput"
-                           placeholder="- 없이 숫자만 입력해주세요" {...phoneNumber} maxLength={11}  />
+                           placeholder="- 없이 숫자만 입력해주세요" {...phoneNumber} maxLength={11}/>
                 </div>
                 <br/>
                 <h5>서비스 정책</h5>
                 <div className="mb-3 form-check">
                     <label className="form-check-label" htmlFor="agree_all">전체동의</label>
-                    <input type="checkbox" className="form-check-input" id="agree_all" checked={agreeAll} onChange={toggle_agree_all} />
+                    <input type="checkbox" className="form-check-input" id="agree_all" checked={agreeAll}
+                           onChange={toggle_agree_all}/>
                 </div>
                 <hr/>
                 <div className="mb-3 form-check">
@@ -218,7 +226,7 @@ function Join() {
                     <AgreeModal tagId="marketing" title={"마케팅 수신 동의 (선택)"} body={"마케팅 수신 동의 (선택)"}/>
                 </div>
 
-                <button type="submit" className="btn btn-primary" onClick={submitChk}>회원가입 완료</button>
+                <button type="submit" className="btn btn-primary" onClick={submitChk} id={"submitBtn"}>회원가입 완료</button>
             </form>
         </>
     );

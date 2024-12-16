@@ -3,13 +3,15 @@ import ReactDOM from 'react-dom/client';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
 import './css/index.css';
+import reportWebVitals from './scripts/reportWebVitals';
 
 import App from './components/App';
-import reportWebVitals from './scripts/reportWebVitals';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Join from "./components/Join";
 import SearchRst from "./components/SearchRst";
+import Main from "./components/Main";
+import DetailPage from "./components/DetailPage";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -25,8 +27,10 @@ root.render(
             {/*</ul>*/}
             <Routes>
                 <Route path="/" element={<App/>}/>
+                {/*<Route path="/" element={<Main />}/>*/}
                 <Route path="/join" element={<Join/>}/>
-                <Route path="/search/:queryText?/:page?" element={<SearchRst />}/>
+                <Route path="/search" element={<SearchRst />}/>
+                <Route path="/detail/:id" element={<DetailPage />}/>
             </Routes>
             <Footer/>
         </BrowserRouter>

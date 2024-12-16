@@ -6,8 +6,15 @@ function Footer() {
     return (
         <div id={"footer"}>
             <img src={logo} alt="Logo" id={"footerLogo"} />
-            <div>어떤 내용 넣을지 고민 필요 1</div>
-            <div>어떤 내용 넣을지 고민 필요 2 근데 이건 그냥 1이랑 합쳐도 됨</div>
+            <div>
+                <div className={"footer-title"} >TU-Tech</div>
+                <small>DE-32-Team1</small><br/>
+                <small>구성원 : 김태민, 정미은, 함선우, 오지현</small>
+            </div>
+            <div>
+                <div className={"footer-title"} >고객센터</div>
+                <small>Github : https://github.com/Team1-TU-tech/final-team1</small><br/>
+            </div>
         </div>
     );
 }

@@ -1,9 +1,17 @@
 #footer {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    background-color: #61dafb;
+    background-color: #EEEEEE;
+    padding-top: 10px;
+    padding-bottom: 5px;
 }
 
 #footerLogo{
-    height: 50px;
+    height: 60px;
+    position: relative;
+    top: 5px;
+}
+
+.footer-title{
+    font-weight: 700;
 }
