@@ -2,24 +2,13 @@
 
 ### Description
 > TicketMoa의 front-end를 담당하는 application입니다.
+> 
+> Nginx를 Load Balancer로 활용하여 가용성을 높였습니다.
 
 ### Usage
 ```bash
-$ npm run build    # react app build
-
-$ npx -s <build directory> [-l <port>]
-Need to install the following packages:
-  serve@14.2.4
-Ok to proceed? (y) y
- 
-   ┌──────────────────────────────────────────┐
-   │                                          │
-   │   Serving!                               │
-   │                                          │
-   │   - Local:    http://localhost:3000      │
-   │   - Network:  http://172.31.6.141:3000   │
-   │                                          │
-   └──────────────────────────────────────────┘
+$ docker compose up -d --build --force-recreate    
+### multi staging을 적용하여 docker 내부에서 build dependency를 설치하고, build까지 이뤄지게 함 ###
 ```
 
 ### Stack

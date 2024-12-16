@@ -25,7 +25,7 @@ function LoginCallback() {
                     window.location.href = "/";
                 }
             })
-            .catch(err => console.log(err) );
+            .catch(err => console.error(err) );
     }
 
     useEffect(() => {
@@ -34,7 +34,7 @@ function LoginCallback() {
 
     return code?
         <div style={{textAlign:"center", height:"calc(100vh - 125px - 145px)"}}>
-            <img src={"/img/loading.gif"} alt="loading" id={"loading"} style={{zIndex: 9999, width: "70%"}} />
+            <img src={"/static/media/loading.gif"} alt="loading" id={"loading"} style={{zIndex: 9999, width: "70%"}} />
             <h3>카카오 로그인이 진행중입니다.</h3>
             <h3>잠시만 기다려주세요.</h3>
         </div> :

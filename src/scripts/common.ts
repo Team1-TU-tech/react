@@ -91,7 +91,7 @@ const mkLoadingPage=()=>{
     div.style.zIndex="9999"
 
     const img = document.createElement("img")
-    img.src="/img/loading.gif"
+    img.src="/static/media/loading.gif"
     img.style.position="fixed"
     img.style.top = "25vh"
     img.style.left = "15vw"

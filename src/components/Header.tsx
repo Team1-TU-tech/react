@@ -25,15 +25,28 @@ function Header() {
             //window.location.href="http://localhost:8000/logout";
             await fetch(`http://${process.env.REACT_APP_HOST}:8000/kakao/logout`, {
                 method:"POST",
-                headers:{"Content-Type":"application/json"},
-                body:JSON.stringify({"kakaoToken":loadSession("kakaoToken")})
+                headers:{
+                    "Content-Type":"application/json",
+                    "Authorization": loadSession("kakaoToken") as string
+                },
+                //body:JSON.stringify({"kakaoToken":loadSession("kakaoToken")})
             })
                 .then(response=> window.location.href=response["url"])
                 .catch(err=> {
-                    console.log(err)
+                    console.error(err)
                     alert("오류가 발생하였습니다.\n잠시 후 다시 시도해주세요.")
                 })
         } else {
+            fetch(`http://${process.env.REACT_APP_HOST}:8000/auth/logout`,{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json",
+                    "Authorization": loadSession("loginToken") as string
+                },
+                //body:JSON.stringify({"token":loadSession("loginToken")})
+            })
+                .then(resp=> console.log(resp))
+
             removeSession("isLogin")
             removeSession("loginToken")
             removeSession("refreshToken")
@@ -53,7 +66,7 @@ function Header() {
         <div id={"header"}>
             <div className={"headerComponents"} id={"headerTop"}>
                 <img src={logo} alt="Logo" onClick={index} id="logo" className={"headerTopBtn"} />
-                <div onClick={join} className={"headerTopBtn"} id={"joinBtn"}></div>
+                {!loadSession("isLogin") ? <div onClick={join} className={"headerTopBtn"} id={"joinBtn"}></div> : <></>}
                 {!loadSession("isLogin") ? <Login/> : <div onClick={logout} className={"headerTopBtn"} id={"logoutBtn"} ></div>}
             </div>
             <div className={"headerComponents"} id={"headerBot"}>

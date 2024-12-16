@@ -5,7 +5,7 @@ import ErrorPage from "./ErrorPage";
 import ArtistModal from "./ArtistModal";
 import Loading from "./Loading";
 
-import {ticketHost} from "../scripts/common";
+import {loadSession, ticketHost} from "../scripts/common";
 import "../css/detail.css"
 
 
@@ -24,7 +24,9 @@ function DetailPage() {
 
     const loadData=async ()=>{
         await fetch(`http://${process.env.REACT_APP_HOST}:7777/detail/`+id,{
-            method: "GET"
+            method: "GET",
+            headers:{"Authorization": loadSession("loginToken") || loadSession("kakaoToken") || "" },
+            //body:JSON.stringify({"token":loadSession("loginToken")})
         })
             .then(response => response.json())
             .then(json => {
@@ -43,7 +45,7 @@ function DetailPage() {
                 setIsLoading(false)
             })
             .catch(err => {
-                console.log(err)
+                console.error(err)
                 alert("오류가 발생하였습니다.\n잠시 후 다시 시도해주세요.")
                 navigate(-1)
             })

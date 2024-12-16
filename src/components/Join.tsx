@@ -74,7 +74,7 @@ function Join() {
                        }
                    })
                    .catch(err => {
-                           console.log(err)
+                           console.error(err)
                            alert("오류가 발생하였습니다.\n잠시 후 다시 시도해주세요.")
                        }
                    )
@@ -116,9 +116,7 @@ function Join() {
 
         await fetch(`http://${process.env.REACT_APP_HOST}:8000/signup/signup`, {
             method:"POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
+            headers:{"Content-Type":"application/json"},
             body:JSON.stringify({
                 username:nameRef.current?nameRef.current.value:"",
                 id:idRef.current?idRef.current.value:"",

@@ -5,7 +5,7 @@ function Loading() {
 
     return (
         <div id={"loadingPage"}>
-            <img src={"/img/loading.gif"} alt={"loadingImg"} />
+            <img src={"/static/media/loading.gif"} alt={"loadingImg"} />
         </div>
     );
 }
