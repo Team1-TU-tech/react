@@ -24,4 +24,3 @@ $ docker compose up -d --build --force-recreate
 [![bootstrap](https://img.shields.io/badge/bootstrap-7952B3.svg?style=for-the-badge&logo=bootstrap&logoColor=FFF)](https://getbootstrap.com/)
 [![docker](https://img.shields.io/badge/docker-2496ED.svg?style=for-the-badge&logo=docker&logoColor=FFF)](https://www.docker.com/)
 [![nginx](https://img.shields.io/badge/nginx-009639.svg?style=for-the-badge&logo=nginx&logoColor=FFF)](https://hub.docker.com/_/nginx)
-[![node](https://img.shields.io/badge/node-5FA04E.svg?style=for-the-badge&logo=nodedotjs&logoColor=FFF)](https://hub.docker.com/_/node)
