@@ -10,6 +10,14 @@
 $ docker compose up -d --build --force-recreate    
 ### multi staging을 적용하여 docker 내부에서 build dependency를 설치하고, build까지 이뤄지게 함 ###
 ```
+> [!IMPORTANT]
+> Port ::: 80
+
+> [!TIP]
+> #### 80 port를 이미 사용중인 경우
+> 1. `$ netstat -nltp`으로 프로세스 확인
+> 2. 1. `kill -9 <PID>` 또는 `fuser -k <PID/Program name>`로 80 port 비우고 docker 실행
+>    2. docker-compose.yaml에서 port 변경하고 docker 실행
 
 ### Stack
 ![react](https://img.shields.io/badge/react-61DAFB.svg?style=for-the-badge&logo=react&logoColor=000000)
