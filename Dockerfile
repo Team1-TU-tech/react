@@ -6,6 +6,7 @@ COPY . .
 
 RUN ["npm","install","react-scripts"]
 RUN ["npm","install","axios"]
+RUN ["rm",".env.production"]
 RUN ["npm","run","build"]
 
 

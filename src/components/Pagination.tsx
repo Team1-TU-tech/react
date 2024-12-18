@@ -183,13 +183,13 @@ function Pagination(props: { [key: string]: string | number | null }) {
         }
     }
 
-
     useEffect(()=>{
         if(currPage && totalPage){
             const selected = document.getElementById("page-link-"+currPage.toString())
             if (selected) selected.classList.add("selected")
+            console.log(selected)
         }
-    },[currPage,totalPage])
+    },[])
     
 
     return (
@@ -202,8 +202,11 @@ function Pagination(props: { [key: string]: string | number | null }) {
                         preset.map(d =>
                             <li className="page-item" key={uuidv4()}>
                                 <a className="page-link"
-                                   href={"/search?keyword="+encodeURIComponent(queryText?queryText:"")+"&region="+location+"&start_date="+startDate+"&end_date="+endDate+"&category="+category+"&currPage="+d.toString()} id={"page-link-"+d}
-                                >{d}</a></li>)
+                                   id={"page-link-"+d}
+                                   href={"/search?keyword="+encodeURIComponent(queryText?queryText:"")+"&region="+location+"&start_date="+startDate+"&end_date="+endDate+"&category="+category+"&currPage="+d.toString()} >
+                                    {d} </a>
+                            </li>
+                        )
                     }
                     {totalPage!==null&&totalPage>10?<JumpTo to="next" totalPage={totalPage} query={queryText?queryText:""} currPage={currPage?currPage:1} location={location?location:""} startDate={startDate?startDate:""} endDate={endDate?endDate:""} category={category?category:""} />:<></> }
                     {totalPage!==null&&totalPage>10?<JumpTo to="last" totalPage={totalPage} query={queryText?queryText:""} currPage={currPage?currPage:1} location={location?location:""} startDate={startDate?startDate:""} endDate={endDate?endDate:""} category={category?category:""} />:<></> }

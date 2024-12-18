@@ -104,8 +104,8 @@ function DetailPage() {
                                                 :<tbody><tr><td>판매종료</td></tr></tbody>
                                         }
                                     </table>
-                                            </td>
-                                            </tr>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <div>

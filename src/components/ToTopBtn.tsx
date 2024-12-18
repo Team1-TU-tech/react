@@ -16,7 +16,7 @@ function ToTopBtn() {
         }
     });
 
-    return (<div id={"toTopBtn"} className={"btn btn-outline-secondary"} onClick={toTop}>
+    return (<div id={"toTopBtn"} className={"btn btn-light"} onClick={toTop}>
             🔝
         </div>
     );

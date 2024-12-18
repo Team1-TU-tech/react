@@ -137,5 +137,16 @@ const testData=(data)=>{                /**** 나중에 지우기 ****/
     })
 }
 
-export {useInput, pwEncode, verify, mkLoadingPage, removeLoadingPage, saveSession, loadSession, removeSession,testFilter,testData}
+const getLocalTime=(date=new Date())=>{
+    const n_date = new Date(date)
+
+    const y = n_date.getFullYear()
+    const tempM = n_date.getMonth()+1;
+    const m = tempM<10?"0"+tempM:tempM;
+    const d = n_date.getDate()<10?"0"+n_date.getDate():n_date.getDate();
+
+    return `${y}${m}${d}`
+}
+
+export {useInput, pwEncode, verify, mkLoadingPage, removeLoadingPage, saveSession, loadSession, removeSession,testFilter,testData, getLocalTime}
 export {locaCode, locaCodeRev, ticketHost}
