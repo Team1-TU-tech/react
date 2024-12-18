@@ -15,6 +15,7 @@ import DetailPage from "./components/DetailPage";
 import LoginCallback from "./components/Kakao/LoginCallback";
 import LogoutCallback from "./components/Kakao/LogoutCallback";
 import JoinCongratuation from "./components/JoinCongratuation";
+import ToTopBtn from "./components/ToTopBtn";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -38,6 +39,7 @@ root.render(
                 <Route path="/callbackLogout" element={<LogoutCallback />}/>
                 <Route path="/join/success" element={<JoinCongratuation />}/>
             </Routes>
+            <ToTopBtn />
             <Footer/>
         </BrowserRouter>
     </React.StrictMode>

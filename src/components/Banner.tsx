@@ -171,11 +171,11 @@ function Banner() {
             })
             .catch(err=> {
                 console.log("banner\n└", err)
-                //const json = localStorage.getItem("bannerData")
-                //if(json!==null){
-                //    setData(JSON.parse(json))
-                //    setIsLoading(false)
-                //}
+                const json = localStorage.getItem("bannerData")
+                if(json!==null){
+                   setData(JSON.parse(json))
+                   setIsLoading(false)
+                }
             });
     }
 

@@ -1,4 +1,6 @@
 import React from "react";
+import {v4 as uuidv4} from "uuid";
+
 import MainEntry from "./MainEntry";
 
 
@@ -36,6 +38,7 @@ function Entry(props:{[key:string]:string|number|{[key:string]:string|number|boo
                     onSale={d["onSale"]}
                     isExclusive={d["isExclusive"]}
                     _link={d["id"]}
+                    key={uuidv4()}
                 />)
             })
         }

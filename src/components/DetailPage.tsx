@@ -7,6 +7,7 @@ import Loading from "./Loading";
 
 import {loadSession, ticketHost} from "../scripts/common";
 import "../css/detail.css"
+import FloatingMenu from "./FloatingMenu";
 
 
 function DetailPage() {
@@ -57,6 +58,7 @@ function DetailPage() {
 
     return isLoading?<Loading />:(data?(
         <div id={"detailPageContainer"}>
+            <FloatingMenu oid={id as string} />
             <button className={"btn btn-warning"} onClick={back} style={{position: "relative", left: "70vw", top: "40px"}}>뒤로가기🔙
             </button>
             <h1>{data["title"] ? data["title"] : params.id + "번 데이터"}</h1>

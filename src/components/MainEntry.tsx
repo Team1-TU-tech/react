@@ -15,7 +15,6 @@ function MainEntry(props:{[key:string]:string|number|boolean|undefined}) {
             <div className={"card "+props.className}>
                 <img src={props.posterImg?.toString()} alt={"Poster"} className="card-img-top posterImg" onClick={()=>{move(props._link)}} />
                 <div className="card-body">
-                    <h1>{props._link}</h1>
                     <h5 className={"showTitle"} onClick={() => {
                         move(props._link)
                     }}>{props.showTitle}</h5>
