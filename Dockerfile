@@ -6,7 +6,7 @@ COPY . .
 
 RUN ["npm","install","react-scripts"]
 RUN ["npm","install","axios"]
-RUN ["rm",".env.production"]
+RUN ["rm",".env.production"]            # localhost로 build하기 위해 삭제, 배포시에는 주석처리해야 함
 RUN ["npm","run","build"]
 
 
