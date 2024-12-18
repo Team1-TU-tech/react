@@ -73,7 +73,7 @@ function MainElem(props: { [key: string]: string | {[key: string]: string|number
             <div>
                 {
                     data.map((i, j) => {
-                        return (<button className={"btn btn-primary mainSectionBtn"} onClick={()=>{disp(i["id"] as string)}}>{i["name"]}</button>)
+                        return (<button className={"btn btn-primary mainSectionBtn"} onClick={()=>{disp(i["id"] as string)}} key={uuidv4()}>{i["name"]}</button>)
 
                         //  (<>
                         // <input type="radio" id={i["id"]} name={props.name} />
@@ -94,6 +94,7 @@ function MainElem(props: { [key: string]: string | {[key: string]: string|number
                             category={i["name"] as string}
                             id={i["id"] as string}
                             division={props.division}
+                            key={uuidv4()}
                         />
                     )
                 })

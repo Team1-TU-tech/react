@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import {v4 as uuidv4} from "uuid";
 
 const Entry=(props: { [key: string]: string | { [key: string]: string | undefined } | undefined })=>{
 
@@ -32,7 +33,7 @@ function FloatingMenu(props: { [key: string]: string | undefined }) {
         })
             .then(res => res.json())
             .then(json => {
-                console.log(json)
+                //console.log(json)
                 setData(json);
                 setIsLoading(false);
             })
@@ -61,7 +62,7 @@ function FloatingMenu(props: { [key: string]: string | undefined }) {
                          style={{zIndex: 9999, width: "97%"}}/>
                     <h6>유사한 공연을 찾는중..</h6>
                 </>
-                : data.map(data => < Entry data={data}/>)}
+                : data.map(data => < Entry data={data} key={uuidv4()}/>)}
         </div>
     );
 }
