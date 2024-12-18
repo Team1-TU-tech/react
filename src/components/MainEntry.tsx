@@ -11,13 +11,6 @@ function MainEntry(props:{[key:string]:string|number|boolean|undefined}) {
         navigate("/detail/"+i?.toString());
     }
 
-    const closed= (showDate:string) => {
-        return showDate.split("~")[0].split(".").join("") < (loadSession("today") as string)
-    }
-    const opened= (showDate:string) => {
-        return showDate.split("~")[1].split(".").join("") < (loadSession("today") as string)
-    }
-
     return (
         <>
             <div className={"card "+props.className}>

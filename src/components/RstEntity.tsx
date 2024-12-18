@@ -14,7 +14,7 @@ function RstEntity(props:{[key:string]:string|number|boolean|undefined}) {
     }
 
     const closed= (showDate:string) => {
-        return showDate.split("~")[0].split(".").join("") < (loadSession("today") as string)
+        return showDate.split("~")[1].split(".").join("") < (loadSession("today") as string)
     }
 
     return (
