@@ -19,11 +19,11 @@ function JumpTo(props: { [key: string]: string | number | undefined }):JSX.Eleme
     const currPage = props.currPage ? props.currPage : 1
     const currNum = Number.parseInt(currPage.toString())
     const totalPage = props.totalPage?props.totalPage:1
-    const queryText = props.query
-    const location = props.location
-    const startDate = props.startDate
-    const endDate = props.endDate
-    const category = props.category
+    // const queryText = props.query
+    // const location = props.location
+    // const startDate = props.startDate
+    // const endDate = props.endDate
+    // const category = props.category
 
     //const linkTo="/search?keyword=" + encodeURIComponent(queryText?queryText:"") +"&region="+location+"&start_date="+startDate+"&end_date="+endDate + "&category="+category + "&currPage="
     const linkTo=props.linkTo;

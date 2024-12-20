@@ -16,11 +16,6 @@ const id2host:{[key:string]:string} = {
     "2" : "yes24",
     "3" : "ticketlink",
 }
-const host2id:{[key:string]:string} = {
-    "interpark" : "1",
-    "yes24" : "2",
-    "ticketlink" : "3",
-}
 
 function Entity(props:{[key:string]:string|undefined}) {
     const navigate = useNavigate();
