@@ -25,7 +25,8 @@ function JumpTo(props: { [key: string]: string | number | undefined }):JSX.Eleme
     const endDate = props.endDate
     const category = props.category
 
-    const linkTo="/search?keyword=" + encodeURIComponent(queryText?queryText:"") +"&region="+location+"&start_date="+startDate+"&end_date="+endDate + "&category="+category + "&currPage="
+    //const linkTo="/search?keyword=" + encodeURIComponent(queryText?queryText:"") +"&region="+location+"&start_date="+startDate+"&end_date="+endDate + "&category="+category + "&currPage="
+    const linkTo=props.linkTo;
 
     switch (props.to) {
         case "first":
@@ -171,6 +172,9 @@ function Pagination(props: { [key: string]: string | number | null }) {
     const category= searchParams.get("category")
 
     const totalPage = props.totalPage
+    const linkTo= window.location.pathname.includes("search")?
+        "/search?keyword=" + encodeURIComponent(queryText?queryText:"") +"&region="+location+"&start_date="+startDate+"&end_date="+endDate + "&category="+category + "&currPage="
+        :`/exclusive/all?site_id=${searchParams.get("site_id")}&currPage=`
 
     const preset = []
     if (totalPage && currPage){
@@ -196,20 +200,24 @@ function Pagination(props: { [key: string]: string | number | null }) {
         <div id={"pagination"}>
             <nav aria-label="Page navigation">
                 <ul className="pagination" id={"naviRoot"}>
-                    {totalPage!==null&&totalPage>10?<JumpTo to="first" totalPage={totalPage} query={queryText?queryText:""} currPage={currPage?currPage:1} location={location?location:""} startDate={startDate?startDate:""} endDate={endDate?endDate:""} category={category?category:""} />:<></> }
-                    {totalPage!==null&&totalPage>10?<JumpTo to="prev" totalPage={totalPage} query={queryText?queryText:""} currPage={currPage?currPage:1} location={location?location:""} startDate={startDate?startDate:""} endDate={endDate?endDate:""} category={category?category:""} />:<></> }
+                    {/*{totalPage!==null&&totalPage>10?<JumpTo to="first" totalPage={totalPage} query={queryText?queryText:""} currPage={currPage?currPage:1} location={location?location:""} startDate={startDate?startDate:""} endDate={endDate?endDate:""} category={category?category:""} />:<></> }*/}
+                    {/*{totalPage!==null&&totalPage>10?<JumpTo to="prev" totalPage={totalPage} query={queryText?queryText:""} currPage={currPage?currPage:1} location={location?location:""} startDate={startDate?startDate:""} endDate={endDate?endDate:""} category={category?category:""} />:<></> }*/}
+                    {totalPage!==null&&totalPage>10?<JumpTo to="first" totalPage={totalPage} currPage={currPage?currPage:1} linkTo={linkTo} />:<></> }
+                    {totalPage!==null&&totalPage>10?<JumpTo to="prev" totalPage={totalPage} currPage={currPage?currPage:1} linkTo={linkTo} />:<></> }
                     {
                         preset.map(d =>
                             <li className="page-item" key={uuidv4()}>
                                 <a className="page-link"
                                    id={"page-link-"+d}
-                                   href={"/search?keyword="+encodeURIComponent(queryText?queryText:"")+"&region="+location+"&start_date="+startDate+"&end_date="+endDate+"&category="+category+"&currPage="+d.toString()} >
+                                   href={linkTo+d.toString()} >
                                     {d} </a>
                             </li>
                         )
                     }
-                    {totalPage!==null&&totalPage>10?<JumpTo to="next" totalPage={totalPage} query={queryText?queryText:""} currPage={currPage?currPage:1} location={location?location:""} startDate={startDate?startDate:""} endDate={endDate?endDate:""} category={category?category:""} />:<></> }
-                    {totalPage!==null&&totalPage>10?<JumpTo to="last" totalPage={totalPage} query={queryText?queryText:""} currPage={currPage?currPage:1} location={location?location:""} startDate={startDate?startDate:""} endDate={endDate?endDate:""} category={category?category:""} />:<></> }
+                    {/*{totalPage!==null&&totalPage>10?<JumpTo to="next" totalPage={totalPage} query={queryText?queryText:""} currPage={currPage?currPage:1} location={location?location:""} startDate={startDate?startDate:""} endDate={endDate?endDate:""} category={category?category:""} />:<></> }*/}
+                    {/*{totalPage!==null&&totalPage>10?<JumpTo to="last" totalPage={totalPage} query={queryText?queryText:""} currPage={currPage?currPage:1} location={location?location:""} startDate={startDate?startDate:""} endDate={endDate?endDate:""} category={category?category:""} />:<></> }*/}
+                    {totalPage!==null&&totalPage>10?<JumpTo to="next" totalPage={totalPage} currPage={currPage?currPage:1} linkTo={linkTo} />:<></> }
+                    {totalPage!==null&&totalPage>10?<JumpTo to="last" totalPage={totalPage} currPage={currPage?currPage:1} linkTo={linkTo} />:<></> }
                 </ul>
             </nav>
         </div>

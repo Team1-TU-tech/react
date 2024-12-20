@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {v4 as uuidv4} from "uuid";
 
 import MainEntry from "./MainEntry";
+import {ticketHost} from "../scripts/common";
 
 
 // function BtnGroup(props:{[key:string]:string|number|undefined}) {
@@ -28,7 +29,7 @@ function Entry(props:{[key:string]:string|number|{[key:string]:string|number|boo
 
     return (<div id={props.id as string} className={"mainEntryContainer"}>
         {
-            fdata.map((d,j) => {
+            fdata.map(d => {
                 return (<MainEntry
                     className={"mainEntry"}
                     posterImg= {d["posterImg"]}
@@ -60,26 +61,45 @@ function MainElem(props: { [key: string]: string | {[key: string]: string|number
         }
     }
 
-    setTimeout(()=>{
-        disp(data[0].id as string)
-    },100)
+    const initSelect=()=>{
+        const init_selected=document.getElementById(data[0].id as string +"1") as HTMLInputElement;
+        console.log(init_selected)
+        if (init_selected===null) setTimeout(()=>{initSelect()},100)
+        else init_selected.click()
+    }
+
+    useEffect(() => {
+        initSelect()
+    }, []);
+
+    // setTimeout(()=>{
+    //     disp(data[0].id as string)
+    //     console.log(disp(data[0].id as string))
+    // },100)
 
 
     return (
         <div className={"mainSection"} id={props.id ? props.id as string : "mainElem-" + randint}>
             <h3>{props.title ? props.title as string : "당신을 위한 추천"}</h3>
-            {/*<div className={"btn-group"}>*/}
-            {/*<div className="btn-group" role="group" aria-label="Basic radio toggle button group">*/}
             <div>
-                {
-                    data.map((i, j) => {
-                        return (<button className={"btn btn-primary mainSectionBtn"} onClick={()=>{disp(i["id"] as string)}} key={uuidv4()}>{i["name"]}</button>)
+                {/*{*/}
+                {/*    data.map((i, j) => {*/}
+                {/*        return (<button className={"btn btn-primary mainSectionBtn"} onClick={()=>{disp(i["id"] as string)}} key={uuidv4()}>{i["name"]}</button>)*/}
+                {/*    })*/}
+                {/*}*/}
+                <div className={"selectBtnContainer"}>
+                    {data.map(i => {
+                        return <div key={uuidv4()}>
+                            <input type="radio" className="mainRadio" name="mainRadio-reco"
+                                   id={i["id"] as string +"1"} autoComplete="off"
+                                   onChange={() => disp(i["id"] as string)}/>
+                            <label className="mainRadioLabel"
+                                   htmlFor={i["id"] as string +"1"}>{i["name"]}</label>
+                        </div>
+                    })}
+                </div>
 
-                        //  (<>
-                        // <input type="radio" id={i["id"]} name={props.name} />
-                        // <label className="btn btn-secondary" for={i["id"]} onClick={() => { disp(i["id"] as string) }}>{i["name"]}</label> </>)
-                    })
-                }
+
                 {/*{*/}
                 {/*    data.map((i, j) => {*/}
                 {/*        return (<BtnGroup btnName={i["name"]} btnNum={j}/>)*/}
@@ -90,7 +110,7 @@ function MainElem(props: { [key: string]: string | {[key: string]: string|number
                 data.map((i, j) => {
                     return (
                         <Entry
-                            data={props.listData as {[key:string]: string|number|boolean}[]}
+                            data={props.listData as { [key: string]: string | number | boolean }[]}
                             category={i["name"] as string}
                             id={i["id"] as string}
                             division={props.division}

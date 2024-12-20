@@ -9,6 +9,7 @@ import {loadSession, ticketHost} from "../scripts/common";
 import "../css/detail.css"
 import FloatingMenu from "./FloatingMenu";
 import {v4 as uuidv4} from "uuid";
+import axios from "axios";
 
 
 function DetailPage() {
@@ -25,14 +26,18 @@ function DetailPage() {
     }
 
     const loadData=async ()=>{
-        await fetch(`http://${process.env.REACT_APP_HOST}:7777/detail/`+id,{
-            method: "GET",
+        // await fetch(`http://${process.env.REACT_APP_HOST}:7777/detail/`+id,{
+        //     method: "GET",
+        //     headers:{"Authorization": loadSession("loginToken") || loadSession("kakaoToken") || "" },
+        //     //body:JSON.stringify({"token":loadSession("loginToken")})
+        // })
+        //     .then(response => response.json())
+        await axios.get(`http://${process.env.REACT_APP_HOST}:7777/detail/`+id,{
             headers:{"Authorization": loadSession("loginToken") || loadSession("kakaoToken") || "" },
-            //body:JSON.stringify({"token":loadSession("loginToken")})
         })
-            .then(response => response.json())
+            .then(res=>res.data)
             .then(json => {
-                    //console.log(json)
+                    console.log(json)
                     setData(json["data"])
 
                     if(json["data"]["artist"]!==null){

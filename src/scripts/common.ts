@@ -73,7 +73,7 @@ const locaCodeRev:{[key:string]:string} = {
 const ticketHost:{[key:string]:string} = {
     "1" : "인터파크 티켓",
     "2" : "예스24 티켓",
-    "3" : "3",
+    "3" : "티켓링크",
 }
 
 const mkLoadingPage=()=>{
@@ -128,12 +128,12 @@ function removeSession(key:string) {
 
 const testFilter=(data)=>{
     return data.filter(datum=>{
-        return (!(datum["title"] as string).includes("구매금지")) && (!(datum["title"] as string).includes("TEST]")) && (!(datum["title"] as string).includes("구매불가"))
+        return (!(datum["title"] as string).includes("구매금지")) && (!(datum["title"] as string).includes("TEST]")) && (!(datum["title"] as string).includes("구매불가")) && (!(datum["title"] as string).includes("강제취소"))
     })
 }
 const testData=(data)=>{                /**** 나중에 지우기 ****/
     return data.filter(datum=>{
-        return ((datum["title"] as string).includes("구매금지")) || ((datum["title"] as string).includes("TEST]")) || ((datum["title"] as string).includes("구매불가"))
+        return ((datum["title"] as string).includes("구매금지")) || ((datum["title"] as string).includes("TEST]")) || ((datum["title"] as string).includes("구매불가")) || ((datum["title"] as string).includes("강제취소"))
     })
 }
 

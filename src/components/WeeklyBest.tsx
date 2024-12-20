@@ -118,7 +118,7 @@ function WeeklyBest() {
 
 
   return isLoading?
-      <div id="bannerLoadingSection" >
+      <div id="LoadingSection" >
         <img src={"/static/media/loading.gif"} alt={"Loading"} />
         <h3>주간 베스트 로딩중..</h3>
       </div>

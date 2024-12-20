@@ -157,10 +157,12 @@ function Banner() {
     // ]
 
     const loadData=async ()=> {
-        await fetch(`http://${process.env.REACT_APP_HOST}:7777/banner`, {
-            method: "GET",
-        })
-            .then(res => res.json())
+        // await fetch(`http://${process.env.REACT_APP_HOST}:7777/banner`, {
+        //     method: "GET",
+        // })
+        //     .then(res => res.json())
+        await axios.get(`http://${process.env.REACT_APP_HOST}:7777/banner`)
+            .then(res => res.data)
             .then(json => {
                 //console.log(json)
                 setData(json)
