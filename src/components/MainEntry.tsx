@@ -1,6 +1,7 @@
 import React from "react";
 import "../css/rstPage.css";
 import {useNavigate} from "react-router-dom";
+import {loadSession} from "../scripts/common";
 
 function MainEntry(props:{[key:string]:string|number|boolean|undefined}) {
 
@@ -20,8 +21,9 @@ function MainEntry(props:{[key:string]:string|number|boolean|undefined}) {
                     }}>{props.showTitle}</h5>
                     <small className={"showLocation"}>{props.showLocation}</small><br/>
                     <small className={"showDate"}>{props.showDate}</small><br/>
-                    {props.onSale ? <span className="badge text-bg-primary">판매중</span> : <></>}
-                    {props.isExclusive ? <span className="badge text-bg-danger">단독판매</span> : <></>}
+                    {props.onSale ? <span className="badge text-bg-primary">판매중</span> : <></>
+                    }
+                    {props.isExclusive ? <span className="badge text-bg-purple">단독판매</span> : <></>}
             </div>
             </div>
         </>

@@ -1,6 +1,9 @@
 import React from "react";
-import "../css/rstPage.css";
 import {useNavigate} from "react-router-dom";
+
+import {loadSession} from "../scripts/common";
+
+import "../css/rstPage.css";
 
 function RstEntity(props:{[key:string]:string|number|boolean|undefined}) {
 
@@ -8,6 +11,10 @@ function RstEntity(props:{[key:string]:string|number|boolean|undefined}) {
 
     const move= (i: string | number | boolean | undefined)=>{
         navigate("/detail/"+i?.toString());
+    }
+
+    const closed= (showDate:string) => {
+        return showDate.split("~")[1].split(".").join("") < (loadSession("today") as string)
     }
 
     return (
@@ -20,8 +27,12 @@ function RstEntity(props:{[key:string]:string|number|boolean|undefined}) {
                     }}>{props.showTitle}</h5>
                     <small className={"showLocation"}>{props.showLocation}</small><br/>
                     <small className={"showDate"}>{props.showDate}</small><br/>
-                    {props.onSale ? <span className="badge text-bg-primary">판매중</span> : <></>}
-                    {props.isExclusive ? <span className="badge text-bg-danger">단독판매</span> : <></>}
+                    {props.onSale ? <span className="badge text-bg-primary">판매중</span> :
+                        closed(props.showDate as string) ?
+                            <span className="badge text-bg-danger">판매종료</span>
+                            : <span className="badge text-bg-danger">판매예정</span>
+                    }
+                    {props.isExclusive ? <span className="badge text-bg-purple">단독판매</span> : <></>}
                 </div>
             </div>
         </div>

@@ -1,13 +1,17 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "../css/main.css";
 
 import SearchBar from "./SearchBar";
 import Banner from "./Banner";
 import MainElem from "./MainElem";
 import WeeklyBest from "./WeeklyBest";
+import {getLocalTime, saveSession} from "../scripts/common";
 
 function Main() {
 
+    useEffect(() => {
+        saveSession("today",getLocalTime())
+    })
 
     return (
         <div className="App">

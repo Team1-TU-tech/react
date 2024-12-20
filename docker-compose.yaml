@@ -1,8 +1,8 @@
 name: TU_Tech
 services:
   react:
-    env_file:
-      - .env.production
+    #env_file:  build stage에서 이미 .env.production으로 build되므로 불필요
+    #  - .env.production
     build: .
     deploy:
       mode: replicated
