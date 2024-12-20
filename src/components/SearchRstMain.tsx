@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import "../css/rstPage.css";
 import RstEntity from "./RstEntity";
 import {useSearchParams} from "react-router-dom";

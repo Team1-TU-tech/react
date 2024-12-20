@@ -63,7 +63,6 @@ function MainElem(props: { [key: string]: string | {[key: string]: string|number
 
     const initSelect=()=>{
         const init_selected=document.getElementById(data[0].id as string +"1") as HTMLInputElement;
-        console.log(init_selected)
         if (init_selected===null) setTimeout(()=>{initSelect()},100)
         else init_selected.click()
     }

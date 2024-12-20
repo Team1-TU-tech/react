@@ -131,7 +131,6 @@ function Join() {
             .then((resp) => resp.json())
             .then((json)=>{
             if(json){
-                //window.location.href="/";
                 if(json["success"]) {
                     if(nameRef.current) alert(nameRef.current.value+"님!\n회원가입을 환영합니다!")
                     window.location.href = "/join/success?agree="+ (agreeMarketingRef.current?agreeMarketingRef.current.checked.toString():false)

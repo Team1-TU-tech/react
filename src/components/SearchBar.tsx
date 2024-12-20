@@ -12,7 +12,6 @@ function SearchBar(props: { [key: string]: string|null }) {
 
     const [searchParams, setSearchParams] = useSearchParams();
 
-
     const query=searchParams.get("keyword")
     const queryRef=useRef<HTMLInputElement>(null);
 
@@ -43,7 +42,6 @@ function SearchBar(props: { [key: string]: string|null }) {
         if(["연극", "뮤지컬", "콘서트", "전시", "행사"].includes(queryText as string)){
             category=queryText
         }
-
 
         window.location.href= "/search?keyword="+encodeURIComponent(queryText)+"&region="+(locationRef.current && locationRef.current.value!=="전국"?locaCode[locationRef.current.value]:"")+"&start_date="+startDate.split("-").join(".")+"&end_date="+endDate.split("-").join(".")+"&category="+category+"&currPage=1"        // fetch("http://127.0.0.1:8000/",{
     }

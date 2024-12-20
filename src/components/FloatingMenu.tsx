@@ -4,6 +4,7 @@ import {v4 as uuidv4} from "uuid";
 const Entry=(props: { [key: string]: string | { [key: string]: string | undefined } | undefined })=>{
 
     const data = props.data as { [key: string]: string | undefined }
+
     const move =(id:string)=>{
         window.location.href=`/detail/${id}`
     }
@@ -27,7 +28,7 @@ function FloatingMenu(props: { [key: string]: string | undefined }) {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    const getData = async () => {
+    const loadData = async () => {
         await fetch(`http://${process.env.REACT_APP_HOST}:7777/recommendation/`+props.oid,{
             method:"GET"
         })
@@ -50,7 +51,7 @@ function FloatingMenu(props: { [key: string]: string | undefined }) {
     });
 
     useEffect(() => {
-        getData();
+        loadData();
     },[])
 
     return (

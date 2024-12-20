@@ -16,11 +16,6 @@ const id2host:{[key:string]:string} = {
     "2" : "yes24",
     "3" : "ticketlink",
 }
-const host2id:{[key:string]:string} = {
-    "interpark" : "1",
-    "yes24" : "2",
-    "ticketlink" : "3",
-}
 
 function Entity(props:{[key:string]:string|undefined}) {
     const navigate = useNavigate();
@@ -47,11 +42,11 @@ function ExclusiveBy() {
     const [data, setData] = useState();
     const [isLoading, setIsLoading] = useState(true);
 
-    const getData = async () => {
+    const loadData = async () => {
         await axios.get(`http://${process.env.REACT_APP_HOST}:7777/exclusive/main`)
             .then(res => res.data)
             .then(data => {
-                console.log(data);
+                //console.log(data);
                 setData(data);
                 setIsLoading(false);
 
@@ -169,7 +164,7 @@ function ExclusiveBy() {
     }
 
     useEffect(() => {
-        getData()
+        loadData()
         initSelect()
     }, []);
 
@@ -209,7 +204,7 @@ function ExclusiveBy() {
                 })}
             </div>
             {data.map(i => {
-                return <a className={`gotoTotalBtn go${id2host[i["_id"].toString()]}`} href={`/exclusive/all?site_id=${i["_id"]}&currPage=1`}>전체보기 {'>'}</a>
+                return <a className={`gotoTotalBtn go${id2host[i["_id"].toString()]}`} href={`/exclusive/all?site_id=${i["_id"]}&currPage=1`} key={uuidv4()} >전체보기 {'>'}</a>
             })}
 
         </div>);

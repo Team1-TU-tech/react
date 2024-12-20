@@ -31,7 +31,8 @@ function Login() {
                 .then(()=>{
                     if (loadSession("isLogin")){
                         if((loadSession("loginToken")!=="undefined" || loadSession("refreshToken"))!=="undefined"){
-                            window.location.href="/";
+                            //window.location.href="/";
+                            navigate("/")
                         }
                         else {
                             removeSession("loginToken")
@@ -49,7 +50,8 @@ function Login() {
     }
 
     const kakao=()=> {
-        window.location.href=`http://${process.env.REACT_APP_HOST}:8000/kakao/getcode`;
+        //window.location.href=`http://${process.env.REACT_APP_HOST}:8000/kakao/getcode`;
+        navigate(`http://${process.env.REACT_APP_HOST}:8000/kakao/getcode`)
     }
 
     const join=()=>{

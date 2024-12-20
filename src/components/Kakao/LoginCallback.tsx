@@ -1,15 +1,17 @@
 import React, {useEffect} from "react";
-import {useSearchParams} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import {loadSession, saveSession} from "../../scripts/common";
 
 function LoginCallback() {
 
+    const navigate = useNavigate()
     const [searchParams, setSearchParams] = useSearchParams();
     const code=searchParams.get("code")
 
     if(!code){
         setTimeout(()=>{
-            window.location.href=`http://${process.env.REACT_APP_HOST}:3000`
+            //window.location.href=`http://${process.env.REACT_APP_HOST}:3000`
+            navigate(`http://${process.env.REACT_APP_HOST}:3000`)
         },3000)
     }
 
@@ -22,7 +24,8 @@ function LoginCallback() {
             .then(()=>{
                 if(loadSession("kakaoToken")!=="") {
                     saveSession("isLogin", true);
-                    window.location.href = "/";
+                    //window.location.href = "/";
+                    navigate("/")
                 }
             })
             .catch(err => console.error(err) );

@@ -5,7 +5,6 @@ import axios from 'axios'
 import SearchRstTop from "./SearchRstTop";
 import SearchRstMain from "./SearchRstMain";
 import Pagination from "./Pagination";
-import WeeklyBest from "./WeeklyBest";
 import Loading from "./Loading";
 
 import {loadSession, testData, testFilter} from "../scripts/common";

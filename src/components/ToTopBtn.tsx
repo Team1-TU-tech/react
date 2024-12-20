@@ -11,7 +11,7 @@ function ToTopBtn() {
     document.addEventListener("scroll", ()=>{
         const toTopBtn = document.getElementById("toTopBtn")
         if(toTopBtn){
-            if(window.scrollY==0) toTopBtn.style.display="none"
+            if(window.scrollY===0) toTopBtn.style.display="none"
             else toTopBtn.style.display="block"
         }
     });
