@@ -48,6 +48,9 @@
     height: 180px;
 }
 
+.badge {margin-right: 3px}
+.text-bg-purple{color:#fff!important;background-color:#b20fb2!important}
+
 
 
 #noRst{ height:calc(100vh - 125px - 220px - 250px); text-align:center; padding-top: 15px}
@@ -70,3 +73,11 @@
 }
 /** pagination override end ********************************************************/
 
+
+
+/**************************************************************************************/
+
+.exclusiveBtn{
+    border-radius: 50px;
+    margin: 0 10px;
+}

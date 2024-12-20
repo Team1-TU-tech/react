@@ -38,3 +38,35 @@
     position: absolute;
     right: 150px;
 }
+
+
+.selectBtnContainer{
+    display: -webkit-inline-box;
+    margin: 15px 0;
+    width: fit-content;
+    background: gray;
+    border-radius: 50px;
+}
+.mainRadioLabel{
+    border-radius: 50px;
+    height: 40px;
+    width: 130px;
+    padding: 5px;
+    color: white;
+}
+.mainRadioLabel:hover{
+    background: #0a53be
+}
+.mainRadio:checked + .mainRadioLabel{
+    background: #0d6efd;
+}
+
+.mainRadio{position:absolute;clip:rect(0,0,0,0);pointer-events:none} /* bootstrap */
+
+#LoadingSection{
+    width:100%;
+    text-align:center;
+}
+#LoadingSection img {
+    width:90%;
+}

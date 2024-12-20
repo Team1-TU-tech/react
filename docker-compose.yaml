@@ -1,7 +1,7 @@
-name: TU_Tech
+name: tu_tech
 services:
   react:
-    env_file:
+    env_file:  
       - .env.production
     build: .
     deploy:

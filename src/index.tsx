@@ -16,6 +16,7 @@ import LoginCallback from "./components/Kakao/LoginCallback";
 import LogoutCallback from "./components/Kakao/LogoutCallback";
 import JoinCongratuation from "./components/JoinCongratuation";
 import ToTopBtn from "./components/ToTopBtn";
+import ExclusiveAll from "./components/ExclusiveAll";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -34,6 +35,7 @@ root.render(
                 <Route path="/" element={<Main />}/>
                 <Route path="/join" element={<Join/>}/>
                 <Route path="/search" element={<SearchRst />}/>
+                <Route path="/exclusive/all" element={<ExclusiveAll />}/>
                 <Route path="/detail/:id" element={<DetailPage />}/>
                 <Route path="/callback" element={<LoginCallback />}/>
                 <Route path="/callbackLogout" element={<LogoutCallback />}/>

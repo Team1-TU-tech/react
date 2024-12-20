@@ -73,7 +73,7 @@ const locaCodeRev:{[key:string]:string} = {
 const ticketHost:{[key:string]:string} = {
     "1" : "인터파크 티켓",
     "2" : "예스24 티켓",
-    "3" : "3",
+    "3" : "티켓링크",
 }
 
 const mkLoadingPage=()=>{
@@ -128,14 +128,25 @@ function removeSession(key:string) {
 
 const testFilter=(data)=>{
     return data.filter(datum=>{
-        return (!(datum["title"] as string).includes("구매금지")) && (!(datum["title"] as string).includes("TEST]")) && (!(datum["title"] as string).includes("구매불가"))
+        return (!(datum["title"] as string).includes("구매금지")) && (!(datum["title"] as string).includes("TEST]")) && (!(datum["title"] as string).includes("구매불가")) && (!(datum["title"] as string).includes("강제취소"))
     })
 }
 const testData=(data)=>{                /**** 나중에 지우기 ****/
     return data.filter(datum=>{
-        return ((datum["title"] as string).includes("구매금지")) || ((datum["title"] as string).includes("TEST]")) || ((datum["title"] as string).includes("구매불가"))
+        return ((datum["title"] as string).includes("구매금지")) || ((datum["title"] as string).includes("TEST]")) || ((datum["title"] as string).includes("구매불가")) || ((datum["title"] as string).includes("강제취소"))
     })
 }
 
-export {useInput, pwEncode, verify, mkLoadingPage, removeLoadingPage, saveSession, loadSession, removeSession,testFilter,testData}
+const getLocalTime=(date=new Date())=>{
+    const n_date = new Date(date)
+
+    const y = n_date.getFullYear()
+    const tempM = n_date.getMonth()+1;
+    const m = tempM<10?"0"+tempM:tempM;
+    const d = n_date.getDate()<10?"0"+n_date.getDate():n_date.getDate();
+
+    return `${y}${m}${d}`
+}
+
+export {useInput, pwEncode, verify, mkLoadingPage, removeLoadingPage, saveSession, loadSession, removeSession,testFilter,testData, getLocalTime}
 export {locaCode, locaCodeRev, ticketHost}
