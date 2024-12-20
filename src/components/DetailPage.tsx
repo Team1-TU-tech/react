@@ -8,6 +8,7 @@ import Loading from "./Loading";
 import {loadSession, ticketHost} from "../scripts/common";
 import "../css/detail.css"
 import FloatingMenu from "./FloatingMenu";
+import {v4 as uuidv4} from "uuid";
 
 
 function DetailPage() {
@@ -70,45 +71,51 @@ function DetailPage() {
                             <col width={"10%;"}/>
                             <col width={"90%;"}/>
                         </colgroup>
-                        <tr>
-                            <th>장소</th>
-                            <td>{data["location"]}</td>
-                        </tr>
-                        <tr>
-                            <th>공연기간</th>
-                            <td>{data["start_date"] + "~" + data["end_date"]}</td>
-                        </tr>
-                        <tr>
-                            <th>공연시간</th>
-                            <td>{data["running_time"]}</td>
-                        </tr>
-                        <tr>
-                            <th>관람연령</th>
-                            <td>{data["rating"]}</td>
-                        </tr>
-                        <tr>
-                            <th>가격</th>
-                            <td>
-                                <table>
-                                    {((data["price"] as Array<string>)!==null && (data["price"] as Array<string>).length > 0) ?
-                                        (data["price"] as Array<string>).map((i, j) => {
-                                            /*@ts-ignore*/
-                                            return (<tr>
-                                                <td id={"priceLevel"}>{i["seat"]}</td>
-                                                <td>{i["price"]}</td>
-                                            </tr>)
-                                        }) : new Date() < new Date(data["start_date"]) ? "판매 예정" : "판매 종료"
-                                    }
-                                </table>
-                            </td>
-                        </tr>
+                        <tbody>
+                            <tr>
+                                <th>장소</th>
+                                <td>{data["location"]}</td>
+                            </tr>
+                            <tr>
+                                <th>공연기간</th>
+                                <td>{data["start_date"] + "~" + data["end_date"]}</td>
+                            </tr>
+                            <tr>
+                                <th>공연시간</th>
+                                <td>{data["running_time"]}</td>
+                            </tr>
+                            <tr>
+                                <th>관람연령</th>
+                                <td>{data["rating"]}</td>
+                            </tr>
+                            <tr>
+                                <th>가격</th>
+                                <td>
+                                    <table>
+                                        {((data["price"] as Array<string>) !== null && (data["price"] as Array<string>).length > 0) ?
+                                            (data["price"] as Array<string>).map(i => {
+                                                /*@ts-ignore*/
+                                                return (<tr key={uuidv4()}>
+                                                    <td id={"priceLevel"}>{i["seat"]}</td>
+                                                    <td>{i["price"]}</td>
+                                                </tr>)
+                                            }) : new Date() < new Date(data["start_date"]) ?
+                                                <tbody><tr><td>판매 예정</td></tr></tbody>
+                                                :<tbody><tr><td>판매종료</td></tr></tbody>
+                                        }
+                                    </table>
+                                            </td>
+                                            </tr>
+                        </tbody>
                     </table>
                     <div>
                         {
                             (data["hosts"] as Array<string>).map((i) => {
                                 /*@ts-ignore*/
                                 return (<a className={"btn btn-primary ticketBtn"} href={i["ticket_url"]}
-                                           target={"_blank"} rel="noreferrer" >{ticketHost[i["site_id"]]}</a>)
+                                           target={"_blank"} rel="noreferrer" key={uuidv4()} >
+                                    {ticketHost[i["site_id"]]}
+                                </a>)
                             })
                         }
                     </div>
@@ -120,10 +127,10 @@ function DetailPage() {
                     {
                         ((data["casting"] as Array<string>!==null) && (data["casting"] as Array<string>).length > 0) ?
                             (data["casting"] as Array<string>).length > 6 ?
-                                ((data["casting"] as Array<string>).slice(0, 6).map((i, j) => {
+                                ((data["casting"] as Array<string>).slice(0, 6).map(i=> {
                                     /*@ts-ignore*/
                                     return (
-                                        <div className={"artistElem"}>
+                                        <div className={"artistElem"} key={uuidv4()}>
                                             <div className={"artistImg"}
                                                  style={{backgroundImage: `url(${artist[i["actor"]]})`}}></div>
                                             {/*<img src={artist[i["actor"]]} alt={i["actor"]+"-image"} />*/}

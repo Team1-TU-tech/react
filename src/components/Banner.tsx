@@ -7,6 +7,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import "../css/banner.css";
 import axios from "axios";
+import {v4 as uuidv4} from "uuid";
 
 
 function BannerEntry(props:{[key:string]:string|number|boolean|undefined}) {
@@ -193,17 +194,8 @@ function Banner() {
         :(
         <Slider {...settings}>
             {
-                data.map((d,i)=>{
-                    /********************************
-                     {
-                     `  id : "675756fa6fd9fdea6d45f97b"
-                        poster_url : "http://tkfile.yes24.com/upload2/PerfBlog/202410/20241014/20241014-51301.jpg"
-                        start_date : "2024.12.11"
-                        end_date : "2024.12.11"
-                        title : "[부산] 백양 11시 클래식 콘서트(3회차)"`
-                     }
-                     ***********************************/
-                    return (<div id={"entryWrap"} style={{width: "10px"}}>
+                data.map((d)=>{
+                    return (<div id={"entryWrap"} style={{width: "10px"}} key={uuidv4()}>
                         <BannerEntry
                             className={"sliderContainer"}
                             posterImg= {d["poster_url"]}
