@@ -1,4 +1,6 @@
 import React from "react";
+import {v4 as uuidv4} from "uuid";
+
 import MainEntry from "./MainEntry";
 
 
@@ -36,6 +38,7 @@ function Entry(props:{[key:string]:string|number|{[key:string]:string|number|boo
                     onSale={d["onSale"]}
                     isExclusive={d["isExclusive"]}
                     _link={d["id"]}
+                    key={uuidv4()}
                 />)
             })
         }
@@ -70,7 +73,7 @@ function MainElem(props: { [key: string]: string | {[key: string]: string|number
             <div>
                 {
                     data.map((i, j) => {
-                        return (<button className={"btn btn-primary mainSectionBtn"} onClick={()=>{disp(i["id"] as string)}}>{i["name"]}</button>)
+                        return (<button className={"btn btn-primary mainSectionBtn"} onClick={()=>{disp(i["id"] as string)}} key={uuidv4()}>{i["name"]}</button>)
 
                         //  (<>
                         // <input type="radio" id={i["id"]} name={props.name} />
@@ -91,6 +94,7 @@ function MainElem(props: { [key: string]: string | {[key: string]: string|number
                             category={i["name"] as string}
                             id={i["id"] as string}
                             division={props.division}
+                            key={uuidv4()}
                         />
                     )
                 })

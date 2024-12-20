@@ -1,4 +1,5 @@
 import React from "react";
+import {v4 as uuidv4} from "uuid";
 
 function ArtistModal(props:any) {
 
@@ -21,7 +22,7 @@ function ArtistModal(props:any) {
                             <div className="modal-body">
                                 {props.castingData.map((i:{[key:string]:string}) => {
                                     return (
-                                        <div className={"artistElem"}>
+                                        <div className={"artistElem"} key={uuidv4()}>
                                             <div className={"artistImg"}
                                                  style={{backgroundImage: `url(${props.artistData[i["actor"]]})`}}></div>
                                             <div>{i["actor"]}</div>

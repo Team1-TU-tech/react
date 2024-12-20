@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import {useSearchParams} from "react-router-dom";
 
 import "../css/common.css";
+import {v4 as uuidv4} from "uuid";
 
 
 function JumpTo(props: { [key: string]: string | number | undefined }):JSX.Element {
@@ -198,8 +199,8 @@ function Pagination(props: { [key: string]: string | number | null }) {
                     {totalPage!==null&&totalPage>10?<JumpTo to="first" totalPage={totalPage} query={queryText?queryText:""} currPage={currPage?currPage:1} location={location?location:""} startDate={startDate?startDate:""} endDate={endDate?endDate:""} category={category?category:""} />:<></> }
                     {totalPage!==null&&totalPage>10?<JumpTo to="prev" totalPage={totalPage} query={queryText?queryText:""} currPage={currPage?currPage:1} location={location?location:""} startDate={startDate?startDate:""} endDate={endDate?endDate:""} category={category?category:""} />:<></> }
                     {
-                        preset.map((d, i) =>
-                            <li className="page-item">
+                        preset.map(d =>
+                            <li className="page-item" key={uuidv4()}>
                                 <a className="page-link"
                                    href={"/search?keyword="+encodeURIComponent(queryText?queryText:"")+"&region="+location+"&start_date="+startDate+"&end_date="+endDate+"&category="+category+"&currPage="+d.toString()} id={"page-link-"+d}
                                 >{d}</a></li>)

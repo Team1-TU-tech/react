@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import "../css/rstPage.css";
 import RstEntity from "./RstEntity";
 import {useSearchParams} from "react-router-dom";
+import {v4 as uuidv4} from "uuid";
 
 function SearchRstMain(props:{[key:string]:string|number|{[key:string]:string|number|boolean}[]|undefined}) {
 
@@ -102,17 +103,6 @@ function SearchRstMain(props:{[key:string]:string|number|{[key:string]:string|nu
             <div id={"rstRoot"}>
                 {
                     partitionData.map((d,i)=>{
-                        /********************************
-                        {
-                            "posterImg": "https://ticketimage.interpark.com/Play/image/large/24/24016997_p.gif",
-                            "showTitle": "MC스나이퍼 - Back To The Oldschool 3",
-                            "showLocation": "홍대 무신사 개러지",
-                            "showDate": "2024년 11월 22일(금) 오후 6시",
-                            "onSale": true,
-                            "isExclusive": true
-                            "id": 1
-                        }
-                        ***********************************/
                         return <RstEntity
                             posterImg= {d["poster_url"]}
                             showTitle={d["title"]}
@@ -121,6 +111,7 @@ function SearchRstMain(props:{[key:string]:string|number|{[key:string]:string|nu
                             onSale={d["onSale"]}
                             isExclusive={d["isExclusive"]}
                             _link={d["id"]}
+                            key={uuidv4()}
                         />
                     })
                 }
