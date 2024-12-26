@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import MainEntry from "./MainEntry"
+import axios from "axios";
 
 function WeeklyBest() {
 
@@ -9,10 +10,12 @@ function WeeklyBest() {
   const [isLoading, setIsLoading] = useState(true);
 
   const getData = async () => {
-    await fetch(`http://${process.env.REACT_APP_HOST}:7777/top_show`)
-        .then(res => res.json())
-        .then(data => {
-          const json=data["top_tickets"]
+    // await fetch(`http://${process.env.REACT_APP_HOST}:7777/top_show`)
+    //     .then(res => res.json())
+      await axios.get(`http://${process.env.REACT_APP_HOST}:8000/popular`)
+          .then(resp=>resp.data)
+        .then(json => {
+          //const json=data["top_tickets"]
           setData(json)
           setIsLoading(false);
           /***** banner fetch save ************/

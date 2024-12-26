@@ -32,14 +32,14 @@ function SearchRst() {
         //     body:JSON.stringify({"token":loadSession("loginToken")})*/
         // })
         //     .then(response => response.json())
-        axios.get(`http://${process.env.REACT_APP_HOST}:7777/search?`+searchParams.toString(), {
+        axios.get(`http://${process.env.REACT_APP_HOST}:8000/search?`+searchParams.toString(), {
             headers: {
                 "Authorization": loadSession("loginToken") || loadSession("kakaoToken") || ""
             }
         })
             .then((res)=> res.data )
             .then((data)=>{
-                //console.log(json)
+                console.log(data)
                 console.log(testData(data))             /**** 나중에 지우기 ****/
                 const f_data=testFilter(data)
                 return f_data

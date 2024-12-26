@@ -17,6 +17,7 @@ import LogoutCallback from "./components/Kakao/LogoutCallback";
 import JoinCongratuation from "./components/JoinCongratuation";
 import ToTopBtn from "./components/ToTopBtn";
 import ExclusiveAll from "./components/ExclusiveAll";
+import Admin from "./components/Admin";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -40,6 +41,7 @@ root.render(
                 <Route path="/callback" element={<LoginCallback />}/>
                 <Route path="/callbackLogout" element={<LogoutCallback />}/>
                 <Route path="/join/success" element={<JoinCongratuation />}/>
+                <Route path="/admin" element={<Admin />}/>
             </Routes>
             <ToTopBtn />
             <Footer/>

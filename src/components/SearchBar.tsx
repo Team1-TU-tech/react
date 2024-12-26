@@ -9,7 +9,6 @@ import {locaCode, locaCodeRev} from "../scripts/common";
 
 function SearchBar(props: { [key: string]: string|null }) {
 
-
     const [searchParams, setSearchParams] = useSearchParams();
 
     const query=searchParams.get("keyword")
@@ -17,7 +16,7 @@ function SearchBar(props: { [key: string]: string|null }) {
 
     const locationRef = useRef<HTMLSelectElement>(null);
     const queryLoca=searchParams.get("region")
-    let category = searchParams.get("category")?searchParams.get("category"):""
+    //let category = searchParams.get("category")?searchParams.get("category"):""
 
 
     const search=()=>{
@@ -39,11 +38,12 @@ function SearchBar(props: { [key: string]: string|null }) {
             return;
         }
 
-        if(["연극", "뮤지컬", "콘서트", "전시", "행사"].includes(queryText as string)){
-            category=queryText
-        }
+        // if(["연극", "뮤지컬", "콘서트", "전시", "행사"].includes(queryText as string)){
+        //     category=queryText
+        // }
 
-        window.location.href= "/search?keyword="+encodeURIComponent(queryText)+"&region="+(locationRef.current && locationRef.current.value!=="전국"?locaCode[locationRef.current.value]:"")+"&start_date="+startDate.split("-").join(".")+"&end_date="+endDate.split("-").join(".")+"&category="+category+"&currPage=1"        // fetch("http://127.0.0.1:8000/",{
+        // window.location.href= "/search?keyword="+encodeURIComponent(queryText)+"&region="+(locationRef.current && locationRef.current.value!=="전국"?locaCode[locationRef.current.value]:"")+"&start_date="+startDate.split("-").join(".")+"&end_date="+endDate.split("-").join(".")+"&category="+category+"&currPage=1"        // fetch("http://127.0.0.1:8000/",{
+        window.location.href= "/search?keyword="+encodeURIComponent(queryText)+"&region="+(locationRef.current && locationRef.current.value!=="전국"?locaCode[locationRef.current.value]:"")+"&start_date="+startDate.split("-").join(".")+"&end_date="+endDate.split("-").join(".")+"&category=&currPage=1"
     }
 
     useEffect(() => {

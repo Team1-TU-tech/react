@@ -111,6 +111,7 @@ function SearchRstMain(props:{[key:string]:string|number|{[key:string]:string|nu
                             onSale={d["onSale"]}
                             isExclusive={d["isExclusive"]}
                             _link={d["id"]}
+                            category={d["category"]}
                             key={uuidv4()}
                         />
                     })
