@@ -32,6 +32,7 @@
     color: gray;
     text-decoration: none;
     font-weight: 600;
+    margin-top: -65px
 }
 
 .mainSection .gotoTotalBtn {
@@ -69,4 +70,14 @@
 }
 #LoadingSection img {
     width:90%;
+}
+
+
+
+
+
+.card-img-top{
+    width: 225px;
+    height: 300px;
+    border: 1px solid #ced4da;
 }

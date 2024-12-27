@@ -126,7 +126,7 @@ function WeeklyBest() {
         <h3>주간 베스트 로딩중..</h3>
       </div>
       :(<div id={"weeklyBest"} className={"mainSection"} >
-    <h3>주간 베스트</h3>
+    <h3 style={{marginBottom:"25px"}}>주간 베스트</h3>
     <div id={"weeklyBestContainer"} className={"mainEntryContainer"}>
       {
         data.map((d, j) => {
