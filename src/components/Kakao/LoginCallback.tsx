@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {loadSession, saveSession} from "../../scripts/common";
+import axios from "axios";
 
 function LoginCallback() {
 
@@ -16,11 +17,17 @@ function LoginCallback() {
     }
 
     const login=async ()=>{
-        await fetch(`http://${process.env.REACT_APP_HOST}:8000/kakao/getToken?code=`+code,{
-            method: "GET"
-        })
-            .then(res=> res.json())
-            .then((json) => saveSession("kakaoToken", json["access_token"]) )
+        // await fetch(`http://${process.env.REACT_APP_HOST}:8000/kakao/getToken?code=`+code,{
+        //     method: "GET"
+        // })
+        //     .then(res=> res.json())
+        await axios.get(`http://${process.env.REACT_APP_HOST}:8000/kakao/getToken?code=`+code)
+            .then(resp=>resp.data)
+            .then((json) => {
+                saveSession("userNm", json["nickname"])
+                saveSession("kakaoToken", json["access_token"])
+                saveSession("userType", json["user_type"])
+            } )
             .then(()=>{
                 if(loadSession("kakaoToken")!=="") {
                     saveSession("isLogin", true);

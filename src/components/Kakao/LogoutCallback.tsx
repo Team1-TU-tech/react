@@ -8,7 +8,7 @@ function LogoutCallback() {
         removeSession("isLogin")
         removeSession("kakaoToken")
 
-        if(!loadSession("kakaoToken")) navigate("/") //window.location.href="/"
+        if(!loadSession("kakaoToken")) window.location.href="/"
     })
 
     return <div style={{textAlign:"center", height:"calc(100vh - 125px - 145px)"}}>

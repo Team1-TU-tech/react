@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {v4 as uuidv4} from "uuid";
+import axios from "axios";
 
 const Entry=(props: { [key: string]: string | { [key: string]: string | undefined } | undefined })=>{
 
@@ -29,10 +30,12 @@ function FloatingMenu(props: { [key: string]: string | undefined }) {
     const [isLoading, setIsLoading] = useState(true);
 
     const loadData = async () => {
-        await fetch(`http://${process.env.REACT_APP_HOST}:7777/recommendation/`+props.oid,{
-            method:"GET"
-        })
-            .then(res => res.json())
+        // await fetch(`http://${process.env.REACT_APP_HOST}:7777/recommendation/`+props.oid,{
+        //     method:"GET"
+        // })
+        //     .then(res => res.json())
+        await axios.get(`http://${process.env.REACT_APP_HOST}:8000/recommendation/`+props.oid)
+            .then(resp=>resp.data)
             .then(json => {
                 //console.log(json)
                 setData(json);

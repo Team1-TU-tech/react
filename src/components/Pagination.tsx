@@ -5,7 +5,7 @@ import "../css/common.css";
 import {v4 as uuidv4} from "uuid";
 
 
-function JumpTo(props: { [key: string]: string | number | undefined }):JSX.Element {
+function JumpTo(props: { [key: string]: string | number | undefined }): JSX.Element {
 
     //const [searchParams, setSearchParams] = useSearchParams();
 
@@ -18,7 +18,7 @@ function JumpTo(props: { [key: string]: string | number | undefined }):JSX.Eleme
     }
     const currPage = props.currPage ? props.currPage : 1
     const currNum = Number.parseInt(currPage.toString())
-    const totalPage = props.totalPage?props.totalPage:1
+    const totalPage = props.totalPage ? props.totalPage : 1
     // const queryText = props.query
     // const location = props.location
     // const startDate = props.startDate
@@ -26,7 +26,7 @@ function JumpTo(props: { [key: string]: string | number | undefined }):JSX.Eleme
     // const category = props.category
 
     //const linkTo="/search?keyword=" + encodeURIComponent(queryText?queryText:"") +"&region="+location+"&start_date="+startDate+"&end_date="+endDate + "&category="+category + "&currPage="
-    const linkTo=props.linkTo;
+    const linkTo = props.linkTo;
 
     switch (props.to) {
         case "first":
@@ -44,13 +44,16 @@ function JumpTo(props: { [key: string]: string | number | undefined }):JSX.Eleme
             </li>);
 
         case "prev":
-            calc = (n: number) => { return n - (n % 10)} // - 9
+            calc = (n: number) => {
+                return n - (n % 10)
+            } // - 9
 
             const prevIdx = calc(Number.parseInt(currNum.toString()))
 
             if (currNum > 10) {
                 return (
-                    <li className="page-item"><a className="page-link" id={"nextBtn"} href={linkTo + prevIdx.toString()}>Prev</a></li>
+                    <li className="page-item"><a className="page-link" id={"nextBtn"}
+                                                 href={linkTo + prevIdx.toString()}>Prev</a></li>
                 );
             } else {
                 return <></>
@@ -166,35 +169,38 @@ function Pagination(props: { [key: string]: string | number | null }) {
 
     const currPage = searchParams.get("currPage")
     const queryText = searchParams.get("keyword")
-    const location= searchParams.get("region")
-    const startDate= searchParams.get("start_date")
-    const endDate= searchParams.get("end_date")
-    const category= searchParams.get("category")
+    const location = searchParams.get("region")
+    const startDate = searchParams.get("start_date")
+    const endDate = searchParams.get("end_date")
+    const category = searchParams.get("category")
+    const includes = searchParams.get("notSale")
 
     const totalPage = props.totalPage
-    const linkTo= window.location.pathname.includes("search")?
-        "/search?keyword=" + encodeURIComponent(queryText?queryText:"") +"&region="+location+"&start_date="+startDate+"&end_date="+endDate + "&category="+category + "&currPage="
-        :`/exclusive/all?site_id=${searchParams.get("site_id")}&currPage=`
+    const linkTo = window.location.pathname.includes("search") ?
+        "/search?keyword=" + encodeURIComponent(queryText ? queryText : "") + "&region=" + location + "&start_date=" + startDate + "&end_date=" + endDate + "&category=" + category + "&notSale=" + includes + "&currPage="
+        : `/exclusive/all?site_id=${searchParams.get("site_id")}&currPage=`
 
     const preset = []
-    if (totalPage && currPage){
+    if (totalPage && currPage) {
         const currPageNum = Number.parseInt(currPage)
-        const calc = (n:number)=>{return n-(n%10)+1}
-        const initPage = currPageNum%10>0?calc(currPageNum):currPageNum-9
+        const calc = (n: number) => {
+            return n - (n % 10) + 1
+        }
+        const initPage = currPageNum % 10 > 0 ? calc(currPageNum) : currPageNum - 9
 
-        for (let i = initPage; i <= Math.min(Number.parseFloat(totalPage.toString()),initPage+9); i++) {
+        for (let i = initPage; i <= Math.min(Number.parseFloat(totalPage.toString()), initPage + 9); i++) {
             preset.push(i)
         }
     }
 
-    useEffect(()=>{
-        if(currPage && totalPage){
-            const selected = document.getElementById("page-link-"+currPage.toString())
+    useEffect(() => {
+        if (currPage && totalPage) {
+            const selected = document.getElementById("page-link-" + currPage.toString())
             if (selected) selected.classList.add("selected")
             console.log(selected)
         }
-    },[])
-    
+    }, [])
+
 
     return (
         <div id={"pagination"}>
@@ -202,26 +208,35 @@ function Pagination(props: { [key: string]: string | number | null }) {
                 <ul className="pagination" id={"naviRoot"}>
                     {/*{totalPage!==null&&totalPage>10?<JumpTo to="first" totalPage={totalPage} query={queryText?queryText:""} currPage={currPage?currPage:1} location={location?location:""} startDate={startDate?startDate:""} endDate={endDate?endDate:""} category={category?category:""} />:<></> }*/}
                     {/*{totalPage!==null&&totalPage>10?<JumpTo to="prev" totalPage={totalPage} query={queryText?queryText:""} currPage={currPage?currPage:1} location={location?location:""} startDate={startDate?startDate:""} endDate={endDate?endDate:""} category={category?category:""} />:<></> }*/}
-                    {totalPage!==null&&totalPage>10?<JumpTo to="first" totalPage={totalPage} currPage={currPage?currPage:1} linkTo={linkTo} />:<></> }
-                    {totalPage!==null&&totalPage>10?<JumpTo to="prev" totalPage={totalPage} currPage={currPage?currPage:1} linkTo={linkTo} />:<></> }
+                    {totalPage !== null && totalPage > 10 ?
+                        <JumpTo to="first" totalPage={totalPage} currPage={currPage ? currPage : 1}
+                                linkTo={linkTo}/> : <></>}
+                    {totalPage !== null && totalPage > 10 ?
+                        <JumpTo to="prev" totalPage={totalPage} currPage={currPage ? currPage : 1}
+                                linkTo={linkTo}/> : <></>}
                     {
                         preset.map(d =>
                             <li className="page-item" key={uuidv4()}>
                                 <a className="page-link"
-                                   id={"page-link-"+d}
-                                   href={linkTo+d.toString()} >
+                                   id={"page-link-" + d}
+                                   href={linkTo + d.toString()}>
                                     {d} </a>
                             </li>
                         )
                     }
                     {/*{totalPage!==null&&totalPage>10?<JumpTo to="next" totalPage={totalPage} query={queryText?queryText:""} currPage={currPage?currPage:1} location={location?location:""} startDate={startDate?startDate:""} endDate={endDate?endDate:""} category={category?category:""} />:<></> }*/}
                     {/*{totalPage!==null&&totalPage>10?<JumpTo to="last" totalPage={totalPage} query={queryText?queryText:""} currPage={currPage?currPage:1} location={location?location:""} startDate={startDate?startDate:""} endDate={endDate?endDate:""} category={category?category:""} />:<></> }*/}
-                    {totalPage!==null&&totalPage>10?<JumpTo to="next" totalPage={totalPage} currPage={currPage?currPage:1} linkTo={linkTo} />:<></> }
-                    {totalPage!==null&&totalPage>10?<JumpTo to="last" totalPage={totalPage} currPage={currPage?currPage:1} linkTo={linkTo} />:<></> }
+                    {totalPage !== null && totalPage > 10 ?
+                        <JumpTo to="next" totalPage={totalPage} currPage={currPage ? currPage : 1}
+                                linkTo={linkTo}/> : <></>}
+                    {totalPage !== null && totalPage > 10 ?
+                        <JumpTo to="last" totalPage={totalPage} currPage={currPage ? currPage : 1}
+                                linkTo={linkTo}/> : <></>}
                 </ul>
             </nav>
         </div>
     );
 }
+
 export default Pagination;
 

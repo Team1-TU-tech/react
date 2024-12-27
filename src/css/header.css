@@ -40,8 +40,12 @@
 /*.headerBotBtn:hover{ color: #0d6efd; }*/
 
 #concertBtn{ background-image: url(../img/concertBtn.png); background-repeat: no-repeat; background-size: 90px; background-position: center; cursor: pointer; }
+#concertBtnSelected{ background-image: url(../img/concertBtn_hover.png); background-repeat: no-repeat; background-size: 90px; background-position: center; cursor: pointer; border-bottom: #0d6efd solid 5px;}
 #concertBtn:hover{ background-image: url(../img/concertBtn_hover.png); }
+
 #musicalBtn{ background-image: url(../img/musicalBtn.png); background-repeat: no-repeat; background-size: 160px; background-position: center; cursor: pointer; }
+#musicalBtnSelected{ background-image: url(../img/musicalBtn_hover.png); background-repeat: no-repeat; background-size: 160px; background-position: center; cursor: pointer; border-bottom: #0d6efd solid 5px;}
 #musicalBtn:hover{ background-image: url(../img/musicalBtn_hover.png); }
 #exhibitBtn{ background-image: url(../img/exhibitBtn.png); background-repeat: no-repeat; background-size: 130px; background-position: center; cursor: pointer; }
+#exhibitBtnSelected{ background-image: url(../img/exhibitBtn_hover.png); background-repeat: no-repeat; background-size: 130px; background-position: center; cursor: pointer; border-bottom: #0d6efd solid 5px;}
 #exhibitBtn:hover{ background-image: url(../img/exhibitBtn_hover.png); }
