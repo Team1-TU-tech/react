@@ -43,10 +43,9 @@ function ExclusiveBy() {
     const [isLoading, setIsLoading] = useState(true);
 
     const loadData = async () => {
-        await axios.get(`http://${process.env.REACT_APP_HOST}:7777/exclusive/main`)
+        await axios.get(`http://${process.env.REACT_APP_HOST}:8000/exclusive/main`)
             .then(res => res.data)
             .then(data => {
-                //console.log(data);
                 setData(data);
                 setIsLoading(false);
 
@@ -192,7 +191,7 @@ function ExclusiveBy() {
                 {data.map(i => {
                     return i["items"].map(j => {
                         return <Entity
-                            posterImg={j["ticket_url"]}
+                            posterImg={j["poster_url"]}
                             showTitle={j["title"]}
                             showLocation={j["location"]}
                             showDate={j["start_date"] + "~" + j["end_date"]}

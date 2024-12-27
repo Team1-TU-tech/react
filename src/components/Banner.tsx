@@ -161,7 +161,7 @@ function Banner() {
         //     method: "GET",
         // })
         //     .then(res => res.json())
-        await axios.get(`http://${process.env.REACT_APP_HOST}:7777/banner`)
+        await axios.get(`http://${process.env.REACT_APP_HOST}:8000/banner`)
             .then(res => res.data)
             .then(json => {
                 //console.log(json)

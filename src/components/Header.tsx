@@ -1,5 +1,5 @@
-import React from "react";
-import {useNavigate} from "react-router-dom";
+import React, {useEffect} from "react";
+import {useNavigate, useSearchParams} from "react-router-dom";
 
 import "../css/header.css";
 import Login from "./Login";
@@ -9,6 +9,7 @@ import {loadSession, removeSession} from "../scripts/common";
 function Header() {
 
     const navigate = useNavigate()
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const join=()=>{
         navigate("/join")
@@ -31,7 +32,7 @@ function Header() {
                 },
                 //body:JSON.stringify({"kakaoToken":loadSession("kakaoToken")})
             })
-                .then(response=> navigate(response["url"]))//window.location.href=response["url"])
+                .then(response=> window.location.href=response["url"])
                 .catch(err=> {
                     console.error(err)
                     alert("오류가 발생하였습니다.\n잠시 후 다시 시도해주세요.")
@@ -50,6 +51,8 @@ function Header() {
             removeSession("isLogin")
             removeSession("loginToken")
             removeSession("refreshToken")
+            removeSession("userNm")
+            removeSession("userType")
 
             if(!loadSession("refreshToken")) navigate("/")//window.location.href="/"
         }
@@ -62,11 +65,36 @@ function Header() {
         window.location.reload()
     }
 
+const selected=()=>{
+    const cat = searchParams.get("category")
+    let elem;
+
+    if (cat==="콘서트") {
+        elem = window.document.getElementById("concertBtn")
+    } else if (cat==="뮤지컬/연극") {
+        elem = window.document.getElementById("musicalBtn")
+    } else if (cat==="전시/행사") {
+        elem = window.document.getElementById("exhibitBtn")
+    }
+
+    if(elem) elem.id=elem.id+"Selected"
+}
+
+    useEffect(() => {
+        selected()
+    }, []);
+
     return (
         <div id={"header"}>
             <div className={"headerComponents"} id={"headerTop"}>
                 <img src={logo} alt="Logo" onClick={index} id="logo" className={"headerTopBtn"} />
-                {!loadSession("isLogin") ? <div onClick={join} className={"headerTopBtn"} id={"joinBtn"}></div> : <></>}
+                {!loadSession("isLogin") ? <div onClick={join} className={"headerTopBtn"} id={"joinBtn"}></div> : <div style={{alignSelf:"center"}}>
+                    <span style={{color:"#595959", fontSize:"23px", marginRight:"10px", verticalAlign:"middle"}}>{loadSession("userNm")}님 안녕하세요</span>
+                    { loadSession("userType")===1 ?
+                        <button className="btn btn-danger" onClick={() => { navigate("/admin") }}>ADMIN</button>
+                        : <></>
+                    }
+                </div>}
                 {!loadSession("isLogin") ? <Login/> : <div onClick={logout} className={"headerTopBtn"} id={"logoutBtn"} ></div>}
             </div>
             <div className={"headerComponents"} id={"headerBot"}>

@@ -9,7 +9,6 @@ import {locaCode, locaCodeRev} from "../scripts/common";
 
 function SearchBar(props: { [key: string]: string|null }) {
 
-
     const [searchParams, setSearchParams] = useSearchParams();
 
     const query=searchParams.get("keyword")
@@ -17,7 +16,7 @@ function SearchBar(props: { [key: string]: string|null }) {
 
     const locationRef = useRef<HTMLSelectElement>(null);
     const queryLoca=searchParams.get("region")
-    let category = searchParams.get("category")?searchParams.get("category"):""
+    //let category = searchParams.get("category")?searchParams.get("category"):""
 
 
     const search=()=>{
@@ -39,11 +38,12 @@ function SearchBar(props: { [key: string]: string|null }) {
             return;
         }
 
-        if(["연극", "뮤지컬", "콘서트", "전시", "행사"].includes(queryText as string)){
-            category=queryText
-        }
+        // if(["연극", "뮤지컬", "콘서트", "전시", "행사"].includes(queryText as string)){
+        //     category=queryText
+        // }
 
-        window.location.href= "/search?keyword="+encodeURIComponent(queryText)+"&region="+(locationRef.current && locationRef.current.value!=="전국"?locaCode[locationRef.current.value]:"")+"&start_date="+startDate.split("-").join(".")+"&end_date="+endDate.split("-").join(".")+"&category="+category+"&currPage=1"        // fetch("http://127.0.0.1:8000/",{
+        // window.location.href= "/search?keyword="+encodeURIComponent(queryText)+"&region="+(locationRef.current && locationRef.current.value!=="전국"?locaCode[locationRef.current.value]:"")+"&start_date="+startDate.split("-").join(".")+"&end_date="+endDate.split("-").join(".")+"&category="+category+"&currPage=1"        // fetch("http://127.0.0.1:8000/",{
+        window.location.href= "/search?keyword="+encodeURIComponent(queryText)+"&region="+(locationRef.current && locationRef.current.value!=="전국"?locaCode[locationRef.current.value]:"")+"&start_date="+startDate.split("-").join(".")+"&end_date="+endDate.split("-").join(".")+"&category=&currPage=1"
     }
 
     useEffect(() => {
@@ -58,25 +58,23 @@ function SearchBar(props: { [key: string]: string|null }) {
     return (
         <>
             <div id={"searchContainer"} className={"input-group"}>
-                <div className={"input-group"} id={"searchLoca"}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#0d6efd"
-                         className="bi bi-cursor"
-                         viewBox="0 0 16 16"
-                         id={"arrowImg"}>
-                        <path
-                            d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103zM2.25 8.184l3.897 1.67a.5.5 0 0 1 .262.263l1.67 3.897L12.743 3.52z"/>
-                    </svg>
-                    <select className="form-select" aria-label="City" id={"city"} ref={locationRef} defaultValue={""}>
-                        <option>전국</option>
-                        <option value="1">서울</option>
-                        <option value="2">수도권</option>
-                        <option value="3">경상</option>
-                        <option value="4">전라</option>
-                        <option value="5">강원</option>
-                        <option value="6">충청</option>
-                        <option value="7">제주</option>
-                    </select>
-                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0d6efd"
+                     className="bi bi-cursor"
+                     viewBox="0 0 16 16"
+                     id={"arrowImg"}>
+                    <path
+                        d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103zM2.25 8.184l3.897 1.67a.5.5 0 0 1 .262.263l1.67 3.897L12.743 3.52z"/>
+                </svg>
+                <select className="form-select" aria-label="City" id={"city"} ref={locationRef} defaultValue={""}>
+                    <option>전국</option>
+                    <option value="1">서울</option>
+                    <option value="2">수도권</option>
+                    <option value="3">경상</option>
+                    <option value="4">전라</option>
+                    <option value="5">강원</option>
+                    <option value="6">충청</option>
+                    <option value="7">제주</option>
+                </select>
                 {/*<Calendar placeholder={"시작일"} id={"startDate"} selected={searchParams.get("startDate")} />*/}
                 {/*<Calendar placeholder={"종료일"} id={"endDate"} selected={searchParams.get("endDate")} />*/}
                 <SearchCalendar />
