@@ -23,7 +23,11 @@ function LoginCallback() {
         //     .then(res=> res.json())
         await axios.get(`http://${process.env.REACT_APP_HOST}:8000/kakao/getToken?code=`+code)
             .then(resp=>resp.data)
-            .then((json) => saveSession("kakaoToken", json["access_token"]) )
+            .then((json) => {
+                saveSession("userNm", json["nickname"])
+                saveSession("kakaoToken", json["access_token"])
+                saveSession("userType", json["user_type"])
+            } )
             .then(()=>{
                 if(loadSession("kakaoToken")!=="") {
                     saveSession("isLogin", true);

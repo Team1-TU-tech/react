@@ -41,12 +41,26 @@ function SearchRst() {
             .then((data)=>{
                 console.log(data)
                 console.log(testData(data))             /**** 나중에 지우기 ****/
-                const f_data=testFilter(data)
+                const f_data=testFilter(data).map(i=>{
+                        if(i["end_date"]=="상시공연") i["onSale"]=true
+                        return i
+                    })
                 return f_data
             })
             .then((f_data)=>{
-                setData(f_data)
-                setRstNum(f_data.length)
+                const includes=searchParams.get("notSale")?searchParams.get("notSale"):false
+
+                if(includes==="true"){
+                    setData(f_data)
+                    setRstNum(f_data.length)
+                } else {
+                    const onSaleData=[]
+                    for(let i=0;i<f_data.length;i++){
+                        if (f_data[i]["onSale"]) onSaleData.push(f_data[i])
+                    }
+                    setData(onSaleData)
+                    setRstNum(onSaleData.length)
+                }
                 setIsLoading(false)
             })
             .catch(err => {
@@ -60,6 +74,11 @@ function SearchRst() {
                     console.log(e)
                 }*/
             })
+    }
+
+    const viewNotSale=()=>{
+        const href=window.location.href;
+        window.location.href=href+"&notSale=true"
     }
 
     //let data;
@@ -79,6 +98,7 @@ function SearchRst() {
                         <div id={"noRst"}>
                             <h4> 검색하신 "{queryText}"에 대한 티켓이 존재하지 않습니다.</h4>
                             <div>다른 검색어를 입력해주세요</div>
+                            <button className={"btn btn-secondary"} onClick={viewNotSale}>판매종료/판매예정 보기</button>
                         </div>
                     <WeeklyBest />
                 </div> )

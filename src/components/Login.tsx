@@ -24,6 +24,8 @@ function Login() {
             })
                 .then(response=> response.json())
                 .then(json=> {
+                        console.log(json)
+                    debugger
                         saveSession("loginToken", json["access_token"]);
                         saveSession("refreshToken", json["refresh_token"]);
                         saveSession("isLogin", true);
@@ -31,8 +33,8 @@ function Login() {
                 .then(()=>{
                     if (loadSession("isLogin")){
                         if((loadSession("loginToken")!=="undefined" || loadSession("refreshToken"))!=="undefined"){
-                            //window.location.href="/";
-                            navigate("/")
+                            window.location.href="/";
+                            //navigate("/")
                         }
                         else {
                             removeSession("loginToken")
@@ -50,8 +52,8 @@ function Login() {
     }
 
     const kakao=()=> {
-        //window.location.href=`http://${process.env.REACT_APP_HOST}:8000/kakao/getcode`;
-        navigate(`http://${process.env.REACT_APP_HOST}:8000/kakao/getcode`)
+        window.location.href=`http://${process.env.REACT_APP_HOST}:8000/kakao/getcode`;
+        //navigate(`http://${process.env.REACT_APP_HOST}:8000/kakao/getcode`)
     }
 
     const join=()=>{

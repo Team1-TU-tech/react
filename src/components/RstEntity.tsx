@@ -32,7 +32,7 @@ function RstEntity(props:{[key:string]:string|number|boolean|undefined}) {
                     }}>{props.showTitle}</h5>
                     <small className={"showLocation"}>{props.showLocation}</small><br/>
                     <small className={"showDate"}>{props.showDate}</small><br/>
-                    {props.category ? <span className="badge text-bg-teal" onClick={()=>{topMenu(["뮤지컬","연극"].includes(props.category)?"뮤지컬/연극":props.category)}}>{["뮤지컬","연극"].includes(props.category)?"뮤지컬/연극":props.category}</span> : <></>}
+                    {props.category ? <span className="badge text-bg-teal clickable" onClick={()=>{topMenu(["뮤지컬","연극"].includes(props.category)?"뮤지컬/연극":props.category)}}>{["뮤지컬","연극"].includes(props.category)?"뮤지컬/연극":props.category}</span> : <></>}
                     {props.onSale ? <span className="badge text-bg-primary">판매중</span> :
                         closed(props.showDate as string) ?
                             <span className="badge text-bg-danger">판매종료</span>

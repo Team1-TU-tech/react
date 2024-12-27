@@ -32,7 +32,7 @@ function Header() {
                 },
                 //body:JSON.stringify({"kakaoToken":loadSession("kakaoToken")})
             })
-                .then(response=> navigate(response["url"]))//window.location.href=response["url"])
+                .then(response=> window.location.href=response["url"])
                 .catch(err=> {
                     console.error(err)
                     alert("오류가 발생하였습니다.\n잠시 후 다시 시도해주세요.")
@@ -51,6 +51,8 @@ function Header() {
             removeSession("isLogin")
             removeSession("loginToken")
             removeSession("refreshToken")
+            removeSession("userNm")
+            removeSession("userType")
 
             if(!loadSession("refreshToken")) navigate("/")//window.location.href="/"
         }
@@ -87,10 +89,11 @@ const selected=()=>{
             <div className={"headerComponents"} id={"headerTop"}>
                 <img src={logo} alt="Logo" onClick={index} id="logo" className={"headerTopBtn"} />
                 {!loadSession("isLogin") ? <div onClick={join} className={"headerTopBtn"} id={"joinBtn"}></div> : <div style={{alignSelf:"center"}}>
-                    <span style={{color:"#595959", fontSize:"23px", marginRight:"10px", verticalAlign:"middle"}}>님 안녕하세요</span>
-                    <button className="btn btn-danger" onClick={() => {
-                        navigate("/admin")
-                    }}>ADMIN</button>
+                    <span style={{color:"#595959", fontSize:"23px", marginRight:"10px", verticalAlign:"middle"}}>{loadSession("userNm")}님 안녕하세요</span>
+                    { loadSession("userType")===1 ?
+                        <button className="btn btn-danger" onClick={() => { navigate("/admin") }}>ADMIN</button>
+                        : <></>
+                    }
                 </div>}
                 {!loadSession("isLogin") ? <Login/> : <div onClick={logout} className={"headerTopBtn"} id={"logoutBtn"} ></div>}
             </div>
