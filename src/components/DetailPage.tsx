@@ -10,8 +10,6 @@ import "../css/detail.css"
 import FloatingMenu from "./FloatingMenu";
 import {v4 as uuidv4} from "uuid";
 import axios from "axios";
-import {Simulate} from "react-dom/test-utils";
-import load = Simulate.load;
 
 
 function DetailPage() {

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {loadSession, setVisited} from "../scripts/common";
 import {useNavigate} from "react-router-dom";
 
