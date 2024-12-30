@@ -25,7 +25,6 @@ function Login() {
                 .then(response=> response.json())
                 .then(json=> {
                         console.log(json)
-                    debugger
                         saveSession("loginToken", json["access_token"]);
                         saveSession("refreshToken", json["refresh_token"]);
                         saveSession("isLogin", true);

@@ -42,7 +42,7 @@ function ThisWeekend() {
         await axios.get(`http://${process.env.REACT_APP_HOST}:8000/this_weekend`)
             .then(res => res.data)
             .then(data => {
-                console.log(data)
+                //console.log(data)
                 setData(data);
                 setIsLoading(false);
 
@@ -52,8 +52,8 @@ function ThisWeekend() {
                 /***** banner fetch save ************/
             })
             .catch(err => {
-                console.log("WeekendData\n└", err)
-                console.log(err)
+                console.error("WeekendData\n└", err)
+                console.error(err)
                 const json = localStorage.getItem("WeekendData")
                 if(json!==null){
                     setData(JSON.parse(json))

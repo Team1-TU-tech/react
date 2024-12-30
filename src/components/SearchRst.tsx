@@ -39,8 +39,7 @@ function SearchRst() {
         })
             .then((res)=> res.data )
             .then((data)=>{
-                console.log(data)
-                console.log(testData(data))             /**** 나중에 지우기 ****/
+                //console.log(data)
                 const f_data=testFilter(data).map(i=>{
                         if(i["end_date"]=="상시공연") i["onSale"]=true
                         return i

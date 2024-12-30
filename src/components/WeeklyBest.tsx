@@ -24,7 +24,7 @@ function WeeklyBest() {
           /***** banner fetch save ************/
         })
         .catch(err=> {
-          console.log("WeeklyBest\n└", err)
+          console.error("WeeklyBest\n└", err)
           const json = localStorage.getItem("WeeklyBest")
           if(json!==null){
             setData(JSON.parse(json))

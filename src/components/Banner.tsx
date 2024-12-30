@@ -173,7 +173,7 @@ function Banner() {
                 /***** banner fetch save ************/
             })
             .catch(err=> {
-                console.log("banner\n└", err)
+                console.error("banner\n└", err)
                 const json = localStorage.getItem("bannerData")
                 if(json!==null){
                    setData(JSON.parse(json))

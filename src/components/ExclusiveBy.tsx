@@ -55,8 +55,8 @@ function ExclusiveBy() {
                 /***** banner fetch save ************/
             })
             .catch(err => {
-                console.log("exclusiveData\n└", err)
-                console.log(err)
+                console.error("exclusiveData\n└", err)
+                console.error(err)
                 const json = localStorage.getItem("exclusiveData")
                 if(json!==null){
                     setData(JSON.parse(json))

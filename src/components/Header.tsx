@@ -46,7 +46,7 @@ function Header() {
                 },
                 //body:JSON.stringify({"token":loadSession("loginToken")})
             })
-                .then(resp=> console.log(resp))
+                //.then(resp=> console.log(resp))
 
             removeSession("isLogin")
             removeSession("loginToken")

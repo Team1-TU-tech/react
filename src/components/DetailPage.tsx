@@ -37,7 +37,7 @@ function DetailPage() {
         })
             .then(res=>res.data)
             .then(json => {
-                    console.log(json)
+                    //console.log(json)
                     setData(json["data"])
 
                     if(json["data"]["artist"]!==null){

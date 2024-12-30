@@ -197,7 +197,7 @@ function Pagination(props: { [key: string]: string | number | null }) {
         if (currPage && totalPage) {
             const selected = document.getElementById("page-link-" + currPage.toString())
             if (selected) selected.classList.add("selected")
-            console.log(selected)
+            //console.log(selected)
         }
     }, [])
 

@@ -32,7 +32,6 @@ function ExclusiveAll() {
         })
             .then((res)=> res.data )
             .then((data)=>{
-                console.log(testData(data))             /**** 나중에 지우기 ****/
                 const f_data=testFilter(data)
                 return f_data
             })
