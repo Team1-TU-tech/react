@@ -24,10 +24,11 @@ function Login() {
             })
                 .then(response=> response.json())
                 .then(json=> {
-                        console.log(json)
                         saveSession("loginToken", json["access_token"]);
                         saveSession("refreshToken", json["refresh_token"]);
                         saveSession("isLogin", true);
+                        saveSession("userNm", json["username"])
+                        saveSession("userType", json["user_type"])
                 })
                 .then(()=>{
                     if (loadSession("isLogin")){
