@@ -5,11 +5,13 @@ import ErrorPage from "./ErrorPage";
 import ArtistModal from "./ArtistModal";
 import Loading from "./Loading";
 
-import {loadSession, ticketHost} from "../scripts/common";
+import {loadSession, setVisited, ticketHost} from "../scripts/common";
 import "../css/detail.css"
 import FloatingMenu from "./FloatingMenu";
 import {v4 as uuidv4} from "uuid";
 import axios from "axios";
+import {Simulate} from "react-dom/test-utils";
+import load = Simulate.load;
 
 
 function DetailPage() {
@@ -37,18 +39,25 @@ function DetailPage() {
         })
             .then(res=>res.data)
             .then(json => {
-                    //console.log(json)
-                    setData(json["data"])
+                //console.log(json)
+                setData(json["data"])
 
-                    if(json["data"]["artist"]!==null){
-                        let temp={} as {[key:string]:string}
-                        json["data"]["artist"].map((i:{[key:string]:string})=>{
-                            temp[i["artist_name"]]=i["artist_url"].includes("noImage")?"../img/person-circle.svg":i["artist_url"]
-                        })
-                        setArtist(temp)
+                if(json["data"]["artist"]!==null){
+                    let temp={} as {[key:string]:string}
+                    json["data"]["artist"].map((i:{[key:string]:string})=>{
+                        temp[i["artist_name"]]=i["artist_url"].includes("noImage")?"../img/person-circle.svg":i["artist_url"]
+                    })
+                    setArtist(temp)
+                }
+                if(loadSession("isLogin")==="true"){
+                    if( JSON.parse(loadSession("visited")).filter(i=>{
+                        return i["showTitle"]===json["data"]["title"]
+                    }).length <1){
+                        setVisited(json["data"]["poster_url"],json["data"]["title"],json["data"]["location"],`${json["data"]["start_date"]}~${json["data"]["end_date"]}`,json["data"]["_id"])
                     }
                 }
-            ).then(()=>{
+            })
+            .then(()=>{
                 setIsLoading(false)
             })
             .catch(err => {
