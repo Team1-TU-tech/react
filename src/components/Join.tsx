@@ -1,6 +1,6 @@
 import React, {useMemo, useRef, useState} from "react";
 import "../css/join.css";
-import {pwEncode, verify} from "../scripts/common";
+import {pwEncode, saveSession, verify} from "../scripts/common";
 import AgreeModal from "./AgreeModal";
 import Calendar from "./Calendar";
 
@@ -132,6 +132,7 @@ function Join() {
             .then((json)=>{
             if(json){
                 if(json["success"]) {
+                    saveSession("userName", nameRef.current.value)
                     if(nameRef.current) alert(nameRef.current.value+"님!\n회원가입을 환영합니다!")
                     window.location.href = "/join/success?agree="+ (agreeMarketingRef.current?agreeMarketingRef.current.checked.toString():false)
                 };
