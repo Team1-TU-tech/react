@@ -1,9 +1,11 @@
 #footer {
+    position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     background-color: #EEEEEE;
     padding-top: 10px;
     padding-bottom: 25px;
+    z-index: 1;
 }
 
 #footerLogo{

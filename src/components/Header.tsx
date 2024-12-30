@@ -90,7 +90,7 @@ const selected=()=>{
                 <img src={logo} alt="Logo" onClick={index} id="logo" className={"headerTopBtn"} />
                 {!loadSession("isLogin") ? <div onClick={join} className={"headerTopBtn"} id={"joinBtn"}></div> : <div style={{alignSelf:"center"}}>
                     <span style={{color:"#595959", fontSize:"23px", marginRight:"10px", verticalAlign:"middle"}}>{loadSession("userNm")}님 안녕하세요</span>
-                    { loadSession("userType")===1 ?
+                    { loadSession("userType")==="1"?
                         <button className="btn btn-danger" onClick={() => { navigate("/admin") }}>ADMIN</button>
                         : <></>
                     }
