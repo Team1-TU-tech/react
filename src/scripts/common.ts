@@ -128,12 +128,12 @@ function removeSession(key:string) {
 
 const testFilter=(data)=>{
     return data.filter(datum=>{
-        return (!(datum["title"] as string).includes("구매금지")) && (!(datum["title"] as string).includes("TEST]")) && (!(datum["title"] as string).includes("구매불가")) && (!(datum["title"] as string).includes("강제취소"))
+        return (!(datum["title"] as string).includes("구매금지")) && (!(datum["title"] as string).toUpperCase().includes("TEST]")) && (!(datum["title"] as string).includes("구매불가")) && (!(datum["title"] as string).includes("강제취소"))
     })
 }
 const testData=(data)=>{                /**** 나중에 지우기 ****/
     return data.filter(datum=>{
-        return ((datum["title"] as string).includes("구매금지")) || ((datum["title"] as string).includes("TEST]")) || ((datum["title"] as string).includes("구매불가")) || ((datum["title"] as string).includes("강제취소"))
+        return ((datum["title"] as string).includes("구매금지")) || ((datum["title"] as string).toUpperCase().includes("TEST]")) || ((datum["title"] as string).includes("구매불가")) || ((datum["title"] as string).includes("강제취소"))
     })
 }
 

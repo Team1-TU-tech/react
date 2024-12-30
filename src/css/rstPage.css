@@ -17,13 +17,13 @@
 
 
 /*** SearchRstMain ************/
-#rstMain{ padding-left: 45px; }
+#rstMain{ padding-left: 10px; }
 
 #rstNum{
     font-size: 27px;
     font-weight: 600;
     margin-bottom: 20px;
-    padding-left: 70px;
+    padding-left: 40px;
 }
 
 .rstSimpleContainer{
@@ -45,7 +45,7 @@
 }
 
 .card-body{
-    height: 180px;
+    height: 155px;
 }
 
 .badge {margin-right: 3px; font-size: 11px;}

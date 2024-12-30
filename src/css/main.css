@@ -1,5 +1,5 @@
 .App{
-    height: 3100px;
+    height: 2802px;
 }
 
 .mainSection{
@@ -21,7 +21,7 @@
 }
 
 .mainEntry{
-    width: 90%;
+    width: 250px;
 }
 
 .mainSectionBtn{
@@ -32,7 +32,7 @@
     color: gray;
     text-decoration: none;
     font-weight: 600;
-    margin-top: -65px
+    margin-top: -50px
 }
 
 .mainSection .gotoTotalBtn {

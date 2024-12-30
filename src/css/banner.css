@@ -45,7 +45,8 @@
     font-size:100px;
 }
 .bannerImg{
-    height: 300px;
+    height: 300px !important;
+    width: 206.4px !important;
 }
 
 .bannerBody{

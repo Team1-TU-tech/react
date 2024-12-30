@@ -18,6 +18,7 @@ import JoinCongratuation from "./components/JoinCongratuation";
 import ToTopBtn from "./components/ToTopBtn";
 import ExclusiveAll from "./components/ExclusiveAll";
 import Admin from "./components/Admin";
+import ErrorPage from "./components/ErrorPage";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -42,6 +43,7 @@ root.render(
                 <Route path="/callbackLogout" element={<LogoutCallback />}/>
                 <Route path="/join/success" element={<JoinCongratuation />}/>
                 <Route path="/admin" element={<Admin />}/>
+                <Route path="*" element={<ErrorPage />}/>
             </Routes>
             <ToTopBtn />
             <Footer/>
