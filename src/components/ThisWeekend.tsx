@@ -89,7 +89,7 @@ function ThisWeekend() {
 
 
     return isLoading ?
-        <div id="LoadingSection">
+        <div id="LoadingSection" style={{marginTop:"350px"}}>
             <img src={"/static/media/loading.gif"} alt={"Loading"}/>
             <h3>주말공연 정보 로딩중..</h3>
         </div> 
