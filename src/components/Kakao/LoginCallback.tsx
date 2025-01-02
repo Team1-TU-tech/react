@@ -12,7 +12,7 @@ function LoginCallback() {
     if(!code){
         setTimeout(()=>{
             //window.location.href=`http://${process.env.REACT_APP_HOST}:3000`
-            navigate(`http://${process.env.REACT_APP_HOST}:3000`)
+            navigate(`http://${process.env.REACT_APP_HOST}`)
         },3000)
     }
 
