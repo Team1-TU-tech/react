@@ -8,7 +8,7 @@ import Pagination from "./Pagination";
 import WeeklyBest from "./WeeklyBest";
 import Loading from "./Loading";
 
-import {loadSession, testData, testFilter} from "../scripts/common";
+import {loadSession, testFilter} from "../scripts/common";
 import "../css/rstPage.css";
 
 function SearchRst() {
@@ -41,7 +41,7 @@ function SearchRst() {
             .then((data)=>{
                 // console.log(data)
                 const f_data=testFilter(data).map(i=>{
-                        if(i["end_date"]=="상시공연") i["onSale"]=true
+                        if(i["end_date"]==="상시공연") i["onSale"]=true
                         return i
                     })
                 return f_data

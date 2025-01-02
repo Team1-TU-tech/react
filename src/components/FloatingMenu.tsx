@@ -41,11 +41,6 @@ function FloatingMenu(props: { [key: string]: string | undefined }) {
                 setData(json);
                 setIsLoading(false);
             })
-            .then(() => {
-                if(window.document.getElementById("floating-menu").offsetHeight > 603){
-                    window.document.getElementById("root").removeChild(document.getElementById("toTopBtn"));
-                }
-            })
             .catch(err => console.error(err));
     }
 

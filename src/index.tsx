@@ -18,6 +18,7 @@ import JoinCongratuation from "./components/JoinCongratuation";
 import ToTopBtn from "./components/ToTopBtn";
 import ExclusiveAll from "./components/ExclusiveAll";
 import Admin from "./components/Admin";
+import Visited from "./components/Visited";
 import ErrorPage from "./components/ErrorPage";
 
 const root = ReactDOM.createRoot(
@@ -28,10 +29,6 @@ root.render(
     <React.StrictMode>
         <BrowserRouter>
             <Header/>
-            {/*<ul className="menu">*/}
-            {/*    <li><Link to="/index">Index</Link></li>*/}
-            {/*    <li><Link to="/join">회원가입</Link></li>*/}
-            {/*</ul>*/}
             <Routes>
                 {/*<Route path="/" element={<App/>}/>*/}
                 <Route path="/" element={<Main />}/>
@@ -43,6 +40,7 @@ root.render(
                 <Route path="/callbackLogout" element={<LogoutCallback />}/>
                 <Route path="/join/success" element={<JoinCongratuation />}/>
                 <Route path="/admin" element={<Admin />}/>
+                <Route path="/visited" element={<Visited />}/>
                 <Route path="*" element={<ErrorPage />}/>
             </Routes>
             <ToTopBtn />

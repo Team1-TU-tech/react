@@ -6,6 +6,7 @@ import joinFinTitle from "../img/join1.png"
 import optionalAgree from "../img/join2.png"
 import agree_y from "../img/agree_y.png"
 import agree_n from "../img/agree_n.png"
+import {loadSession, removeSession} from "../scripts/common";
 
 function JoinCongratuation(props: { [key: string]: string|null }) {
 
@@ -26,7 +27,7 @@ function JoinCongratuation(props: { [key: string]: string|null }) {
     }
 
     useEffect(() => {
-        setName("테스트")
+        setName(loadSession("userName"))
     }, []);
 
     return (

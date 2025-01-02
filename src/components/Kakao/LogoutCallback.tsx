@@ -7,6 +7,7 @@ function LogoutCallback() {
     useEffect(() => {
         removeSession("isLogin")
         removeSession("kakaoToken")
+        removeSession("visited")
 
         if(!loadSession("kakaoToken")) window.location.href="/"
     })

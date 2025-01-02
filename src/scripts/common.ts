@@ -148,5 +148,22 @@ const getLocalTime=(date=new Date())=>{
     return `${y}${m}${d}`
 }
 
-export {useInput, pwEncode, verify, mkLoadingPage, removeLoadingPage, saveSession, loadSession, removeSession,testFilter,testData, getLocalTime}
+const setVisited=(posterUrl,showTitle,showLoca,showDate,id)=>{
+
+    const tmp = JSON.parse(sessionStorage.getItem("visited"))
+    const obj ={
+        "posterUrl":posterUrl,
+        "showTitle":showTitle,
+        "showLoca":showLoca,
+        "showDate":showDate,
+        "id":id
+    }
+
+    tmp.push(obj)
+
+    const visited=tmp
+    saveSession("visited",JSON.stringify(visited))
+}
+
+export {useInput, pwEncode, verify, mkLoadingPage, removeLoadingPage, saveSession, loadSession, removeSession,testFilter,testData, getLocalTime, setVisited}
 export {locaCode, locaCodeRev, ticketHost}
