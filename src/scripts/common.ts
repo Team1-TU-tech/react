@@ -149,7 +149,7 @@ const getLocalTime=(date=new Date())=>{
 }
 
 const setVisited=(posterUrl,showTitle,showLoca,showDate,id)=>{
-    console.log(posterUrl,showTitle,showLoca,showDate,id)
+
     const tmp = JSON.parse(sessionStorage.getItem("visited"))
     const obj ={
         "posterUrl":posterUrl,

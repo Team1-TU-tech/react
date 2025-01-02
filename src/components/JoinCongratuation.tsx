@@ -28,7 +28,6 @@ function JoinCongratuation(props: { [key: string]: string|null }) {
 
     useEffect(() => {
         setName(loadSession("userName"))
-        removeSession("userName")
     }, []);
 
     return (

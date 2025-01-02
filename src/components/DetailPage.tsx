@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
+import {v4 as uuidv4} from "uuid";
+import axios from "axios";
 
 import ErrorPage from "./ErrorPage";
 import ArtistModal from "./ArtistModal";
 import Loading from "./Loading";
+import FloatingMenu from "./FloatingMenu";
 
 import {loadSession, setVisited, ticketHost} from "../scripts/common";
 import "../css/detail.css"
-import FloatingMenu from "./FloatingMenu";
-import {v4 as uuidv4} from "uuid";
-import axios from "axios";
 
 
 function DetailPage() {
