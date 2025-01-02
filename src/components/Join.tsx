@@ -3,6 +3,9 @@ import "../css/join.css";
 import {pwEncode, saveSession, verify} from "../scripts/common";
 import AgreeModal from "./AgreeModal";
 import Calendar from "./Calendar";
+import AgreeTerm from "./AgreeTerm";
+import AgreePersonal from "./AgreePersonal";
+import AgreeMacketing from "./AgreeMacketing";
 
 
 function Join() {
@@ -288,23 +291,31 @@ function Join() {
                 <div className="mb-3 form-check">
                     <input type="checkbox" className="form-check-input" id="agree_terms" ref={agreeTermsRef}/>
                     <label className="form-check-label" htmlFor="agree_terms">서비스 이용약관 동의 (필수)</label>
-                    <AgreeModal tagId="terms" title={"서비스 이용약관 동의 (필수)"} body={"서비스 이용약관 동의 (필수)"}/>
+                    <AgreeModal tagId="terms" title={<h2>서비스 이용약관 동의 (필수)</h2>} body={<AgreeTerm />}/>
                 </div>
                 <div className="mb-3 form-check">
-                    <input type="checkbox" className="form-check-input" id="agree_personal" ref={agreePersonalRef}/>
-                    <label className="form-check-label" htmlFor="agree_personal">개인정보 수집 및 이용 동의 (필수)</label>
-                    <AgreeModal tagId="personal" title={"개인정보 수집 및 이용 동의 (필수)"} body={"개인정보 수집 및 이용 동의 (필수)"}/>
+                    <input type="checkbox" className="form-check-input" id="agree_personal"
+                           ref={agreePersonalRef}/>
+                    <label className="form-check-label" htmlFor="agree_personal">개인정보 수집 및
+                        이용 동의 (필수)</label>
+                    <AgreeModal tagId="personal" title={<h2>개인정보 수집 및 이용 동의 (필수)</h2>}
+                                body={<AgreePersonal />}/>
                 </div>
                 <div className="mb-3 form-check">
-                    <input type="checkbox" className="form-check-input" id="agree_marketing" ref={agreeMarketingRef}/>
-                    <label className="form-check-label" htmlFor="agree_marketing">마케팅 수신 동의 (선택)</label>
-                    <AgreeModal tagId="marketing" title={"마케팅 수신 동의 (선택)"} body={"마케팅 수신 동의 (선택)"}/>
-                </div>
+                    <input type="checkbox" className="form-check-input" id="agree_marketing"
+                           ref={agreeMarketingRef}/>
+                    <label className="form-check-label" htmlFor="agree_marketing">마케팅 수신 동의
+                        (선택)</label>
+                    <AgreeModal tagId="marketing" title={<h2>마케팅 수신 동의 (선택)</h2>}
+                        body={<AgreeMacketing/>}/>
+                    </div>
 
-                <button type="submit" className="btn btn-primary" onClick={submitChk} id={"submitBtn"}>회원가입 완료</button>
-            </form>
-        </>
-    );
-}
+                        <button type="submit" className="btn btn-primary" onClick={submitChk}
+                                id={"submitBtn"}>회원가입 완료
+                        </button>
+                    </form>
+                        </>
+        );
+        }
 
-export default Join;
+        export default Join;
