@@ -150,7 +150,9 @@ const getLocalTime=(date=new Date())=>{
 
 const setVisited=(posterUrl,showTitle,showLoca,showDate,id)=>{
 
-    const tmp = JSON.parse(sessionStorage.getItem("visited"))
+
+
+    const tmp = JSON.parse(loadSession("visited")).filter(i=>{ return i["showTitle"]!==showTitle})
     const obj ={
         "posterUrl":posterUrl,
         "showTitle":showTitle,

@@ -48,11 +48,11 @@ function DetailPage() {
                     setArtist(temp)
                 }
                 if(loadSession("isLogin")==="true"){
-                    if( JSON.parse(loadSession("visited")).filter(i=>{
-                        return i["showTitle"]===json["data"]["title"]
-                    }).length <1){
+                    // if( JSON.parse(loadSession("visited")).filter(i=>{
+                    //     return i["showTitle"]===json["data"]["title"]
+                    // }).length <1){
                         setVisited(json["data"]["poster_url"],json["data"]["title"],json["data"]["location"],`${json["data"]["start_date"]}~${json["data"]["end_date"]}`,json["data"]["_id"])
-                    }
+                    // }
                 }
             })
             .then(()=>{

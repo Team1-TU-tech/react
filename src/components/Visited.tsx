@@ -8,7 +8,7 @@ function Visited() {
 
     const navigate = useNavigate();
     const [data, setData] = useState(JSON.parse(loadSession("visited")) as object);
-    console.log(data)
+    //console.log(data)
 
     const move= (i: string | number | boolean | undefined)=>{
         navigate("/detail/"+i?.toString());
