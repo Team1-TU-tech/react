@@ -110,7 +110,6 @@ function Join() {
         }
     }
 
-
     const submit=async ()=>{
         const birthday=document.getElementById("birthday") as HTMLInputElement;
 
@@ -140,6 +139,8 @@ function Join() {
         })
     }
 
+
+
     const submitChk=(e:React.MouseEvent<HTMLButtonElement>)=>{
         e.preventDefault()
 
@@ -158,6 +159,22 @@ function Join() {
                 if(idRef.current) idRef.current.focus()
             }, 100);
             return
+        }
+
+        const gender = genderRef.current?genderRef.current.value:""
+        if(gender===""){
+            alert("성별을 입력해주세요")
+            document.getElementById("gender").focus()
+            return;
+        } else {
+            if (document.getElementById("birthday") as HTMLInputElement){
+                const birthday = document.getElementById("birthday").value
+                if(birthday===""){
+                    alert("생년월일을 입력해주세요")
+                    document.getElementById("birthday").focus()
+                    return;
+                }
+            }
         }
 
         if (idRef.current!==null && verify("id", idRef.current.value)){
@@ -231,8 +248,8 @@ function Join() {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="gender" className="form-label">성별</label>
-                    <select className="form-select" aria-label="Gender" id={"gender"} ref={genderRef}>
-                        <option value="" selected>밝히지 않음</option>
+                    <select className="form-select" aria-label="Gender" id={"gender"} ref={genderRef} >
+                        <option value="" selected>- 선택 -</option>
                         <option value="M">남</option>
                         <option value="F">여</option>
                     </select>
