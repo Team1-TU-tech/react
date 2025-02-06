@@ -7,8 +7,8 @@ services:
     deploy:
       mode: replicated
       replicas: 2
-    links:
-      - load_balancer:load_balancer
+    #links:
+    #  - load_balancer:load_balancer
   load_balancer:
     image: nginx
     container_name: fe-lb
@@ -16,3 +16,5 @@ services:
       - 80:80
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - react
